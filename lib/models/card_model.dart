@@ -5,6 +5,19 @@ enum CardRarity {
   legendary,
 }
 
+enum CardUnlockType {
+  story,
+  quizExplorer,
+  quizApprentice,
+  quizHistorian,
+  quizScholar,
+  quizHistorianPerfect,
+  quizScholarPerfect,
+  quizAllPerfect,
+  questionCorrect,
+  allCompleted,
+}
+
 extension CardRarityExtension on CardRarity {
   String get displayName {
     switch (this) {
@@ -27,6 +40,8 @@ class CharacterCard {
   final String imageAsset;
   final String? teaserMessage;
   final String? historicalBio;
+  final CardUnlockType unlockType;
+  final String? specificQuestionId;
 
   const CharacterCard({
     required this.id,
@@ -35,5 +50,9 @@ class CharacterCard {
     required this.imageAsset,
     this.teaserMessage,
     this.historicalBio,
+    this.unlockType = CardUnlockType.story,
+    this.specificQuestionId,
   });
+
+  String get hint => teaserMessage ?? 'Unlocked through your Kirkyard journey';
 }

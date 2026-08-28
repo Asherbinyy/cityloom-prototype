@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import '../models/tour_model.dart';
 
 class TourData {
-  static const Offset entranceCoordinate = Offset(0.50, 0.90);
+  // Initial entrance coordinate on the white area in the very left gateway of the map
+  static const Offset entranceCoordinate = Offset(0.12, 0.16);
 
   static const List<TourStop> stops = [
     TourStop(
@@ -10,17 +11,20 @@ class TourData {
       label: 'Welcome',
       title: 'Introduction',
       mapTitle: 'Welcome to Greyfriars',
-      mapDesc: 'Listen to a brief introduction about your journey through Greyfriars Kirkyard before heading to your first stop.',
-      stopDesc: 'Listen to a brief introduction about your journey through Greyfriars Kirkyard before heading to your first stop.',
+      mapDesc:
+          'Listen to a brief introduction about your journey through Greyfriars Kirkyard before heading to your first stop.',
+      stopDesc:
+          'Listen to a brief introduction about your journey through Greyfriars Kirkyard before heading to your first stop.',
       audioAsset: 'assets/audio/intro.mp3',
       photoAsset: 'assets/images/screen-intro_photo.jpg',
       unlockedCardId: 'mary',
       mapCoordinate: entranceCoordinate,
       walkPath: [
-        Offset(0.50, 0.90),
+        Offset(0.12, 0.16),
       ],
       progressStep: 0,
-      storyScript: '''Welcome to Greyfriars Kirkyard, one of the most storied, atmospheric, and historically significant churchyards in Scotland.
+      storyScript:
+          '''Welcome to Greyfriars Kirkyard, one of the most storied, atmospheric, and historically significant churchyards in Scotland.
 
 Founded in 1562 under Mary Queen of Scots after the churchyard at St Giles became overcrowded, this ground holds the remains of over 100,000 people beneath its lawns.
 
@@ -31,22 +35,26 @@ As you explore today, listen closely to the audio stories at each stop. Complete
         TourSubtitle(
           startSeconds: 0.0,
           endSeconds: 15.0,
-          text: 'Welcome to Greyfriars Kirkyard, one of the most storied and atmospheric churchyards in Scotland.',
+          text:
+              'Welcome to Greyfriars Kirkyard, one of the most storied and atmospheric churchyards in Scotland.',
         ),
         TourSubtitle(
           startSeconds: 15.0,
           endSeconds: 32.0,
-          text: 'Founded in 1562 under Mary Queen of Scots, this ground holds the remains of over 100,000 souls.',
+          text:
+              'Founded in 1562 under Mary Queen of Scots, this ground holds the remains of over 100,000 souls.',
         ),
         TourSubtitle(
           startSeconds: 32.0,
           endSeconds: 52.0,
-          text: 'Throughout the centuries, Greyfriars witnessed religious wars, grave-robbing resurrection men, and supernatural legends.',
+          text:
+              'Throughout the centuries, Greyfriars witnessed religious wars, grave-robbing resurrection men, and supernatural legends.',
         ),
         TourSubtitle(
           startSeconds: 52.0,
           endSeconds: 85.0,
-          text: 'Listen closely to each audio stop to test your knowledge in the Kirkyard Quiz and unlock rare character cards!',
+          text:
+              'Listen closely to each audio stop to test your knowledge in the Kirkyard Quiz and unlock rare character cards!',
         ),
       ],
     ),
@@ -55,21 +63,26 @@ As you explore today, listen closely to the audio stories at each stop. Complete
       label: 'Stop A',
       title: 'The Mortsafes',
       mapTitle: 'Head to the Mortsafes',
-      mapDesc: 'Use the map below to find your way to Stop A. Look for the iron cages near the south side of the Kirk.',
-      stopDesc: 'You should see these iron cages in front of you. Press play to hear the story behind them.',
+      mapDesc:
+          'Use the map below to find your way to Stop A. Look for the iron cages near the south side of the Kirk.',
+      stopDesc:
+          'You should see these iron cages in front of you. Press play to hear the story behind them.',
       audioAsset: 'assets/audio/mortsafes.mp3',
       photoAsset: 'assets/images/screen-stop-a_photo.jpg',
       unlockedCardId: null,
-      mapCoordinate: Offset(0.60, 0.58),
+      mapCoordinate: Offset(0.52, 0.59),
       walkPath: [
-        Offset(0.50, 0.90),
-        Offset(0.52, 0.82),
-        Offset(0.55, 0.74),
-        Offset(0.58, 0.66),
-        Offset(0.60, 0.58),
+        Offset(0.12, 0.16),
+        Offset(0.22, 0.16),
+        Offset(0.33, 0.16),
+        Offset(0.42, 0.22),
+        Offset(0.50, 0.35),
+        Offset(0.56, 0.48),
+        Offset(0.52, 0.59),
       ],
       progressStep: 1,
-      storyScript: '''In early 19th-century Edinburgh, medical teaching and anatomical research were at the cutting edge of science. But medical lecturers needed human cadavers for dissection, creating an immense, lucrative demand.
+      storyScript:
+          '''In early 19th-century Edinburgh, medical teaching and anatomical research were at the cutting edge of science. But medical lecturers needed human cadavers for dissection, creating an immense, lucrative demand.
 
 Enter the "Resurrection Men" — grave robbers who would creep into churchyards in the dead of night to dig up newly buried bodies and sell them to anatomy professors.
 
@@ -80,131 +93,144 @@ These iron cages you see before you are authentic survivals of Edinburgh's grave
         TourSubtitle(
           startSeconds: 0.0,
           endSeconds: 18.0,
-          text: 'In early 19th-century Edinburgh, medical research was at the cutting edge of science.',
+          text:
+              'In early 19th-century Edinburgh, medical research was at the cutting edge of science.',
         ),
         TourSubtitle(
           startSeconds: 18.0,
           endSeconds: 38.0,
-          text: 'Lecturers needed human cadavers for dissection, creating an immense, lucrative demand for bodies.',
+          text:
+              'Lecturers needed human cadavers for dissection, creating an immense, lucrative demand for bodies.',
         ),
         TourSubtitle(
           startSeconds: 38.0,
           endSeconds: 64.0,
-          text: 'Resurrection Men crept into churchyards at night to dig up newly buried corpses and sell them.',
+          text:
+              'Resurrection Men crept into churchyards at night to dig up newly buried corpses and sell them.',
         ),
         TourSubtitle(
           startSeconds: 64.0,
           endSeconds: 96.0,
-          text: 'Families invented "mortsafes": massive iron cages locked over graves to protect their deceased loved ones.',
+          text:
+              'Families invented "mortsafes": massive iron cages locked over graves to protect their deceased loved ones.',
         ),
         TourSubtitle(
           startSeconds: 96.0,
-          endSeconds: 130.0,
-          text: 'After six to eight weeks of decomposition, the cage was removed and rented to another family.',
-        ),
-        TourSubtitle(
-          startSeconds: 130.0,
-          endSeconds: 180.0,
-          text: 'These iron cages before you are authentic survivals of Edinburgh\'s grave-robbing panic!',
+          endSeconds: 125.0,
+          text:
+              'These iron cages you see before you are authentic survivals of Edinburgh\'s grave-robbing panic!',
         ),
       ],
     ),
     TourStop(
       id: 'stop-b',
       label: 'Stop B',
-      title: "The Covenanters' Prison",
+      title: "Covenanters' Prison",
       mapTitle: "Head to the Covenanters' Prison",
-      mapDesc: "Use the map below to find your way to Stop B, in the north-west corner of the Kirkyard.",
-      stopDesc: "Stand before the iron gates of the Covenanters' Prison. Press play to hear the harrowing story of the 1,200 prisoners held here.",
-      audioAsset: 'assets/audio/covenenters.mp3',
-      photoAsset: 'assets/images/screen-intro_photo.jpg',
-      unlockedCardId: 'charles',
-      mapCoordinate: Offset(0.35, 0.32),
+      mapDesc:
+          "Walk towards the southern section of the graveyard to find the gated entrance to the Covenanters' Prison.",
+      stopDesc:
+          'Stand near the iron gates of the prison. Listen to the tragic story of what took place here in 1679.',
+      audioAsset: 'assets/audio/covenanters.mp3',
+      photoAsset: 'assets/images/screen-stop-b_photo.jpg',
+      unlockedCardId: null,
+      mapCoordinate: Offset(0.44, 0.15),
       walkPath: [
-        Offset(0.60, 0.58),
-        Offset(0.54, 0.50),
-        Offset(0.46, 0.44),
-        Offset(0.40, 0.38),
-        Offset(0.35, 0.32),
+        Offset(0.52, 0.59),
+        Offset(0.56, 0.48),
+        Offset(0.50, 0.35),
+        Offset(0.42, 0.22),
+        Offset(0.33, 0.16),
+        Offset(0.44, 0.15),
       ],
       progressStep: 2,
-      storyScript: '''In 1638, thousands of Scots gathered at Greyfriars Kirk to sign the National Covenant, pledging allegiance to their Presbyterian faith and rejecting King Charles I's attempts to impose the Anglican Book of Common Prayer.
+      storyScript:
+          '''Behind these iron gates lies what is often described as the world's first open-air concentration camp.
 
-Four decades later, following the defeat of the Covenanters at the Battle of Bothwell Bridge in 1679, over 1,200 prisoners were marched to Greyfriars and herded into this walled, open-air field.
+In 1679, following the Battle of Bothwell Bridge, over 1,200 Scottish Covenanters — Presbyterians who resisted the King's attempts to enforce Anglican worship — were marched here and imprisoned in this muddy field.
 
-For more than four months throughout a freezing Scottish winter, these men were kept without shelter, blankets, or basic sanitation, surviving on four ounces of bread a day. Many died of exposure and disease, while others were executed or transported as slaves.
+For over four bitter months through autumn and winter, with no roof or shelter, they survived on four ounces of bread a day. Many perished from exposure and starvation. Others were executed at the nearby Grassmarket, while over 250 were sentenced to transportation to the Caribbean, only to perish in a shipwreck off Orkney.
 
-This enclosure is widely regarded as one of the earliest concentration camps in modern European history.''',
+Today, this enclosure remains a solemn memorial to their sacrifice.''',
       subtitles: [
         TourSubtitle(
           startSeconds: 0.0,
-          endSeconds: 22.0,
-          text: 'In 1638, Scots gathered here to sign the National Covenant, rejecting King Charles I\'s religious impositions.',
+          endSeconds: 16.0,
+          text:
+              'Behind these iron gates lies what is often described as the world\'s first open-air concentration camp.',
         ),
         TourSubtitle(
-          startSeconds: 22.0,
-          endSeconds: 46.0,
-          text: 'After the Battle of Bothwell Bridge in 1679, over 1,200 prisoners were marched into this open field.',
+          startSeconds: 16.0,
+          endSeconds: 38.0,
+          text:
+              'In 1679, over 1,200 Scottish Covenanters were imprisoned in this open field without shelter.',
         ),
         TourSubtitle(
-          startSeconds: 46.0,
-          endSeconds: 78.0,
-          text: 'Through a freezing winter without shelter or blankets, men survived on only four ounces of bread a day.',
+          startSeconds: 38.0,
+          endSeconds: 62.0,
+          text:
+              'For four bitter months, with four ounces of bread a day, many perished from starvation and exposure.',
         ),
         TourSubtitle(
-          startSeconds: 78.0,
-          endSeconds: 110.0,
-          text: 'Many perished from exposure and disease, while others were executed or shipped off into slavery.',
-        ),
-        TourSubtitle(
-          startSeconds: 110.0,
-          endSeconds: 150.0,
-          text: 'This enclosure is regarded as one of the earliest open-air concentration camps in modern history.',
+          startSeconds: 62.0,
+          endSeconds: 90.0,
+          text:
+              'Today, this enclosure stands as a solemn memorial to Scotland\'s turbulent religious history.',
         ),
       ],
     ),
     TourStop(
       id: 'stop-c',
       label: 'Stop C',
-      title: 'The Black Mausoleum',
+      title: 'Mackenzie Mausoleum',
       mapTitle: 'Head to the Black Mausoleum',
-      mapDesc: 'Use the map below to find your way to Stop C, just south of the Covenanters\' Prison.',
-      stopDesc: 'You are standing before the tomb of Sir George McKenzie. Press play to uncover its dark past and modern hauntings.',
-      audioAsset: 'assets/audio/black_mausoleum.mp3',
-      photoAsset: 'assets/images/screen-stop-a_photo.jpg',
+      mapDesc:
+          'Follow the path to the domed mausoleum of Sir George "Bloody" Mackenzie.',
+      stopDesc:
+          'You are standing before the Black Mausoleum. Listen to the history and dark legends surrounding this tomb.',
+      audioAsset: 'assets/audio/mausoleum.mp3',
+      photoAsset: 'assets/images/screen-stop-c_photo.jpg',
       unlockedCardId: null,
-      mapCoordinate: Offset(0.32, 0.48),
+      mapCoordinate: Offset(0.44, 0.52),
       walkPath: [
-        Offset(0.35, 0.32),
-        Offset(0.33, 0.40),
-        Offset(0.32, 0.48),
+        Offset(0.44, 0.15),
+        Offset(0.33, 0.16),
+        Offset(0.24, 0.24),
+        Offset(0.25, 0.38),
+        Offset(0.33, 0.48),
+        Offset(0.44, 0.52),
       ],
       progressStep: 3,
-      storyScript: '''Sir George Mackenzie was the Lord Advocate responsible for the brutal trial and imprisonment of the Covenanters, earning him the lasting moniker "Bluidy Mackenzie." Ironically, when he died in 1691, he was entombed in this very churchyard, only yards from his former prisoners.
+      storyScript:
+          '''This imposing domed structure is the final resting place of Sir George Mackenzie of Rosehaugh, King's Advocate under Charles II.
 
-The tomb remained quiet for centuries until one stormy night in 1999, when a homeless man broke inside seeking shelter from the cold. As he walked across the floor, the ground collapsed beneath him into a hidden crypt filled with coffins and skeletal remains.
+Infamous in Scottish history as "Bluidy Mackenzie," he ruthlessly persecuted the Covenanters, sending hundreds to their deaths and imprisonment just yards away. Ironically, he was buried right beside the very people he condemned.
 
-Since that disturbance, the Black Mausoleum has become the focus of hundreds of reported encounters with the infamous "McKenzie Poltergeist" — from unexplained scratches and burns to strange cold spots and sudden collapses.''',
+Since 1999, after a homeless intruder broke into the tomb and fell into an old pit of coffins, the mausoleum has been the epicenter of what paranormal researchers call the "Mackenzie Poltergeist" — with hundreds of documented reports of cold spots, scratches, and unexplained phenomena.''',
       subtitles: [
         TourSubtitle(
           startSeconds: 0.0,
-          endSeconds: 24.0,
-          text: 'Sir George Mackenzie, "Bluidy Mackenzie," prosecuted and tortured the Covenanter prisoners.',
+          endSeconds: 18.0,
+          text:
+              'This imposing domed structure is the tomb of Sir George Mackenzie, known as "Bluidy Mackenzie".',
         ),
         TourSubtitle(
-          startSeconds: 24.0,
-          endSeconds: 50.0,
-          text: 'When he died in 1691, he was entombed here, only paces away from those he had imprisoned.',
+          startSeconds: 18.0,
+          endSeconds: 40.0,
+          text:
+              'As King\'s Advocate, he persecuted the Covenanters, yet was buried right beside them.',
         ),
         TourSubtitle(
-          startSeconds: 50.0,
-          endSeconds: 84.0,
-          text: 'In 1999, a break-in collapsed the floor into a sealed crypt of skeletal remains.',
+          startSeconds: 40.0,
+          endSeconds: 65.0,
+          text:
+              'Since 1999, after an intruder breached the tomb, it became famous for the "Mackenzie Poltergeist".',
         ),
         TourSubtitle(
-          startSeconds: 84.0,
-          endSeconds: 130.0,
-          text: 'The Black Mausoleum became notorious worldwide for encounters with the violent McKenzie Poltergeist.',
+          startSeconds: 65.0,
+          endSeconds: 95.0,
+          text:
+              'Hundreds of visitors have reported unexplained cold spots, scratches, and supernatural encounters here.',
         ),
       ],
     ),

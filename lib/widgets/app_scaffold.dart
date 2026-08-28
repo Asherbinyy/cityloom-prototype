@@ -25,17 +25,32 @@ class AppScaffold extends StatelessWidget {
     this.scrollable = true,
   });
 
+  static const Gradient libraryGradient = LinearGradient(
+    begin: Alignment.topCenter,
+    end: Alignment.bottomCenter,
+    colors: [
+      Color(0xFFFFF4EB),
+      Color(0xFFD4E8F2),
+      Color(0xFFA5CEE4),
+    ],
+    stops: [0.0, 0.5, 1.0],
+  );
+
   @override
   Widget build(BuildContext context) {
     final appState = context.watch<AppState>();
     final isHome = appState.currentScreen == AppScreen.home;
+    final isLibrary = appState.currentScreen == AppScreen.library;
+
+    final effectiveGradient = backgroundGradient ??
+        (isLibrary ? libraryGradient : AppColors.warmBackground);
 
     return Scaffold(
       backgroundColor: backgroundColor ?? AppColors.cream,
       body: Container(
         decoration: BoxDecoration(
           color: backgroundColor,
-          gradient: backgroundGradient ?? AppColors.warmBackground,
+          gradient: effectiveGradient,
         ),
         child: Center(
           child: ConstrainedBox(
@@ -75,19 +90,26 @@ class AppScaffold extends StatelessWidget {
   }
 
   Widget _buildTopBar(BuildContext context, AppState appState) {
+    final bool canGoBack = onBack != null || appState.history.isNotEmpty;
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          // Back button
-          if (onBack != null)
+          // Left: Back button
+          if (canGoBack)
             Material(
               color: Colors.transparent,
               child: InkWell(
                 onTap: () {
                   SoundService.playTap();
-                  onBack?.call();
+                  if (onBack != null) {
+                    onBack!();
+                  } else {
+                    appState.goBack();
+                  }
                 },
                 borderRadius: BorderRadius.circular(24),
                 child: Container(
@@ -116,33 +138,38 @@ class AppScaffold extends StatelessWidget {
           else
             const SizedBox(width: 40),
 
-          // Title / Logo in top bar
-          Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Image.asset(
-                'assets/images/logo.png',
-                height: 26,
-                errorBuilder: (_, _, _) => const Icon(
-                  Icons.explore_rounded,
-                  color: AppColors.coral,
-                  size: 24,
+          // Center: Logo and Title on the exact same level
+          Expanded(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Image.asset(
+                  'assets/images/logo.png',
+                  height: 24,
+                  fit: BoxFit.contain,
+                  errorBuilder: (_, _, _) => const SizedBox.shrink(),
                 ),
-              ),
-              const SizedBox(width: 8),
-              Text(
-                topBarTitle ?? 'Greyfriars Kirkyard',
-                style: GoogleFonts.playfairDisplay(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                  color: AppColors.dark,
+                const SizedBox(width: 8),
+                Flexible(
+                  child: Text(
+                    topBarTitle ?? 'Greyfriars Kirkyard',
+                    style: GoogleFonts.playfairDisplay(
+                      fontSize: 17,
+                      fontWeight: FontWeight.w700,
+                      color: AppColors.dark,
+                    ),
+                    overflow: TextOverflow.ellipsis,
+                    textAlign: TextAlign.center,
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
 
-          // Library Badge & Counter Button
-          if (showLibraryBtn)
+          // Right: Exact Library Icon from HTML with count badge
+          if (showLibraryBtn && appState.currentScreen != AppScreen.library)
             Material(
               color: Colors.transparent,
               child: InkWell(
@@ -153,7 +180,7 @@ class AppScaffold extends StatelessWidget {
                 borderRadius: BorderRadius.circular(20),
                 child: Container(
                   padding:
-                      const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                      const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                   decoration: BoxDecoration(
                     color: Colors.white.withValues(alpha: 0.9),
                     borderRadius: BorderRadius.circular(20),
@@ -163,20 +190,27 @@ class AppScaffold extends StatelessWidget {
                     boxShadow: [
                       BoxShadow(
                         color: AppColors.coral.withValues(alpha: 0.15),
-                        blurRadius: 10,
+                        blurRadius: 8,
                         offset: const Offset(0, 2),
                       ),
                     ],
                   ),
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      const Icon(
-                        Icons.collections_bookmark_rounded,
-                        size: 16,
-                        color: AppColors.coral,
+                      Image.asset(
+                        'assets/images/library_icon.png',
+                        width: 26,
+                        height: 20,
+                        fit: BoxFit.contain,
+                        errorBuilder: (_, _, _) => const Icon(
+                          Icons.collections_bookmark_rounded,
+                          size: 16,
+                          color: AppColors.coral,
+                        ),
                       ),
-                      const SizedBox(width: 6),
+                      const SizedBox(width: 5),
                       Text(
                         '${appState.unlockedCardsCount}/${appState.totalCardsCount}',
                         style: GoogleFonts.dmSans(

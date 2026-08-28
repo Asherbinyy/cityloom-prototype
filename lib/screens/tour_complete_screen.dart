@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import '../services/sound_service.dart';
 import '../state/app_state.dart';
 import '../theme/app_theme.dart';
 import '../widgets/app_scaffold.dart';
@@ -16,7 +18,10 @@ class TourCompleteScreen extends StatelessWidget {
 
     return AppScaffold(
       backgroundGradient: AppColors.warmBackground,
-      onBack: () => appState.navigateTo(AppScreen.mapC),
+      onBack: () {
+        SoundService.playTap();
+        appState.goBack();
+      },
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
@@ -40,12 +45,21 @@ class TourCompleteScreen extends StatelessWidget {
           // Header
           Text(
             'TOUR COMPLETE',
-            style: Theme.of(context).textTheme.labelSmall,
+            style: GoogleFonts.dmSans(
+              fontSize: 11.5,
+              fontWeight: FontWeight.w700,
+              letterSpacing: 2,
+              color: AppColors.coral,
+            ),
           ),
           const SizedBox(height: 6),
           Text(
             "You've Explored Greyfriars!",
-            style: Theme.of(context).textTheme.headlineLarge,
+            style: GoogleFonts.playfairDisplay(
+              fontSize: 28,
+              fontWeight: FontWeight.w700,
+              color: AppColors.dark,
+            ),
             textAlign: TextAlign.center,
           ),
           const SizedBox(height: 14),
@@ -71,7 +85,7 @@ class TourCompleteScreen extends StatelessWidget {
                   appState.unlockedCardsCount > 0
                       ? "You've explored Greyfriars Kirkyard and unlocked ${appState.unlockedCardsCount} of ${appState.totalCardsCount} character cards! Check your library or play the quiz to collect the rest."
                       : "You've explored Greyfriars Kirkyard! Play the quiz to unlock character cards and collect them in your library.",
-                  style: const TextStyle(
+                  style: GoogleFonts.dmSans(
                     fontSize: 14.5,
                     height: 1.5,
                     color: AppColors.dark,
@@ -89,6 +103,7 @@ class TourCompleteScreen extends StatelessWidget {
             text: 'Take the Quiz',
             icon: Icons.quiz_rounded,
             onPressed: () {
+              SoundService.playTap();
               appState.navigateTo(AppScreen.quizSelect);
             },
           ).animate().fadeIn(delay: 300.ms),
@@ -96,10 +111,12 @@ class TourCompleteScreen extends StatelessWidget {
 
           // "View Library" Secondary Button
           PrimaryButton(
-            text: 'View Collection (${appState.unlockedCardsCount}/${appState.totalCardsCount})',
+            text:
+                'View Collection (${appState.unlockedCardsCount}/${appState.totalCardsCount})',
             icon: Icons.auto_stories_rounded,
             isSecondary: true,
             onPressed: () {
+              SoundService.playTap();
               appState.navigateTo(AppScreen.library);
             },
           ).animate().fadeIn(delay: 400.ms),
@@ -108,13 +125,16 @@ class TourCompleteScreen extends StatelessWidget {
           // "Give Feedback" Text Button
           TextButton.icon(
             onPressed: () {
+              SoundService.playTap();
               appState.navigateTo(AppScreen.survey);
             },
-            icon: const Icon(Icons.rate_review_outlined, size: 16, color: AppColors.dark),
-            label: const Text(
-              'Give Feedback & Win',
-              style: TextStyle(
+            icon: const Icon(Icons.rate_review_outlined,
+                size: 16, color: AppColors.dark),
+            label: Text(
+              'Give Feedback',
+              style: GoogleFonts.dmSans(
                 fontWeight: FontWeight.w600,
+                fontSize: 13,
                 color: AppColors.dark,
                 decoration: TextDecoration.underline,
               ),

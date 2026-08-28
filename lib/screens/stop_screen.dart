@@ -3,8 +3,8 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:provider/provider.dart';
 import '../data/tour_data.dart';
 import '../models/tour_model.dart';
+import '../services/sound_service.dart';
 import '../state/app_state.dart';
-import '../state/audio_controller.dart';
 import '../theme/app_theme.dart';
 import '../widgets/app_scaffold.dart';
 import '../widgets/audio_player_card.dart';
@@ -22,20 +22,13 @@ class StopScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final appState = context.read<AppState>();
-    final audio = context.read<AudioController>();
+    final appState = context.watch<AppState>();
     final TourStop stop = TourData.stops[stopIndex];
 
     return AppScaffold(
       onBack: () {
-        audio.stop();
-        if (stopIndex == 1) {
-          appState.navigateTo(AppScreen.mapA);
-        } else if (stopIndex == 2) {
-          appState.navigateTo(AppScreen.mapB);
-        } else {
-          appState.navigateTo(AppScreen.mapC);
-        }
+        SoundService.playTap();
+        appState.goBack();
       },
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -56,7 +49,7 @@ class StopScreen extends StatelessWidget {
           ),
           const SizedBox(height: 16),
 
-          // Stop Photo with soft shadow & rounded corners
+          // Stop Photo
           if (stop.photoAsset.isNotEmpty)
             Container(
               margin: const EdgeInsets.only(bottom: 16),
@@ -99,44 +92,16 @@ class StopScreen extends StatelessWidget {
           // Audio Player with Speed & Spotify-style Synced Lyrics
           AudioPlayerCard(
             audioAsset: stop.audioAsset,
-            scriptText: stop.storyScript,
+            storyScript: stop.storyScript,
             subtitles: stop.subtitles,
-          ).animate().fadeIn(delay: 200.ms),
+          ).animate().fadeIn(duration: 400.ms),
 
           const SizedBox(height: 24),
 
-          // Next Stop Action (Uniform button dimensions)
+          // "Next Stop" / "Finish Tour" Primary Button
           PrimaryButton(
-            text: stopIndex < 3 ? 'Next Stop' : 'Complete Tour',
-            onPressed: () {
-              audio.stop();
-
-              if (stop.unlockedCardId != null) {
-                final cardId = stop.unlockedCardId!;
-                final isNew = appState.unlockStoryCard(cardId);
-
-                if (isNew) {
-                  showDialog(
-                    context: context,
-                    barrierDismissible: false,
-                    builder: (_) => CardRevealDialog(
-                      cardId: cardId,
-                      onDismiss: () {
-                        Navigator.of(context).pop();
-                        _advanceScreen(appState);
-                      },
-                      onViewLibrary: () {
-                        Navigator.of(context).pop();
-                        appState.navigateTo(AppScreen.library);
-                      },
-                    ),
-                  );
-                  return;
-                }
-              }
-
-              _advanceScreen(appState);
-            },
+            text: stopIndex < 3 ? 'Next Stop' : 'Finish Tour',
+            onPressed: () => _handleNext(context, appState),
           ),
           const SizedBox(height: 24),
         ],
@@ -144,7 +109,37 @@ class StopScreen extends StatelessWidget {
     );
   }
 
-  void _advanceScreen(AppState appState) {
+  void _handleNext(BuildContext context, AppState appState) {
+    SoundService.playTap();
+    final TourStop stop = TourData.stops[stopIndex];
+
+    if (stop.unlockedCardId != null) {
+      final bool isNewlyUnlocked =
+          appState.unlockStoryCard(stop.unlockedCardId!);
+      if (isNewlyUnlocked) {
+        showDialog(
+          context: context,
+          barrierDismissible: false,
+          builder: (_) => CardRevealDialog(
+            cardId: stop.unlockedCardId!,
+            onDismiss: () {
+              Navigator.of(context).pop();
+              _proceedToNextScreen(appState);
+            },
+            onViewLibrary: () {
+              Navigator.of(context).pop();
+              appState.navigateTo(AppScreen.library);
+            },
+          ),
+        );
+        return;
+      }
+    }
+
+    _proceedToNextScreen(appState);
+  }
+
+  void _proceedToNextScreen(AppState appState) {
     if (stopIndex == 1) {
       appState.navigateTo(AppScreen.mapB);
     } else if (stopIndex == 2) {

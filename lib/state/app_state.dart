@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../data/card_data.dart';
 import '../data/quiz_data.dart';
+import '../models/card_model.dart';
 import '../models/quiz_model.dart';
-import '../services/sound_service.dart';
 
 enum AppScreen {
   home,
@@ -25,13 +25,12 @@ enum AppScreen {
 
 class AppState extends ChangeNotifier {
   AppScreen _currentScreen = AppScreen.home;
-  AppScreen? _previousScreenForLibrary;
-  AppScreen? _previousScreenForSurvey;
+  final List<AppScreen> _history = [];
 
   final Set<String> _unlockedCardIds = {};
   final Map<String, int> _bestScores = {}; // 'explorer': 5, etc.
   final Map<String, bool> _questionResults = {}; // 'apprentice_q6': true, etc.
-  
+
   // Pending card unlocks queue for newly unlocked cards
   final List<String> _cardUnlockQueue = [];
   String? _currentlyRevealingCardId;
@@ -43,6 +42,7 @@ class AppState extends ChangeNotifier {
 
   // Getters
   AppScreen get currentScreen => _currentScreen;
+  List<AppScreen> get history => _history;
   Set<String> get unlockedCardIds => _unlockedCardIds;
   Map<String, int> get bestScores => _bestScores;
   Map<String, bool> get questionResults => _questionResults;
@@ -102,40 +102,74 @@ class AppState extends ChangeNotifier {
   }
 
   void navigateTo(AppScreen screen) {
-    if (screen == AppScreen.library && _currentScreen != AppScreen.library) {
-      _previousScreenForLibrary = _currentScreen;
+    if (_currentScreen != screen) {
+      _history.add(_currentScreen);
+      _currentScreen = screen;
+      notifyListeners();
     }
-    if (screen == AppScreen.survey && _currentScreen != AppScreen.survey) {
-      _previousScreenForSurvey = _currentScreen;
+  }
+
+  void goBack() {
+    if (_history.isNotEmpty) {
+      _currentScreen = _history.removeLast();
+    } else {
+      // Fallback hierarchy
+      switch (_currentScreen) {
+        case AppScreen.intro:
+          _currentScreen = AppScreen.home;
+          break;
+        case AppScreen.mapA:
+          _currentScreen = AppScreen.intro;
+          break;
+        case AppScreen.stopA:
+          _currentScreen = AppScreen.mapA;
+          break;
+        case AppScreen.mapB:
+          _currentScreen = AppScreen.stopA;
+          break;
+        case AppScreen.stopB:
+          _currentScreen = AppScreen.mapB;
+          break;
+        case AppScreen.mapC:
+          _currentScreen = AppScreen.stopB;
+          break;
+        case AppScreen.stopC:
+          _currentScreen = AppScreen.mapC;
+          break;
+        case AppScreen.complete:
+          _currentScreen = AppScreen.stopC;
+          break;
+        case AppScreen.quizSelect:
+          _currentScreen = AppScreen.complete;
+          break;
+        case AppScreen.quizRunner:
+          _currentScreen = AppScreen.quizSelect;
+          break;
+        case AppScreen.quizResult:
+          _currentScreen = AppScreen.quizSelect;
+          break;
+        case AppScreen.library:
+        case AppScreen.survey:
+          _currentScreen = AppScreen.home;
+          break;
+        case AppScreen.home:
+          break;
+      }
     }
-    _currentScreen = screen;
     notifyListeners();
   }
 
   void goBackFromLibrary() {
-    if (_previousScreenForLibrary != null) {
-      _currentScreen = _previousScreenForLibrary!;
-      _previousScreenForLibrary = null;
-    } else {
-      _currentScreen = AppScreen.home;
-    }
-    notifyListeners();
+    goBack();
   }
 
   void goBackFromSurvey() {
-    if (_previousScreenForSurvey != null) {
-      _currentScreen = _previousScreenForSurvey!;
-      _previousScreenForSurvey = null;
-    } else {
-      _currentScreen = AppScreen.complete;
-    }
-    notifyListeners();
+    goBack();
   }
 
   void selectQuizDifficulty(QuizDifficulty difficulty) {
     _selectedDifficulty = difficulty;
-    _currentScreen = AppScreen.quizRunner;
-    notifyListeners();
+    navigateTo(AppScreen.quizRunner);
   }
 
   void recordQuestionResult(String questionId, bool isCorrect) {
@@ -153,8 +187,7 @@ class AppState extends ChangeNotifier {
     }
     _checkAndQueueUnlocks();
     _saveToPrefs();
-    _currentScreen = AppScreen.quizResult;
-    notifyListeners();
+    navigateTo(AppScreen.quizResult);
   }
 
   bool unlockStoryCard(String cardId) {
@@ -169,96 +202,103 @@ class AppState extends ChangeNotifier {
     return false; // Already unlocked previously
   }
 
-  List<String> _checkAndQueueUnlocks() {
-    final List<String> newlyUnlocked = [];
+  void _checkAndQueueUnlocks() {
+    // 1. Mary: Unlocked after intro
+    // (Handled via unlockStoryCard('mary'))
 
-    void tryUnlock(String cardId, bool condition) {
-      if (condition && !_unlockedCardIds.contains(cardId)) {
-        _unlockedCardIds.add(cardId);
-        if (!_cardUnlockQueue.contains(cardId)) {
-          _cardUnlockQueue.add(cardId);
-          newlyUnlocked.add(cardId);
-        }
+    // 2. Bobby: Complete any Explorer quiz
+    if (!_unlockedCardIds.contains('bobby') && _bestScores.containsKey('explorer')) {
+      _unlockCard('bobby');
+    }
+
+    // 3. Charles I: Unlocked after Covenanters' Prison stop or story
+    // (Handled via unlockStoryCard('charles'))
+
+    // 4. Burke: Apprentice Q6 answered correctly
+    if (!_unlockedCardIds.contains('burke') && _questionResults['apprentice_q6'] == true) {
+      _unlockCard('burke');
+    }
+
+    // 5. Hare: Historian Q2 answered correctly
+    if (!_unlockedCardIds.contains('hare') && _questionResults['historian_q2'] == true) {
+      _unlockCard('hare');
+    }
+
+    // 6. Margaret: Burke + Hare unlocked + Scholar Q12 correct
+    if (!_unlockedCardIds.contains('margaret') &&
+        _unlockedCardIds.contains('burke') &&
+        _unlockedCardIds.contains('hare') &&
+        _questionResults['scholar_q12'] == true) {
+      _unlockCard('margaret');
+    }
+
+    // 7. McKenzie: Scholar Q7 answered correctly
+    if (!_unlockedCardIds.contains('mckenzie') && _questionResults['scholar_q7'] == true) {
+      _unlockCard('mckenzie');
+    }
+
+    // 8. Henrietta: Charles I unlocked + Scholar Q4 correct
+    if (!_unlockedCardIds.contains('henrietta') &&
+        _unlockedCardIds.contains('charles') &&
+        _questionResults['scholar_q4'] == true) {
+      _unlockCard('henrietta');
+    }
+
+    // 9. Poltergeist: 100% score on all 4 levels
+    if (!_unlockedCardIds.contains('poltergeist')) {
+      final e = (_bestScores['explorer'] ?? 0) ==
+          QuizData.levels[QuizDifficulty.explorer]!.questions.length;
+      final a = (_bestScores['apprentice'] ?? 0) ==
+          QuizData.levels[QuizDifficulty.apprentice]!.questions.length;
+      final h = (_bestScores['historian'] ?? 0) ==
+          QuizData.levels[QuizDifficulty.historian]!.questions.length;
+      final s = (_bestScores['scholar'] ?? 0) ==
+          QuizData.levels[QuizDifficulty.scholar]!.questions.length;
+      if (e && a && h && s) {
+        _unlockCard('poltergeist');
       }
     }
 
-    // Bobby: Complete any Explorer quiz
-    tryUnlock('bobby', _bestScores.containsKey('explorer'));
-
-    // Burke: Apprentice Q6 correct (person to fate match)
-    tryUnlock('burke', _questionResults['apprentice_q6'] == true);
-
-    // Hare: Historian Q2 correct (Burke and Hare Irish immigrants - TF)
-    tryUnlock('hare', _questionResults['historian_q2'] == true);
-
-    // Margaret: Burke AND Hare unlocked + Scholar Q12 correct
-    tryUnlock(
-      'margaret',
-      _unlockedCardIds.contains('burke') &&
-          _unlockedCardIds.contains('hare') &&
-          _questionResults['scholar_q12'] == true,
-    );
-
-    // McKenzie: Scholar Q7 100% correct (select all that apply)
-    tryUnlock('mckenzie', _questionResults['scholar_q7'] == true);
-
-    // Henrietta: Charles I unlocked + Scholar Q4 correct
-    tryUnlock(
-      'henrietta',
-      _unlockedCardIds.contains('charles') && _questionResults['scholar_q4'] == true,
-    );
-
-    // Knox: All Burke & Hare questions answered correctly
-    final knoxQuestions = [
-      'apprentice_q2',
-      'apprentice_q3',
-      'apprentice_q6',
-      'historian_q2',
-      'historian_q3',
-      'scholar_q1',
-      'scholar_q2',
-    ];
-    final allKnoxCorrect = knoxQuestions.every((q) => _questionResults[q] == true);
-    tryUnlock('knox', allKnoxCorrect);
-
-    // Poltergeist: 100% score on all four difficulty levels
-    bool all100 = true;
-    for (final diff in QuizDifficulty.values) {
-      final total = QuizData.levels[diff]?.questions.length ?? 0;
-      final best = _bestScores[diff.id];
-      if (best == null || best < total) {
-        all100 = false;
-        break;
+    // 10. Knox: All Burke & Hare related questions answered correctly
+    if (!_unlockedCardIds.contains('knox')) {
+      final qApp2 = _questionResults['apprentice_q2'] == true;
+      final qApp3 = _questionResults['apprentice_q3'] == true;
+      final qApp6 = _questionResults['apprentice_q6'] == true;
+      final qHist2 = _questionResults['historian_q2'] == true;
+      final qHist3 = _questionResults['historian_q3'] == true;
+      final qSch1 = _questionResults['scholar_q1'] == true;
+      final qSch2 = _questionResults['scholar_q2'] == true;
+      if (qApp2 && qApp3 && qApp6 && qHist2 && qHist3 && qSch1 && qSch2) {
+        _unlockCard('knox');
       }
     }
-    tryUnlock('poltergeist', all100);
+  }
 
-    return newlyUnlocked;
+  void _unlockCard(String cardId) {
+    _unlockedCardIds.add(cardId);
+    if (!_cardUnlockQueue.contains(cardId)) {
+      _cardUnlockQueue.add(cardId);
+    }
   }
 
   String? popNextCardToReveal() {
     if (_cardUnlockQueue.isNotEmpty) {
-      final cardId = _cardUnlockQueue.removeAt(0);
-      _currentlyRevealingCardId = cardId;
-      return cardId;
+      _currentlyRevealingCardId = _cardUnlockQueue.removeAt(0);
+      _saveToPrefs();
+      notifyListeners();
+      return _currentlyRevealingCardId;
     }
     _currentlyRevealingCardId = null;
     return null;
   }
 
-  void dismissRevealedCard() {
-    _currentlyRevealingCardId = null;
-    notifyListeners();
-  }
-
   void markCongratsShown() {
     _congratsShown = true;
     _saveToPrefs();
-    SoundService.playCongrats();
     notifyListeners();
   }
 
-  void resetProgress() {
+  void resetAllProgress() async {
     _unlockedCardIds.clear();
     _bestScores.clear();
     _questionResults.clear();
@@ -266,7 +306,9 @@ class AppState extends ChangeNotifier {
     _currentlyRevealingCardId = null;
     _congratsShown = false;
     _currentScreen = AppScreen.home;
-    _saveToPrefs();
+    _history.clear();
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.clear();
     notifyListeners();
   }
 }

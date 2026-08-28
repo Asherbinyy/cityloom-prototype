@@ -22,8 +22,6 @@ class MapScreen extends StatefulWidget {
 }
 
 class _MapScreenState extends State<MapScreen> {
-  final GlobalKey<MapInteractiveWidgetState> _mapKey =
-      GlobalKey<MapInteractiveWidgetState>();
   bool _isNavigating = false;
 
   @override
@@ -34,13 +32,7 @@ class _MapScreenState extends State<MapScreen> {
     return AppScaffold(
       onBack: () {
         if (_isNavigating) return;
-        if (widget.stopIndex == 1) {
-          appState.navigateTo(AppScreen.intro);
-        } else if (widget.stopIndex == 2) {
-          appState.navigateTo(AppScreen.stopA);
-        } else {
-          appState.navigateTo(AppScreen.stopB);
-        }
+        appState.goBack();
       },
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -70,22 +62,28 @@ class _MapScreenState extends State<MapScreen> {
 
           // Interactive Map Widget with Animated Character and Footsteps
           MapInteractiveWidget(
-            key: _mapKey,
             currentStopIndex: widget.stopIndex,
-            onArrival: () => _onArrived(appState),
+            isWalking: _isNavigating,
+            onArrived: () => _onArrived(appState),
           ).animate().fadeIn(duration: 400.ms),
 
           const SizedBox(height: 24),
 
           // "I'm at Stop X" Button
           PrimaryButton(
-            text: _isNavigating ? 'Walking to ${stop.label}...' : "I'm at ${stop.label}",
+            text: _isNavigating
+                ? 'Walking to ${stop.label}...'
+                : "I'm at ${stop.label}",
             isLoading: _isNavigating,
-            onPressed: () => _handleWalk(appState),
+            onPressed: _isNavigating
+                ? null
+                : () {
+                    setState(() => _isNavigating = true);
+                  },
           ),
           const SizedBox(height: 12),
 
-          // Skip Button (same uniform size)
+          // Skip Button
           PrimaryButton(
             text: 'Skip this stop',
             isSecondary: true,
@@ -97,20 +95,8 @@ class _MapScreenState extends State<MapScreen> {
     );
   }
 
-  void _handleWalk(AppState appState) {
-    if (_isNavigating) return;
-    setState(() {
-      _isNavigating = true;
-    });
-
-    _mapKey.currentState?.startWalk(
-      onComplete: () {
-        _onArrived(appState);
-      },
-    );
-  }
-
   void _onArrived(AppState appState) {
+    if (!mounted) return;
     if (widget.stopIndex == 1) {
       appState.navigateTo(AppScreen.stopA);
     } else if (widget.stopIndex == 2) {

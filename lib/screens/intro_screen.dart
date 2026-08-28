@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:provider/provider.dart';
 import '../data/tour_data.dart';
+import '../services/sound_service.dart';
 import '../state/app_state.dart';
-import '../state/audio_controller.dart';
 import '../widgets/app_scaffold.dart';
 import '../widgets/audio_player_card.dart';
 import '../widgets/card_reveal_dialog.dart';
@@ -15,14 +15,13 @@ class IntroScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final appState = context.read<AppState>();
-    final audio = context.read<AudioController>();
+    final appState = context.watch<AppState>();
     final introStop = TourData.stops.firstWhere((s) => s.id == 'intro');
 
     return AppScaffold(
       onBack: () {
-        audio.stop();
-        appState.navigateTo(AppScreen.home);
+        SoundService.playTap();
+        appState.goBack();
       },
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -53,48 +52,25 @@ class IntroScreen extends StatelessWidget {
           // Audio Player with Speed & Spotify-style Synced Lyrics
           AudioPlayerCard(
             audioAsset: introStop.audioAsset,
-            scriptText: introStop.storyScript,
+            storyScript: introStop.storyScript,
             subtitles: introStop.subtitles,
           ).animate().fadeIn(duration: 400.ms),
 
           const SizedBox(height: 24),
 
-          // Next Button (Unlocks Mary Queen of Scots Card)
+          // "Next" Primary Button (triggers Mary Queen of Scots unlock)
           PrimaryButton(
             text: 'Next',
-            onPressed: () {
-              audio.stop();
-              final isNew = appState.unlockStoryCard('mary');
-              
-              if (isNew) {
-                showDialog(
-                  context: context,
-                  barrierDismissible: false,
-                  builder: (_) => CardRevealDialog(
-                    cardId: 'mary',
-                    onDismiss: () {
-                      Navigator.of(context).pop();
-                      appState.navigateTo(AppScreen.mapA);
-                    },
-                    onViewLibrary: () {
-                      Navigator.of(context).pop();
-                      appState.navigateTo(AppScreen.library);
-                    },
-                  ),
-                );
-              } else {
-                appState.navigateTo(AppScreen.mapA);
-              }
-            },
+            onPressed: () => _handleNext(context, appState),
           ),
           const SizedBox(height: 12),
 
-          // Skip Button (Same uniform dimensions)
+          // "Skip intro" Secondary Button
           PrimaryButton(
-            text: 'Skip Intro',
+            text: 'Skip intro',
             isSecondary: true,
             onPressed: () {
-              audio.stop();
+              SoundService.playTap();
               appState.navigateTo(AppScreen.mapA);
             },
           ),
@@ -102,5 +78,30 @@ class IntroScreen extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  void _handleNext(BuildContext context, AppState appState) {
+    SoundService.playTap();
+    final bool isNewlyUnlocked = appState.unlockStoryCard('mary');
+
+    if (isNewlyUnlocked) {
+      showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (_) => CardRevealDialog(
+          cardId: 'mary',
+          onDismiss: () {
+            Navigator.of(context).pop();
+            appState.navigateTo(AppScreen.mapA);
+          },
+          onViewLibrary: () {
+            Navigator.of(context).pop();
+            appState.navigateTo(AppScreen.library);
+          },
+        ),
+      );
+    } else {
+      appState.navigateTo(AppScreen.mapA);
+    }
   }
 }
