@@ -239,15 +239,62 @@ class _LibraryScreenState extends State<LibraryScreen> {
                       ),
                     ),
                   )
-                : Image.asset(
-                    'assets/images/card_locked.png',
-                    fit: BoxFit.cover,
-                    errorBuilder: (_, _, _) => Container(
-                      color: const Color(0xFFE8DCC6),
-                      child: const Center(
-                        child: Icon(Icons.lock_rounded,
-                            size: 36, color: AppColors.muted),
+                : Container(
+                    decoration: BoxDecoration(
+                      gradient: const LinearGradient(
+                        colors: [Color(0xFF2C241D), Color(0xFF1E1812)],
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
                       ),
+                      borderRadius: BorderRadius.circular(16),
+                      border: Border.all(
+                        color: AppColors.coral.withValues(alpha: 0.3),
+                        width: 1.5,
+                      ),
+                    ),
+                    padding: const EdgeInsets.all(12),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Container(
+                          padding: const EdgeInsets.all(10),
+                          decoration: BoxDecoration(
+                            color: Colors.black.withValues(alpha: 0.3),
+                            shape: BoxShape.circle,
+                            border: Border.all(
+                              color: AppColors.coral.withValues(alpha: 0.4),
+                            ),
+                          ),
+                          child: const Icon(
+                            Icons.lock_rounded,
+                            size: 26,
+                            color: Color(0xFFD4AF37), // Antique gold lock
+                          ),
+                        ),
+                        const SizedBox(height: 10),
+                        Text(
+                          card.name,
+                          style: GoogleFonts.playfairDisplay(
+                            fontSize: 13,
+                            fontWeight: FontWeight.w700,
+                            color: const Color(0xFFE5D5C5),
+                          ),
+                          textAlign: TextAlign.center,
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        const SizedBox(height: 6),
+                        Text(
+                          'Tap to see hint',
+                          style: GoogleFonts.dmSans(
+                            fontSize: 10.5,
+                            fontStyle: FontStyle.italic,
+                            color: const Color(0xFF9E8E7E),
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                      ],
                     ),
                   ),
           ),

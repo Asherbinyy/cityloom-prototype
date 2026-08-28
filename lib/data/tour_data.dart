@@ -132,7 +132,7 @@ These iron cages you see before you are authentic survivals of Edinburgh's grave
       stopDesc:
           'Stand near the iron gates of the prison. Listen to the tragic story of what took place here in 1679.',
       audioAsset: 'assets/audio/covenanters.mp3',
-      photoAsset: 'assets/images/screen-stop-b_photo.jpg',
+      photoAsset: '',
       unlockedCardId: null,
       mapCoordinate: Offset(0.44, 0.15),
       walkPath: [
@@ -188,8 +188,8 @@ Today, this enclosure remains a solemn memorial to their sacrifice.''',
           'Follow the path to the domed mausoleum of Sir George "Bloody" Mackenzie.',
       stopDesc:
           'You are standing before the Black Mausoleum. Listen to the history and dark legends surrounding this tomb.',
-      audioAsset: 'assets/audio/mausoleum.mp3',
-      photoAsset: 'assets/images/screen-stop-c_photo.jpg',
+      audioAsset: 'assets/audio/black_mausoleum.mp3',
+      photoAsset: '',
       unlockedCardId: null,
       mapCoordinate: Offset(0.44, 0.52),
       walkPath: [
