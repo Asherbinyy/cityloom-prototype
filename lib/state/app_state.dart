@@ -4,6 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../data/card_data.dart';
 import '../data/quiz_data.dart';
 import '../models/quiz_model.dart';
+import '../services/sound_service.dart';
 
 enum AppScreen {
   home,
@@ -31,7 +32,7 @@ class AppState extends ChangeNotifier {
   final Map<String, int> _bestScores = {}; // 'explorer': 5, etc.
   final Map<String, bool> _questionResults = {}; // 'apprentice_q6': true, etc.
   
-  // Pending card unlocks queue
+  // Pending card unlocks queue for newly unlocked cards
   final List<String> _cardUnlockQueue = [];
   String? _currentlyRevealingCardId;
   bool _congratsShown = false;
@@ -156,16 +157,16 @@ class AppState extends ChangeNotifier {
     notifyListeners();
   }
 
-  void unlockStoryCard(String cardId) {
+  bool unlockStoryCard(String cardId) {
     if (!_unlockedCardIds.contains(cardId)) {
       _unlockedCardIds.add(cardId);
-      if (!_cardUnlockQueue.contains(cardId)) {
-        _cardUnlockQueue.add(cardId);
-      }
+      _cardUnlockQueue.remove(cardId); // ensure unique
       _saveToPrefs();
       _checkAndQueueUnlocks();
       notifyListeners();
+      return true; // Newly unlocked!
     }
+    return false; // Already unlocked previously
   }
 
   List<String> _checkAndQueueUnlocks() {
@@ -181,14 +182,8 @@ class AppState extends ChangeNotifier {
       }
     }
 
-    // Mary: Unlocked during story intro
-    // (Handled directly via unlockStoryCard('mary'))
-
     // Bobby: Complete any Explorer quiz
     tryUnlock('bobby', _bestScores.containsKey('explorer'));
-
-    // Charles: Unlocked during story after Covenanters' stop
-    // (Handled directly via unlockStoryCard('charles'))
 
     // Burke: Apprentice Q6 correct (person to fate match)
     tryUnlock('burke', _questionResults['apprentice_q6'] == true);
@@ -241,11 +236,11 @@ class AppState extends ChangeNotifier {
     return newlyUnlocked;
   }
 
-  String? getNextCardToReveal() {
+  String? popNextCardToReveal() {
     if (_cardUnlockQueue.isNotEmpty) {
-      _currentlyRevealingCardId = _cardUnlockQueue.removeAt(0);
-      notifyListeners();
-      return _currentlyRevealingCardId;
+      final cardId = _cardUnlockQueue.removeAt(0);
+      _currentlyRevealingCardId = cardId;
+      return cardId;
     }
     _currentlyRevealingCardId = null;
     return null;
@@ -259,6 +254,7 @@ class AppState extends ChangeNotifier {
   void markCongratsShown() {
     _congratsShown = true;
     _saveToPrefs();
+    SoundService.playCongrats();
     notifyListeners();
   }
 

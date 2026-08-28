@@ -1,19 +1,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <!--
-    If you are serving your web app in a path other than the root, change the
-    href value below to reflect the base path you are serving from.
-
-    The path provided below has to start and end with a slash "/" in order for
-    it to work correctly.
-
-    For more details:
-    * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base
-
-    This is a placeholder for base href that will be replaced by the value of
-    the `--base-href` argument provided to `flutter build`.
-  -->
   <base href="$FLUTTER_BASE_HREF">
 
   <meta charset="UTF-8">
@@ -32,16 +19,344 @@
 
   <title>CityLoom - Greyfriars Kirkyard</title>
   <link rel="manifest" href="manifest.json">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      margin: 0;
+      padding: 0;
+      background: #fff4eb;
+      background: linear-gradient(180deg, #fff4eb 0%, #fdeada 40%, #f5e1cf 100%);
+      font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      overflow: hidden;
+    }
+
+    #loading-splash {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(180deg, #fff4eb 0%, #fdeada 50%, #f5e1cf 100%);
+      z-index: 999999;
+      transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.5s;
+    }
+
+    #loading-splash.hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .splash-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 32px 24px;
+      max-width: 360px;
+      width: 90%;
+    }
+
+    .splash-logo-wrap {
+      width: 92px;
+      height: 92px;
+      border-radius: 24px;
+      background: #ffffff;
+      padding: 12px;
+      box-shadow: 0 8px 30px rgba(253, 166, 146, 0.35);
+      margin-bottom: 24px;
+      animation: pulseGlow 2.4s ease-in-out infinite;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .splash-logo-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      border-radius: 14px;
+    }
+
+    @keyframes pulseGlow {
+      0%, 100% {
+        transform: scale(1);
+        box-shadow: 0 8px 30px rgba(253, 166, 146, 0.35);
+      }
+      50% {
+        transform: scale(1.05);
+        box-shadow: 0 12px 36px rgba(253, 166, 146, 0.55);
+      }
+    }
+
+    .splash-title {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 30px;
+      font-weight: 700;
+      color: #2a2a2a;
+      letter-spacing: 0.5px;
+      margin-bottom: 6px;
+    }
+
+    .splash-subtitle {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #fda692;
+      margin-bottom: 28px;
+    }
+
+    .splash-progress-track {
+      width: 180px;
+      height: 6px;
+      background: rgba(253, 166, 146, 0.25);
+      border-radius: 6px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .splash-progress-bar {
+      height: 100%;
+      width: 45%;
+      background: linear-gradient(90deg, #fda692, #a5cee4);
+      border-radius: 6px;
+      position: absolute;
+      animation: progressSlide 1.6s ease-in-out infinite;
+    }
+
+    @keyframes progressSlide {
+      0% { left: -45%; }
+      50% { left: 40%; width: 55%; }
+      100% { left: 100%; width: 45%; }
+    }
+
+    .splash-loading-text {
+      margin-top: 14px;
+      font-size: 12px;
+      color: #6b6b6b;
+      font-style: italic;
+    }
+  </style>
+
+  <script>
+    // Web Audio Synthesizer for instant native-feel sound effects
+    var cityLoomAudioCtx = null;
+
+    function getCityLoomAudioCtx() {
+      if (!cityLoomAudioCtx) {
+        var AudioCtx = window.AudioContext || window.webkitAudioContext;
+        if (AudioCtx) {
+          cityLoomAudioCtx = new AudioCtx();
+        }
+      }
+      if (cityLoomAudioCtx && cityLoomAudioCtx.state === 'suspended') {
+        cityLoomAudioCtx.resume();
+      }
+      return cityLoomAudioCtx;
+    }
+
+    window.cityLoomSound = {
+      playUnlock: function() {
+        try {
+          var ctx = getCityLoomAudioCtx();
+          if (!ctx) return;
+          var notes = [523.25, 659.25, 783.99, 1046.50]; // C5, E5, G5, C6
+          notes.forEach(function(freq, i) {
+            var osc = ctx.createOscillator();
+            var gain = ctx.createGain();
+            osc.connect(gain);
+            gain.connect(ctx.destination);
+            osc.type = 'sine';
+            var t = ctx.currentTime + (i * 0.11);
+            gain.gain.setValueAtTime(0.001, t);
+            gain.gain.linearRampToValueAtTime(0.12, t + 0.02);
+            gain.gain.exponentialRampToValueAtTime(0.001, t + 0.35);
+            osc.frequency.value = freq;
+            osc.start(t);
+            osc.stop(t + 0.36);
+          });
+        } catch(e) { console.warn(e); }
+      },
+
+      playCongrats: function() {
+        try {
+          var ctx = getCityLoomAudioCtx();
+          if (!ctx) return;
+          var notes = [523, 659, 784, 1047, 784, 1047, 1319, 1568];
+          notes.forEach(function(freq, i) {
+            var osc = ctx.createOscillator();
+            var gain = ctx.createGain();
+            osc.connect(gain);
+            gain.connect(ctx.destination);
+            osc.type = 'sine';
+            var t = ctx.currentTime + (i * 0.09);
+            gain.gain.setValueAtTime(0.001, t);
+            gain.gain.linearRampToValueAtTime(i < 4 ? 0.10 : 0.14, t + 0.02);
+            gain.gain.exponentialRampToValueAtTime(0.001, t + 0.38);
+            osc.frequency.value = freq;
+            osc.start(t);
+            osc.stop(t + 0.39);
+          });
+          // Sustained celebratory major triad chord
+          var chord = [1046.50, 1318.51, 1567.98];
+          chord.forEach(function(freq) {
+            var osc = ctx.createOscillator();
+            var gain = ctx.createGain();
+            osc.connect(gain);
+            gain.connect(ctx.destination);
+            osc.type = 'sine';
+            var t = ctx.currentTime + 0.75;
+            gain.gain.setValueAtTime(0.001, t);
+            gain.gain.linearRampToValueAtTime(0.09, t + 0.04);
+            gain.gain.exponentialRampToValueAtTime(0.001, t + 0.95);
+            osc.frequency.value = freq;
+            osc.start(t);
+            osc.stop(t + 0.96);
+          });
+        } catch(e) { console.warn(e); }
+      },
+
+      playCorrect: function() {
+        try {
+          var ctx = getCityLoomAudioCtx();
+          if (!ctx) return;
+          var notes = [659.25, 987.77]; // E5, B5
+          notes.forEach(function(freq, i) {
+            var osc = ctx.createOscillator();
+            var gain = ctx.createGain();
+            osc.connect(gain);
+            gain.connect(ctx.destination);
+            osc.type = 'triangle';
+            var t = ctx.currentTime + (i * 0.08);
+            gain.gain.setValueAtTime(0.001, t);
+            gain.gain.linearRampToValueAtTime(0.12, t + 0.02);
+            gain.gain.exponentialRampToValueAtTime(0.001, t + 0.28);
+            osc.frequency.value = freq;
+            osc.start(t);
+            osc.stop(t + 0.29);
+          });
+        } catch(e) { console.warn(e); }
+      },
+
+      playIncorrect: function() {
+        try {
+          var ctx = getCityLoomAudioCtx();
+          if (!ctx) return;
+          var osc = ctx.createOscillator();
+          var gain = ctx.createGain();
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+          osc.type = 'sawtooth';
+          var t = ctx.currentTime;
+          gain.gain.setValueAtTime(0.08, t);
+          gain.gain.exponentialRampToValueAtTime(0.001, t + 0.22);
+          osc.frequency.setValueAtTime(220, t);
+          osc.frequency.exponentialRampToValueAtTime(140, t + 0.2);
+          osc.start(t);
+          osc.stop(t + 0.23);
+        } catch(e) { console.warn(e); }
+      },
+
+      playFootstep: function() {
+        try {
+          var ctx = getCityLoomAudioCtx();
+          if (!ctx) return;
+          var osc = ctx.createOscillator();
+          var gain = ctx.createGain();
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+          osc.type = 'sine';
+          var t = ctx.currentTime;
+          var pitch = 130 + Math.random() * 30;
+          gain.gain.setValueAtTime(0.05, t);
+          gain.gain.exponentialRampToValueAtTime(0.001, t + 0.09);
+          osc.frequency.setValueAtTime(pitch, t);
+          osc.frequency.exponentialRampToValueAtTime(70, t + 0.08);
+          osc.start(t);
+          osc.stop(t + 0.1);
+        } catch(e) { console.warn(e); }
+      },
+
+      playTap: function() {
+        try {
+          var ctx = getCityLoomAudioCtx();
+          if (!ctx) return;
+          var osc = ctx.createOscillator();
+          var gain = ctx.createGain();
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+          osc.type = 'sine';
+          var t = ctx.currentTime;
+          gain.gain.setValueAtTime(0.06, t);
+          gain.gain.exponentialRampToValueAtTime(0.001, t + 0.04);
+          osc.frequency.setValueAtTime(720, t);
+          osc.start(t);
+          osc.stop(t + 0.05);
+        } catch(e) { console.warn(e); }
+      },
+
+      playLocked: function() {
+        try {
+          if (navigator.vibrate) {
+            navigator.vibrate([40, 30, 40]);
+          }
+          var ctx = getCityLoomAudioCtx();
+          if (!ctx) return;
+          var osc = ctx.createOscillator();
+          var gain = ctx.createGain();
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+          osc.type = 'square';
+          var t = ctx.currentTime;
+          gain.gain.setValueAtTime(0.04, t);
+          gain.gain.exponentialRampToValueAtTime(0.001, t + 0.12);
+          osc.frequency.setValueAtTime(160, t);
+          osc.start(t);
+          osc.stop(t + 0.13);
+        } catch(e) { console.warn(e); }
+      }
+    };
+
+    // Auto hide splash when Flutter renders first frame
+    window.addEventListener('flutter-first-frame', function () {
+      var splash = document.getElementById('loading-splash');
+      if (splash) {
+        splash.classList.add('hidden');
+        setTimeout(function() { splash.remove(); }, 600);
+      }
+    });
+  </script>
 </head>
 <body>
-  <!--
-    You can customize the "flutter_bootstrap.js" script.
-    This is useful to provide a custom configuration to the Flutter loader
-    or to give the user feedback during the initialization process.
+  <div id="loading-splash">
+    <div class="splash-card">
+      <div class="splash-logo-wrap">
+        <img src="favicon.png" alt="CityLoom" />
+      </div>
+      <div class="splash-title">CityLoom</div>
+      <div class="splash-subtitle">Greyfriars Kirkyard</div>
+      <div class="splash-progress-track">
+        <div class="splash-progress-bar"></div>
+      </div>
+      <div class="splash-loading-text">Preparing historical tour...</div>
+    </div>
+  </div>
 
-    For more details:
-    * https://docs.flutter.dev/platform-integration/web/initialization
-  -->
   <script src="flutter_bootstrap.js" async></script>
 </body>
 </html>

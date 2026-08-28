@@ -54,33 +54,34 @@ class StopScreen extends StatelessWidget {
             stop.title,
             style: Theme.of(context).textTheme.headlineLarge,
           ),
-          const SizedBox(height: 14),
+          const SizedBox(height: 16),
 
-          // Stop Photograph
-          if (stop.photoAsset != null)
+          // Stop Photo with soft shadow & rounded corners
+          if (stop.photoAsset.isNotEmpty)
             Container(
               margin: const EdgeInsets.only(bottom: 16),
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
+                borderRadius: BorderRadius.circular(18),
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.black.withValues(alpha: 0.08),
+                    color: AppColors.coral.withValues(alpha: 0.15),
                     blurRadius: 16,
                     offset: const Offset(0, 4),
                   ),
                 ],
               ),
               child: ClipRRect(
-                borderRadius: BorderRadius.circular(20),
+                borderRadius: BorderRadius.circular(18),
                 child: AspectRatio(
-                  aspectRatio: 16 / 10,
+                  aspectRatio: 1.4,
                   child: Image.asset(
-                    stop.photoAsset!,
+                    stop.photoAsset,
                     fit: BoxFit.cover,
                     errorBuilder: (_, _, _) => Container(
                       color: AppColors.blush,
                       child: const Center(
-                        child: Icon(Icons.photo_rounded, size: 48, color: AppColors.coral),
+                        child: Icon(Icons.photo_rounded,
+                            size: 48, color: AppColors.coral),
                       ),
                     ),
                   ),
@@ -95,42 +96,46 @@ class StopScreen extends StatelessWidget {
           ),
           const SizedBox(height: 16),
 
-          // Audio Player with Speed & Script
+          // Audio Player with Speed & Spotify-style Synced Lyrics
           AudioPlayerCard(
             audioAsset: stop.audioAsset,
             scriptText: stop.storyScript,
+            subtitles: stop.subtitles,
           ).animate().fadeIn(delay: 200.ms),
 
           const SizedBox(height: 24),
 
-          // Next Stop Action
+          // Next Stop Action (Uniform button dimensions)
           PrimaryButton(
             text: stopIndex < 3 ? 'Next Stop' : 'Complete Tour',
             onPressed: () {
               audio.stop();
-              
+
               if (stop.unlockedCardId != null) {
                 final cardId = stop.unlockedCardId!;
-                appState.unlockStoryCard(cardId);
+                final isNew = appState.unlockStoryCard(cardId);
 
-                showDialog(
-                  context: context,
-                  barrierDismissible: false,
-                  builder: (_) => CardRevealDialog(
-                    cardId: cardId,
-                    onDismiss: () {
-                      Navigator.of(context).pop();
-                      _advanceScreen(appState);
-                    },
-                    onViewLibrary: () {
-                      Navigator.of(context).pop();
-                      appState.navigateTo(AppScreen.library);
-                    },
-                  ),
-                );
-              } else {
-                _advanceScreen(appState);
+                if (isNew) {
+                  showDialog(
+                    context: context,
+                    barrierDismissible: false,
+                    builder: (_) => CardRevealDialog(
+                      cardId: cardId,
+                      onDismiss: () {
+                        Navigator.of(context).pop();
+                        _advanceScreen(appState);
+                      },
+                      onViewLibrary: () {
+                        Navigator.of(context).pop();
+                        appState.navigateTo(AppScreen.library);
+                      },
+                    ),
+                  );
+                  return;
+                }
               }
+
+              _advanceScreen(appState);
             },
           ),
           const SizedBox(height: 24),

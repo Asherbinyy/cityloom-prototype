@@ -1,8 +1,10 @@
+import 'dart:math' as math;
 import 'package:flutter/material.dart';
-import 'package:flutter_animate/flutter_animate.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import '../data/card_data.dart';
 import '../models/card_model.dart';
+import '../services/sound_service.dart';
 import '../state/app_state.dart';
 import '../theme/app_theme.dart';
 import '../widgets/app_scaffold.dart';
@@ -11,76 +13,90 @@ import '../widgets/card_fullscreen_dialog.dart';
 class LibraryScreen extends StatelessWidget {
   const LibraryScreen({super.key});
 
+  Color _getRarityColor(CardRarity rarity) {
+    switch (rarity) {
+      case CardRarity.common:
+        return const Color(0xFF2A2A2A);
+      case CardRarity.uncommon:
+        return const Color(0xFF2563EB);
+      case CardRarity.rare:
+        return const Color(0xFF9333EA);
+      case CardRarity.legendary:
+        return const Color(0xFFD97706);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final appState = context.watch<AppState>();
 
     return AppScaffold(
-      backgroundGradient: AppColors.libraryBackground,
+      backgroundGradient: AppColors.warmBackground,
       showLibraryBtn: false,
-      onBack: () => appState.goBackFromLibrary(),
+      onBack: () {
+        SoundService.playTap();
+        appState.goBackFromLibrary();
+      },
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          // Library Icon
-          Image.asset(
-            'assets/images/library.png',
-            width: 90,
-            height: 90,
-            fit: BoxFit.contain,
-            errorBuilder: (_, _, _) => const Icon(
-              Icons.auto_stories_rounded,
-              size: 64,
-              color: AppColors.coral,
-            ),
-          ).animate().fadeIn().scale(begin: const Offset(0.9, 0.9)),
-          const SizedBox(height: 10),
+          const SizedBox(height: 8),
 
-          // Title
-          const Text(
+          // Library Header
+          Container(
+            padding: const EdgeInsets.all(12),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              shape: BoxShape.circle,
+              boxShadow: [
+                BoxShadow(
+                  color: AppColors.coral.withValues(alpha: 0.25),
+                  blurRadius: 18,
+                  offset: const Offset(0, 4),
+                ),
+              ],
+            ),
+            child: Image.asset(
+              'assets/images/library.png',
+              width: 58,
+              height: 58,
+              fit: BoxFit.contain,
+              errorBuilder: (_, _, _) => const Icon(
+                Icons.auto_stories_rounded,
+                size: 48,
+                color: AppColors.coral,
+              ),
+            ),
+          ),
+          const SizedBox(height: 12),
+
+          Text(
             'YOUR COLLECTION',
-            style: TextStyle(
+            style: GoogleFonts.dmSans(
               fontSize: 13,
-              fontWeight: FontWeight.bold,
+              fontWeight: FontWeight.w700,
               letterSpacing: 3,
-              color: AppColors.dark,
+              color: AppColors.coral,
             ),
           ),
           const SizedBox(height: 4),
 
-          // Counter
           Text(
             '${appState.unlockedCardsCount} of ${appState.totalCardsCount} Cards Unlocked',
-            style: const TextStyle(
-              fontFamily: 'DM Sans',
+            style: GoogleFonts.dmSans(
               fontSize: 14,
               fontWeight: FontWeight.w600,
               color: AppColors.muted,
             ),
           ),
-          const SizedBox(height: 20),
+          const SizedBox(height: 24),
 
           // Sections: Common, Uncommon, Rare, Legendary
           ...CardData.libraryOrder.map((sec) {
             final sectionName = sec['section'] as String;
             final rarity = sec['rarity'] as CardRarity;
             final cardIds = sec['cardIds'] as List<String>;
-
-            Color rarityColor;
-            switch (rarity) {
-              case CardRarity.common:
-                rarityColor = AppColors.rarityCommon;
-                break;
-              case CardRarity.uncommon:
-                rarityColor = AppColors.rarityUncommon;
-                break;
-              case CardRarity.rare:
-                rarityColor = AppColors.rarityRare;
-                break;
-              case CardRarity.legendary:
-                rarityColor = AppColors.rarityLegendary;
-                break;
-            }
+            final rarityColor = _getRarityColor(rarity);
 
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -100,9 +116,9 @@ class LibraryScreen extends StatelessWidget {
                       const SizedBox(width: 8),
                       Text(
                         sectionName.toUpperCase(),
-                        style: TextStyle(
+                        style: GoogleFonts.dmSans(
                           fontSize: 12,
-                          fontWeight: FontWeight.bold,
+                          fontWeight: FontWeight.w700,
                           letterSpacing: 1.5,
                           color: rarityColor,
                         ),
@@ -111,14 +127,14 @@ class LibraryScreen extends StatelessWidget {
                   ),
                 ),
 
-                // Card Grid
+                // 3-Column Card Grid
                 GridView.builder(
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 3,
-                    crossAxisSpacing: 10,
-                    mainAxisSpacing: 10,
+                    crossAxisSpacing: 12,
+                    mainAxisSpacing: 12,
                     childAspectRatio: 0.72,
                   ),
                   itemCount: cardIds.length,
@@ -127,36 +143,103 @@ class LibraryScreen extends StatelessWidget {
                     final card = CardData.cards[cId]!;
                     final isUnlocked = appState.isCardUnlocked(cId);
 
-                    return _buildCardTile(
-                      context,
-                      card,
-                      isUnlocked,
-                      rarityColor,
+                    return _LibraryCardTile(
+                      card: card,
+                      isUnlocked: isUnlocked,
+                      rarityColor: rarityColor,
                     );
                   },
                 ),
-                const SizedBox(height: 16),
+                const SizedBox(height: 20),
               ],
             );
           }),
-          const SizedBox(height: 24),
+          const SizedBox(height: 12),
+          Text(
+            'Play the different quiz levels to unlock more cards.',
+            style: GoogleFonts.dmSans(
+              fontSize: 13,
+              fontStyle: FontStyle.italic,
+              color: AppColors.muted,
+            ),
+            textAlign: TextAlign.center,
+          ),
+          const SizedBox(height: 32),
         ],
       ),
     );
   }
+}
 
-  Widget _buildCardTile(
-    BuildContext context,
-    CharacterCard card,
-    bool isUnlocked,
-    Color rarityColor,
-  ) {
-    if (isUnlocked) {
+class _LibraryCardTile extends StatefulWidget {
+  final CharacterCard card;
+  final bool isUnlocked;
+  final Color rarityColor;
+
+  const _LibraryCardTile({
+    required this.card,
+    required this.isUnlocked,
+    required this.rarityColor,
+  });
+
+  @override
+  State<_LibraryCardTile> createState() => _LibraryCardTileState();
+}
+
+class _LibraryCardTileState extends State<_LibraryCardTile>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _shakeController;
+
+  @override
+  void initState() {
+    super.initState();
+    _shakeController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 400),
+    );
+  }
+
+  @override
+  void dispose() {
+    _shakeController.dispose();
+    super.dispose();
+  }
+
+  void _onTapLocked() {
+    SoundService.playLocked();
+    _shakeController.forward(from: 0.0);
+
+    ScaffoldMessenger.of(context).hideCurrentSnackBar();
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(
+          widget.card.teaserMessage ??
+              'Complete stops and quiz levels to unlock this card!',
+          style: GoogleFonts.dmSans(
+            fontSize: 13,
+            fontWeight: FontWeight.w500,
+            color: Colors.white,
+          ),
+        ),
+        duration: const Duration(seconds: 2),
+        backgroundColor: const Color(0xFF2A2A2A),
+        behavior: SnackBarBehavior.floating,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12),
+        ),
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    if (widget.isUnlocked) {
       return GestureDetector(
         onTap: () {
+          SoundService.playTap();
           showDialog(
             context: context,
-            builder: (_) => CardFullscreenDialog(card: card),
+            builder: (_) => CardFullscreenDialog(card: widget.card),
           );
         },
         child: Container(
@@ -164,7 +247,7 @@ class LibraryScreen extends StatelessWidget {
             borderRadius: BorderRadius.circular(12),
             boxShadow: [
               BoxShadow(
-                color: rarityColor.withValues(alpha: 0.3),
+                color: widget.rarityColor.withValues(alpha: 0.25),
                 blurRadius: 10,
                 offset: const Offset(0, 3),
               ),
@@ -173,13 +256,13 @@ class LibraryScreen extends StatelessWidget {
           child: ClipRRect(
             borderRadius: BorderRadius.circular(12),
             child: Image.asset(
-              card.imageAsset,
+              widget.card.imageAsset,
               fit: BoxFit.cover,
               errorBuilder: (_, _, _) => Container(
                 color: const Color(0xFF2A2A2A),
                 child: Center(
                   child: Text(
-                    card.name,
+                    widget.card.name,
                     style: const TextStyle(fontSize: 10, color: Colors.white),
                     textAlign: TextAlign.center,
                   ),
@@ -191,54 +274,47 @@ class LibraryScreen extends StatelessWidget {
       );
     }
 
-    // Locked Card
-    return GestureDetector(
-      onTap: () {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(
-              card.teaserMessage ?? 'Complete stops and quizzes to unlock this card.',
-            ),
-            duration: const Duration(seconds: 2),
-            backgroundColor: const Color(0xFF281E14),
-            behavior: SnackBarBehavior.floating,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10),
-            ),
-          ),
+    // Locked Card with Shaking Effect
+    return AnimatedBuilder(
+      animation: _shakeController,
+      builder: (context, child) {
+        final offset = math.sin(_shakeController.value * math.pi * 4) * 6.0;
+        return Transform.translate(
+          offset: Offset(offset, 0),
+          child: child,
         );
       },
-      child: Container(
-        decoration: BoxDecoration(
-          color: const Color(0xFF1E1E24),
-          borderRadius: BorderRadius.circular(12),
-          border: Border.all(
-            color: rarityColor.withValues(alpha: 0.4),
-            width: 1.5,
-          ),
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(
-              Icons.lock_outline_rounded,
-              color: rarityColor.withValues(alpha: 0.7),
-              size: 24,
+      child: GestureDetector(
+        onTap: _onTapLocked,
+        child: Container(
+          decoration: BoxDecoration(
+            color: const Color(0xFFE2DBD3),
+            borderRadius: BorderRadius.circular(12),
+            border: Border.all(
+              color: Colors.black.withValues(alpha: 0.15),
+              width: 1.5,
             ),
-            const SizedBox(height: 6),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 4),
-              child: Text(
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(
+                Icons.lock_outline_rounded,
+                color: AppColors.dark.withValues(alpha: 0.6),
+                size: 24,
+              ),
+              const SizedBox(height: 6),
+              Text(
                 'LOCKED',
-                style: TextStyle(
-                  fontSize: 9,
-                  fontWeight: FontWeight.bold,
-                  letterSpacing: 1.2,
-                  color: rarityColor.withValues(alpha: 0.8),
+                style: GoogleFonts.dmSans(
+                  fontSize: 10,
+                  fontWeight: FontWeight.w700,
+                  letterSpacing: 1.5,
+                  color: AppColors.dark.withValues(alpha: 0.6),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

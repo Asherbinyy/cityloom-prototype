@@ -50,10 +50,11 @@ class IntroScreen extends StatelessWidget {
           ),
           const SizedBox(height: 16),
 
-          // Audio Player with Speed & Script
+          // Audio Player with Speed & Spotify-style Synced Lyrics
           AudioPlayerCard(
             audioAsset: introStop.audioAsset,
             scriptText: introStop.storyScript,
+            subtitles: introStop.subtitles,
           ).animate().fadeIn(duration: 400.ms),
 
           const SizedBox(height: 24),
@@ -63,29 +64,32 @@ class IntroScreen extends StatelessWidget {
             text: 'Next',
             onPressed: () {
               audio.stop();
-              appState.unlockStoryCard('mary');
+              final isNew = appState.unlockStoryCard('mary');
               
-              // Show Card Reveal Dialog if not unlocked before
-              showDialog(
-                context: context,
-                barrierDismissible: false,
-                builder: (_) => CardRevealDialog(
-                  cardId: 'mary',
-                  onDismiss: () {
-                    Navigator.of(context).pop();
-                    appState.navigateTo(AppScreen.mapA);
-                  },
-                  onViewLibrary: () {
-                    Navigator.of(context).pop();
-                    appState.navigateTo(AppScreen.library);
-                  },
-                ),
-              );
+              if (isNew) {
+                showDialog(
+                  context: context,
+                  barrierDismissible: false,
+                  builder: (_) => CardRevealDialog(
+                    cardId: 'mary',
+                    onDismiss: () {
+                      Navigator.of(context).pop();
+                      appState.navigateTo(AppScreen.mapA);
+                    },
+                    onViewLibrary: () {
+                      Navigator.of(context).pop();
+                      appState.navigateTo(AppScreen.library);
+                    },
+                  ),
+                );
+              } else {
+                appState.navigateTo(AppScreen.mapA);
+              }
             },
           ),
           const SizedBox(height: 12),
 
-          // Skip Button (Same height/dimensions)
+          // Skip Button (Same uniform dimensions)
           PrimaryButton(
             text: 'Skip Intro',
             isSecondary: true,

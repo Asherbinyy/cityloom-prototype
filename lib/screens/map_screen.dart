@@ -9,7 +9,7 @@ import '../widgets/map_interactive_widget.dart';
 import '../widgets/primary_button.dart';
 import '../widgets/progress_strip.dart';
 
-class MapScreen extends StatelessWidget {
+class MapScreen extends StatefulWidget {
   final int stopIndex; // 1: Stop A, 2: Stop B, 3: Stop C
 
   const MapScreen({
@@ -18,15 +18,25 @@ class MapScreen extends StatelessWidget {
   });
 
   @override
+  State<MapScreen> createState() => _MapScreenState();
+}
+
+class _MapScreenState extends State<MapScreen> {
+  final GlobalKey<MapInteractiveWidgetState> _mapKey =
+      GlobalKey<MapInteractiveWidgetState>();
+  bool _isNavigating = false;
+
+  @override
   Widget build(BuildContext context) {
     final appState = context.read<AppState>();
-    final TourStop stop = TourData.stops[stopIndex];
+    final TourStop stop = TourData.stops[widget.stopIndex];
 
     return AppScaffold(
       onBack: () {
-        if (stopIndex == 1) {
+        if (_isNavigating) return;
+        if (widget.stopIndex == 1) {
           appState.navigateTo(AppScreen.intro);
-        } else if (stopIndex == 2) {
+        } else if (widget.stopIndex == 2) {
           appState.navigateTo(AppScreen.stopA);
         } else {
           appState.navigateTo(AppScreen.stopB);
@@ -58,26 +68,28 @@ class MapScreen extends StatelessWidget {
           ),
           const SizedBox(height: 12),
 
-          // Interactive Map Widget with Walking Animation
+          // Interactive Map Widget with Animated Character and Footsteps
           MapInteractiveWidget(
-            currentStopIndex: stopIndex,
-            onStopTap: () => _goToStop(appState),
+            key: _mapKey,
+            currentStopIndex: widget.stopIndex,
+            onArrival: () => _onArrived(appState),
           ).animate().fadeIn(duration: 400.ms),
 
           const SizedBox(height: 24),
 
           // "I'm at Stop X" Button
           PrimaryButton(
-            text: "I'm at ${stop.label}",
-            onPressed: () => _goToStop(appState),
+            text: _isNavigating ? 'Walking to ${stop.label}...' : "I'm at ${stop.label}",
+            isLoading: _isNavigating,
+            onPressed: () => _handleWalk(appState),
           ),
           const SizedBox(height: 12),
 
-          // Skip Button
+          // Skip Button (same uniform size)
           PrimaryButton(
             text: 'Skip this stop',
             isSecondary: true,
-            onPressed: () => _skipStop(appState),
+            onPressed: _isNavigating ? null : () => _skipStop(appState),
           ),
           const SizedBox(height: 24),
         ],
@@ -85,10 +97,23 @@ class MapScreen extends StatelessWidget {
     );
   }
 
-  void _goToStop(AppState appState) {
-    if (stopIndex == 1) {
+  void _handleWalk(AppState appState) {
+    if (_isNavigating) return;
+    setState(() {
+      _isNavigating = true;
+    });
+
+    _mapKey.currentState?.startWalk(
+      onComplete: () {
+        _onArrived(appState);
+      },
+    );
+  }
+
+  void _onArrived(AppState appState) {
+    if (widget.stopIndex == 1) {
       appState.navigateTo(AppScreen.stopA);
-    } else if (stopIndex == 2) {
+    } else if (widget.stopIndex == 2) {
       appState.navigateTo(AppScreen.stopB);
     } else {
       appState.navigateTo(AppScreen.stopC);
@@ -96,12 +121,12 @@ class MapScreen extends StatelessWidget {
   }
 
   void _skipStop(AppState appState) {
-    if (stopIndex == 1) {
-      appState.navigateTo(AppScreen.mapB);
-    } else if (stopIndex == 2) {
-      appState.navigateTo(AppScreen.mapC);
+    if (widget.stopIndex == 1) {
+      appState.navigateTo(AppScreen.stopA);
+    } else if (widget.stopIndex == 2) {
+      appState.navigateTo(AppScreen.stopB);
     } else {
-      appState.navigateTo(AppScreen.complete);
+      appState.navigateTo(AppScreen.stopC);
     }
   }
 }

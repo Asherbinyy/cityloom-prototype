@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import '../services/sound_service.dart';
 import '../state/app_state.dart';
 import '../theme/app_theme.dart';
 
@@ -33,8 +35,7 @@ class AppScaffold extends StatelessWidget {
       body: Container(
         decoration: BoxDecoration(
           color: backgroundColor,
-          gradient: backgroundGradient ??
-              (isHome ? AppColors.warmBackground : null),
+          gradient: backgroundGradient ?? AppColors.warmBackground,
         ),
         child: Center(
           child: ConstrainedBox(
@@ -44,7 +45,7 @@ class AppScaffold extends StatelessWidget {
                 children: [
                   // Top bar
                   if (!isHome) _buildTopBar(context, appState),
-                  
+
                   // Main Content
                   Expanded(
                     child: scrollable
@@ -84,19 +85,22 @@ class AppScaffold extends StatelessWidget {
             Material(
               color: Colors.transparent,
               child: InkWell(
-                onTap: onBack,
+                onTap: () {
+                  SoundService.playTap();
+                  onBack?.call();
+                },
                 borderRadius: BorderRadius.circular(24),
                 child: Container(
                   width: 40,
                   height: 40,
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
-                    color: Colors.white.withValues(alpha: 0.7),
+                    color: Colors.white.withValues(alpha: 0.85),
                     shape: BoxShape.circle,
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.black.withValues(alpha: 0.04),
-                        blurRadius: 6,
+                        color: Colors.black.withValues(alpha: 0.06),
+                        blurRadius: 8,
                         offset: const Offset(0, 2),
                       ),
                     ],
@@ -104,69 +108,79 @@ class AppScaffold extends StatelessWidget {
                   child: const Icon(
                     Icons.arrow_back_ios_new_rounded,
                     size: 18,
-                    color: AppColors.dark,
+                    color: AppColors.coral,
                   ),
                 ),
               ),
             )
           else
-            const SizedBox(width: 40, height: 40),
+            const SizedBox(width: 40),
 
-          // Optional Title
-          if (topBarTitle != null)
-            Text(
-              topBarTitle!,
-              style: const TextStyle(
-                fontWeight: FontWeight.w600,
-                fontSize: 16,
-                color: AppColors.dark,
+          // Title / Logo in top bar
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Image.asset(
+                'assets/images/logo.png',
+                height: 26,
+                errorBuilder: (_, _, _) => const Icon(
+                  Icons.explore_rounded,
+                  color: AppColors.coral,
+                  size: 24,
+                ),
               ),
-            )
-          else
-            const Spacer(),
+              const SizedBox(width: 8),
+              Text(
+                topBarTitle ?? 'Greyfriars Kirkyard',
+                style: GoogleFonts.playfairDisplay(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  color: AppColors.dark,
+                ),
+              ),
+            ],
+          ),
 
-          // Library button
-          if (showLibraryBtn && appState.currentScreen != AppScreen.library)
+          // Library Badge & Counter Button
+          if (showLibraryBtn)
             Material(
               color: Colors.transparent,
               child: InkWell(
-                onTap: () => appState.navigateTo(AppScreen.library),
-                borderRadius: BorderRadius.circular(24),
+                onTap: () {
+                  SoundService.playTap();
+                  appState.navigateTo(AppScreen.library);
+                },
+                borderRadius: BorderRadius.circular(20),
                 child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                   decoration: BoxDecoration(
-                    color: Colors.white.withValues(alpha: 0.85),
+                    color: Colors.white.withValues(alpha: 0.9),
                     borderRadius: BorderRadius.circular(20),
+                    border: Border.all(
+                      color: AppColors.coral.withValues(alpha: 0.4),
+                    ),
                     boxShadow: [
                       BoxShadow(
                         color: AppColors.coral.withValues(alpha: 0.15),
-                        blurRadius: 8,
+                        blurRadius: 10,
                         offset: const Offset(0, 2),
                       ),
                     ],
-                    border: Border.all(
-                      color: AppColors.coral.withValues(alpha: 0.3),
-                      width: 1.5,
-                    ),
                   ),
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Image.asset(
-                        'assets/images/library.png',
-                        width: 22,
-                        height: 22,
-                        errorBuilder: (_, _, _) => const Icon(
-                          Icons.auto_stories_rounded,
-                          size: 20,
-                          color: AppColors.coral,
-                        ),
+                      const Icon(
+                        Icons.collections_bookmark_rounded,
+                        size: 16,
+                        color: AppColors.coral,
                       ),
                       const SizedBox(width: 6),
                       Text(
                         '${appState.unlockedCardsCount}/${appState.totalCardsCount}',
-                        style: const TextStyle(
-                          fontSize: 12,
+                        style: GoogleFonts.dmSans(
+                          fontSize: 13,
                           fontWeight: FontWeight.bold,
                           color: AppColors.dark,
                         ),
@@ -177,7 +191,7 @@ class AppScaffold extends StatelessWidget {
               ),
             )
           else
-            const SizedBox(width: 40, height: 40),
+            const SizedBox(width: 40),
         ],
       ),
     );
