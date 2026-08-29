@@ -37,6 +37,19 @@ class CityLoomApp extends StatelessWidget {
       title: 'CityLoom - Greyfriars Kirkyard',
       debugShowCheckedModeBanner: false,
       theme: AppTheme.theme,
+      initialRoute: '/',
+      onGenerateRoute: (settings) {
+        return MaterialPageRoute(
+          settings: settings,
+          builder: (_) => const AppScreenRouter(),
+        );
+      },
+      onUnknownRoute: (settings) {
+        return MaterialPageRoute(
+          settings: settings,
+          builder: (_) => const AppScreenRouter(),
+        );
+      },
       home: const AppScreenRouter(),
     );
   }
