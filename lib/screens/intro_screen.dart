@@ -8,6 +8,7 @@ import '../state/app_state.dart';
 import '../widgets/app_scaffold.dart';
 import '../widgets/audio_player_card.dart';
 import '../widgets/card_reveal_dialog.dart';
+import '../widgets/fly_to_library_animation.dart';
 import '../widgets/primary_button.dart';
 import '../widgets/progress_strip.dart';
 
@@ -95,7 +96,11 @@ class IntroScreen extends StatelessWidget {
           cardId: 'mary',
           onDismiss: () {
             Navigator.of(context).pop();
-            appState.navigateTo(AppScreen.mapA);
+            FlyToLibraryAnimation.fly(
+              context,
+              cardId: 'mary',
+              onComplete: () => appState.navigateTo(AppScreen.mapA),
+            );
           },
           onViewLibrary: () {
             Navigator.of(context).pop();

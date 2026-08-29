@@ -14,6 +14,7 @@ import '../widgets/app_scaffold.dart';
 import '../widgets/card_reveal_dialog.dart';
 import '../widgets/confetti_overlay.dart';
 import '../widgets/congratulations_dialog.dart';
+import '../widgets/fly_to_library_animation.dart';
 import '../widgets/learn_more_dialog.dart';
 import '../widgets/primary_button.dart';
 import '../widgets/quit_quiz_dialog.dart';
@@ -72,7 +73,45 @@ class _QuizScreenState extends State<QuizScreen> {
     Color(0x1FE74C3C),
   ];
 
-  void _resetQuestionState({bool advanceQuestion = false}) {
+  bool _initializedFromState = false;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (!_initializedFromState) {
+      final appState = context.read<AppState>();
+      _currentQIndex = appState.activeQuizQIndex;
+      _score = appState.activeQuizScore;
+      _selectedSingleIndex = appState.activeQuizSingleIndex;
+      _selectedTF = appState.activeQuizTF;
+      _selectedMultiIndices.clear();
+      _selectedMultiIndices.addAll(appState.activeQuizMultiIndices);
+      _selectedFillGapOption = appState.activeQuizFillGapOption;
+      _selectedPairs.clear();
+      _selectedPairs.addAll(appState.activeQuizPairs);
+      _currentOrderIndices = List.from(appState.activeQuizOrderIndices);
+      _isAnswered = appState.activeQuizIsAnswered;
+      _isLastAnswerCorrect = appState.activeQuizIsLastAnswerCorrect;
+      _initializedFromState = true;
+    }
+  }
+
+  void _syncToAppState(AppState appState) {
+    appState.updateActiveQuizProgress(
+      qIndex: _currentQIndex,
+      score: _score,
+      singleIndex: _selectedSingleIndex,
+      tfVal: _selectedTF,
+      multiIndices: _selectedMultiIndices,
+      fillGapOption: _selectedFillGapOption,
+      pairs: _selectedPairs,
+      orderIndices: _currentOrderIndices,
+      isAnswered: _isAnswered,
+      isLastAnswerCorrect: _isLastAnswerCorrect,
+    );
+  }
+
+  void _resetQuestionState({bool advanceQuestion = false, AppState? appState}) {
     _selectedSingleIndex = null;
     _selectedTF = null;
     _selectedMultiIndices.clear();
@@ -97,6 +136,10 @@ class _QuizScreenState extends State<QuizScreen> {
       _isAutoNarrateEnabled = false;
       _hasTriggeredCongratsSound = false;
       TtsService.stop();
+    }
+
+    if (appState != null) {
+      _syncToAppState(appState);
     }
   }
 
@@ -854,7 +897,8 @@ class _QuizScreenState extends State<QuizScreen> {
                 if (_currentQIndex + 1 < questions.length) {
                   setState(() {
                     _currentQIndex++;
-                    _resetQuestionState(advanceQuestion: true);
+                    _resetQuestionState(
+                        advanceQuestion: true, appState: appState);
                   });
                   if (_isAutoNarrateEnabled) {
                     final nextQ = questions[_currentQIndex];
@@ -1620,6 +1664,16 @@ class _QuizScreenState extends State<QuizScreen> {
         ReorderableListView.builder(
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
+          proxyDecorator: (Widget child, int index, Animation<double> animation) {
+            return Material(
+              color: Colors.transparent,
+              borderRadius: BorderRadius.circular(14),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(14),
+                child: child,
+              ),
+            );
+          },
           itemCount: _currentOrderIndices.length,
           onReorder: _isAnswered
               ? (_, _) {}
@@ -1672,7 +1726,11 @@ class _QuizScreenState extends State<QuizScreen> {
                           fontSize: 13.5, color: AppColors.dark),
                     ),
                   ),
-                  const Icon(Icons.drag_handle_rounded, color: AppColors.muted),
+                  const Icon(
+                    Icons.unfold_more_rounded,
+                    size: 24,
+                    color: AppColors.muted,
+                  ),
                 ],
               ),
             );
@@ -1712,6 +1770,7 @@ class _QuizScreenState extends State<QuizScreen> {
   }
 
   void _onAnswerRecorded(BuildContext context, AppState appState) {
+    _syncToAppState(appState);
     if (appState.hasPendingUnlocks) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         _showNextPendingUnlock(context, appState);
@@ -1778,187 +1837,187 @@ class _QuizScreenState extends State<QuizScreen> {
                 isPerfect
                     ? Icons.military_tech_rounded
                     : Icons.emoji_events_rounded,
-              size: 54,
-              color: isPerfect ? const Color(0xFFD97706) : AppColors.coral,
-            ),
-          ).animate().scale(duration: 500.ms, curve: Curves.easeOutBack),
-          const SizedBox(height: 16),
-
-          Text(
-            isPerfect ? 'Flawless Knowledge!' : 'Quiz Completed!',
-            style: GoogleFonts.playfairDisplay(
-              fontSize: 26,
-              fontWeight: FontWeight.w700,
-              color: AppColors.dark,
-            ),
-            textAlign: TextAlign.center,
-          ),
-          const SizedBox(height: 4),
-
-          Text(
-            '${level.label} Level',
-            style: GoogleFonts.dmSans(
-              fontSize: 13,
-              fontWeight: FontWeight.bold,
-              letterSpacing: 1.5,
-              color: AppColors.coral,
-            ),
-          ),
-          const SizedBox(height: 18),
-
-          // Score card
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 28, vertical: 20),
-            decoration: BoxDecoration(
-              color: const Color(0xFFFEFAF6),
-              borderRadius: BorderRadius.circular(20),
-              border: Border.all(color: AppColors.blush),
-              boxShadow: [
-                BoxShadow(
-                  color: AppColors.coral.withValues(alpha: 0.1),
-                  blurRadius: 16,
-                  offset: const Offset(0, 4),
-                ),
-              ],
-            ),
-            child: Column(
-              children: [
-                Text(
-                  '$_score / $totalQ',
-                  style: GoogleFonts.playfairDisplay(
-                    fontSize: 42,
-                    fontWeight: FontWeight.bold,
-                    color: AppColors.dark,
-                  ),
-                ),
-                const SizedBox(height: 4),
-                Text(
-                  isPerfect
-                      ? '100% Score! You have mastered this tier.'
-                      : 'Great job! Play again to improve your score and unlock rare cards.',
-                  style: GoogleFonts.dmSans(
-                    fontSize: 13.5,
-                    color: AppColors.muted,
-                    height: 1.4,
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-              ],
-            ),
-          ).animate().fadeIn(delay: 200.ms),
-
-          const SizedBox(height: 24),
-
-          // POST-QUIZ FEEDBACK SURVEY CARD
-          Container(
-            padding: const EdgeInsets.all(20),
-            decoration: BoxDecoration(
-              gradient: const LinearGradient(
-                colors: [Color(0xFFFFF4EB), Color(0xFFFDEADA)],
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
+                size: 54,
+                color: isPerfect ? const Color(0xFFD97706) : AppColors.coral,
               ),
-              borderRadius: BorderRadius.circular(20),
-              border: Border.all(
-                color: AppColors.coral.withValues(alpha: 0.4),
-                width: 1.5,
+            ).animate().scale(duration: 500.ms, curve: Curves.easeOutBack),
+            const SizedBox(height: 16),
+
+            Text(
+              isPerfect ? 'Flawless Knowledge!' : 'Quiz Completed!',
+              style: GoogleFonts.playfairDisplay(
+                fontSize: 26,
+                fontWeight: FontWeight.w700,
+                color: AppColors.dark,
               ),
-              boxShadow: [
-                BoxShadow(
-                  color: AppColors.coral.withValues(alpha: 0.15),
-                  blurRadius: 18,
-                  offset: const Offset(0, 4),
-                ),
-              ],
+              textAlign: TextAlign.center,
             ),
-            child: Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Icon(Icons.rate_review_rounded,
-                        color: AppColors.coral, size: 22),
-                    const SizedBox(width: 8),
-                    Text(
-                      "We'd love your feedback!",
-                      style: GoogleFonts.playfairDisplay(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w700,
-                        color: AppColors.dark,
-                      ),
+            const SizedBox(height: 4),
+
+            Text(
+              '${level.label} Level',
+              style: GoogleFonts.dmSans(
+                fontSize: 13,
+                fontWeight: FontWeight.bold,
+                letterSpacing: 1.5,
+                color: AppColors.coral,
+              ),
+            ),
+            const SizedBox(height: 18),
+
+            // Score card
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 28, vertical: 20),
+              decoration: BoxDecoration(
+                color: const Color(0xFFFEFAF6),
+                borderRadius: BorderRadius.circular(20),
+                border: Border.all(color: AppColors.blush),
+                boxShadow: [
+                  BoxShadow(
+                    color: AppColors.coral.withValues(alpha: 0.1),
+                    blurRadius: 16,
+                    offset: const Offset(0, 4),
+                  ),
+                ],
+              ),
+              child: Column(
+                children: [
+                  Text(
+                    '$_score / $totalQ',
+                    style: GoogleFonts.playfairDisplay(
+                      fontSize: 42,
+                      fontWeight: FontWeight.bold,
+                      color: AppColors.dark,
                     ),
-                  ],
-                ),
-                const SizedBox(height: 8),
-                Text(
-                  "We're currently developing CityLoom and would love your thoughts to help shape the tour! (Takes only 2 min)",
-                  style: GoogleFonts.dmSans(
-                    fontSize: 13,
-                    color: AppColors.muted,
-                    height: 1.4,
                   ),
-                  textAlign: TextAlign.center,
+                  const SizedBox(height: 4),
+                  Text(
+                    isPerfect
+                        ? '100% Score! You have mastered this tier.'
+                        : 'Great job! Play again to improve your score and unlock rare cards.',
+                    style: GoogleFonts.dmSans(
+                      fontSize: 13.5,
+                      color: AppColors.muted,
+                      height: 1.4,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ],
+              ),
+            ).animate().fadeIn(delay: 200.ms),
+
+            const SizedBox(height: 24),
+
+            // POST-QUIZ FEEDBACK SURVEY CARD
+            Container(
+              padding: const EdgeInsets.all(20),
+              decoration: BoxDecoration(
+                gradient: const LinearGradient(
+                  colors: [Color(0xFFFFF4EB), Color(0xFFFDEADA)],
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
                 ),
-                const SizedBox(height: 16),
-                PrimaryButton(
-                  text: 'Give Feedback (Google Form)',
-                  onPressed: () async {
-                    SoundService.playTap();
-                    AnalyticsService.instance
-                        .logSurveyClick('post_quiz_results_card');
-                    final uri =
-                        Uri.parse('https://forms.gle/2iMZ6P9CGV3iMUja7');
-                    if (await canLaunchUrl(uri)) {
-                      await launchUrl(uri,
-                          mode: LaunchMode.externalApplication);
-                    }
-                  },
+                borderRadius: BorderRadius.circular(20),
+                border: Border.all(
+                  color: AppColors.coral.withValues(alpha: 0.4),
+                  width: 1.5,
+                ),
+                boxShadow: [
+                  BoxShadow(
+                    color: AppColors.coral.withValues(alpha: 0.15),
+                    blurRadius: 18,
+                    offset: const Offset(0, 4),
+                  ),
+                ],
+              ),
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Icon(Icons.rate_review_rounded,
+                          color: AppColors.coral, size: 22),
+                      const SizedBox(width: 8),
+                      Text(
+                        "We'd love your feedback!",
+                        style: GoogleFonts.playfairDisplay(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w700,
+                          color: AppColors.dark,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 8),
+                  Text(
+                    "We're currently developing CityLoom and would love your thoughts to help shape the tour! (Takes only 2 min)",
+                    style: GoogleFonts.dmSans(
+                      fontSize: 13,
+                      color: AppColors.muted,
+                      height: 1.4,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                  const SizedBox(height: 16),
+                  PrimaryButton(
+                    text: 'Give Feedback (Google Form)',
+                    onPressed: () async {
+                      SoundService.playTap();
+                      AnalyticsService.instance
+                          .logSurveyClick('post_quiz_results_card');
+                      final uri =
+                          Uri.parse('https://forms.gle/2iMZ6P9CGV3iMUja7');
+                      if (await canLaunchUrl(uri)) {
+                        await launchUrl(uri,
+                            mode: LaunchMode.externalApplication);
+                      }
+                    },
+                  ),
+                ],
+              ),
+            ).animate().fadeIn(delay: 350.ms),
+
+            const SizedBox(height: 24),
+
+            // Primary Action: Try Another Tier
+            PrimaryButton(
+              text: 'Try Another Tier',
+              onPressed: () {
+                SoundService.playTap();
+                appState.navigateTo(AppScreen.quizSelect);
+              },
+            ),
+            const SizedBox(height: 12),
+
+            // Secondary Row: View Collection & Home (No icons)
+            Row(
+              children: [
+                Expanded(
+                  child: PrimaryButton(
+                    text: 'View Library',
+                    isSecondary: true,
+                    onPressed: () {
+                      SoundService.playTap();
+                      appState.navigateTo(AppScreen.library);
+                    },
+                  ),
+                ),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: PrimaryButton(
+                    text: 'Home',
+                    isSecondary: true,
+                    onPressed: () {
+                      SoundService.playTap();
+                      appState.navigateTo(AppScreen.home);
+                    },
+                  ),
                 ),
               ],
             ),
-          ).animate().fadeIn(delay: 350.ms),
-
-          const SizedBox(height: 24),
-
-          // Primary Action: Try Another Tier
-          PrimaryButton(
-            text: 'Try Another Tier',
-            onPressed: () {
-              SoundService.playTap();
-              appState.navigateTo(AppScreen.quizSelect);
-            },
-          ),
-          const SizedBox(height: 12),
-
-          // Secondary Row: View Collection & Home (No icons)
-          Row(
-            children: [
-              Expanded(
-                child: PrimaryButton(
-                  text: 'View Library',
-                  isSecondary: true,
-                  onPressed: () {
-                    SoundService.playTap();
-                    appState.navigateTo(AppScreen.library);
-                  },
-                ),
-              ),
-              const SizedBox(width: 12),
-              Expanded(
-                child: PrimaryButton(
-                  text: 'Home',
-                  isSecondary: true,
-                  onPressed: () {
-                    SoundService.playTap();
-                    appState.navigateTo(AppScreen.home);
-                  },
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 32),
-        ],
-      ),
+            const SizedBox(height: 32),
+          ],
+        ),
       ),
     );
   }
@@ -1982,7 +2041,11 @@ class _QuizScreenState extends State<QuizScreen> {
           cardId: nextCard,
           onDismiss: () {
             Navigator.of(context).pop();
-            _showNextPendingUnlock(context, appState);
+            FlyToLibraryAnimation.fly(
+              context,
+              cardId: nextCard,
+              onComplete: () => _showNextPendingUnlock(context, appState),
+            );
           },
           onViewLibrary: () {
             Navigator.of(context).pop();

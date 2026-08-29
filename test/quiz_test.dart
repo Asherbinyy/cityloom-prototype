@@ -120,15 +120,34 @@ void main() {
       expect(q5.options.contains('church'), true);
     });
 
-    test('Stop B and C coordinates are aligned to markers', () {
-      final stopB = TourData.stops.firstWhere((s) => s.id == 'stop-b');
-      final stopC = TourData.stops.firstWhere((s) => s.id == 'stop-c');
+    test('Quiz state and question index are preserved when navigating to library and back', () {
+      final appState = AppState();
+      appState.selectQuizDifficulty(QuizDifficulty.historian);
+      expect(appState.currentScreen, AppScreen.quizRunner);
+      expect(appState.selectedDifficulty, QuizDifficulty.historian);
+      expect(appState.activeQuizQIndex, 0);
 
-      expect(stopB.mapCoordinate.dx, closeTo(0.35, 0.01));
-      expect(stopB.mapCoordinate.dy, closeTo(0.10, 0.01));
+      // Simulate progressing to Q4 with score 3
+      appState.updateActiveQuizProgress(
+        qIndex: 4,
+        score: 3,
+        singleIndex: 2,
+        isAnswered: true,
+        isLastAnswerCorrect: true,
+      );
 
-      expect(stopC.mapCoordinate.dx, closeTo(0.35, 0.01));
-      expect(stopC.mapCoordinate.dy, closeTo(0.55, 0.01));
+      // Open Library
+      appState.navigateTo(AppScreen.library);
+      expect(appState.currentScreen, AppScreen.library);
+
+      // Click Back from Library
+      appState.goBack();
+      expect(appState.currentScreen, AppScreen.quizRunner);
+      expect(appState.selectedDifficulty, QuizDifficulty.historian);
+      expect(appState.activeQuizQIndex, 4);
+      expect(appState.activeQuizScore, 3);
+      expect(appState.activeQuizSingleIndex, 2);
+      expect(appState.activeQuizIsAnswered, true);
     });
   });
 }

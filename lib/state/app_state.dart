@@ -41,6 +41,18 @@ class AppState extends ChangeNotifier {
   QuizDifficulty _selectedDifficulty = QuizDifficulty.explorer;
   int _currentQuizScore = 0;
 
+  // Active Running Quiz Session State (preserves state across Library / sub-screen navigation)
+  int _activeQuizQIndex = 0;
+  int _activeQuizScore = 0;
+  int? _activeQuizSingleIndex;
+  bool? _activeQuizTF;
+  final Set<int> _activeQuizMultiIndices = {};
+  String? _activeQuizFillGapOption;
+  final Map<int, int> _activeQuizPairs = {};
+  List<int> _activeQuizOrderIndices = [];
+  bool _activeQuizIsAnswered = false;
+  bool _activeQuizIsLastAnswerCorrect = false;
+
   // Getters
   AppScreen get currentScreen => _currentScreen;
   List<AppScreen> get history => _history;
@@ -55,6 +67,17 @@ class AppState extends ChangeNotifier {
   int get totalCardsCount => CardData.cards.length;
   int get unlockedCardsCount => _unlockedCardIds.length;
   bool get hasPendingUnlocks => _cardUnlockQueue.isNotEmpty;
+
+  int get activeQuizQIndex => _activeQuizQIndex;
+  int get activeQuizScore => _activeQuizScore;
+  int? get activeQuizSingleIndex => _activeQuizSingleIndex;
+  bool? get activeQuizTF => _activeQuizTF;
+  Set<int> get activeQuizMultiIndices => _activeQuizMultiIndices;
+  String? get activeQuizFillGapOption => _activeQuizFillGapOption;
+  Map<int, int> get activeQuizPairs => _activeQuizPairs;
+  List<int> get activeQuizOrderIndices => _activeQuizOrderIndices;
+  bool get activeQuizIsAnswered => _activeQuizIsAnswered;
+  bool get activeQuizIsLastAnswerCorrect => _activeQuizIsLastAnswerCorrect;
 
   bool isCardUnlocked(String cardId) => _unlockedCardIds.contains(cardId);
 
@@ -172,8 +195,50 @@ class AppState extends ChangeNotifier {
 
   void selectQuizDifficulty(QuizDifficulty difficulty) {
     _selectedDifficulty = difficulty;
+    _activeQuizQIndex = 0;
+    _activeQuizScore = 0;
+    _activeQuizSingleIndex = null;
+    _activeQuizTF = null;
+    _activeQuizMultiIndices.clear();
+    _activeQuizFillGapOption = null;
+    _activeQuizPairs.clear();
+    _activeQuizOrderIndices.clear();
+    _activeQuizIsAnswered = false;
+    _activeQuizIsLastAnswerCorrect = false;
     AnalyticsService.instance.logQuizStarted(difficulty.id);
     navigateTo(AppScreen.quizRunner);
+  }
+
+  void updateActiveQuizProgress({
+    required int qIndex,
+    required int score,
+    int? singleIndex,
+    bool? tfVal,
+    Set<int>? multiIndices,
+    String? fillGapOption,
+    Map<int, int>? pairs,
+    List<int>? orderIndices,
+    required bool isAnswered,
+    required bool isLastAnswerCorrect,
+  }) {
+    _activeQuizQIndex = qIndex;
+    _activeQuizScore = score;
+    _activeQuizSingleIndex = singleIndex;
+    _activeQuizTF = tfVal;
+    if (multiIndices != null) {
+      _activeQuizMultiIndices.clear();
+      _activeQuizMultiIndices.addAll(multiIndices);
+    }
+    _activeQuizFillGapOption = fillGapOption;
+    if (pairs != null) {
+      _activeQuizPairs.clear();
+      _activeQuizPairs.addAll(pairs);
+    }
+    if (orderIndices != null) {
+      _activeQuizOrderIndices = List.from(orderIndices);
+    }
+    _activeQuizIsAnswered = isAnswered;
+    _activeQuizIsLastAnswerCorrect = isLastAnswerCorrect;
   }
 
   void recordQuestionResult(String questionId, bool isCorrect) {

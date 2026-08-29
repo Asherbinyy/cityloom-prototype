@@ -9,6 +9,7 @@ import '../theme/app_theme.dart';
 import '../widgets/app_scaffold.dart';
 import '../widgets/audio_player_card.dart';
 import '../widgets/card_reveal_dialog.dart';
+import '../widgets/fly_to_library_animation.dart';
 import '../widgets/primary_button.dart';
 import '../widgets/progress_strip.dart';
 
@@ -124,7 +125,11 @@ class StopScreen extends StatelessWidget {
             cardId: stop.unlockedCardId!,
             onDismiss: () {
               Navigator.of(context).pop();
-              _proceedToNextScreen(appState);
+              FlyToLibraryAnimation.fly(
+                context,
+                cardId: stop.unlockedCardId!,
+                onComplete: () => _proceedToNextScreen(appState),
+              );
             },
             onViewLibrary: () {
               Navigator.of(context).pop();
