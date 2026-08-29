@@ -25,121 +25,128 @@ class TourCompleteScreen extends StatelessWidget {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          // All Progress Dots Completed
+          // All Progress Bars Completed
           const ProgressStrip(currentStep: 4),
-          const SizedBox(height: 16),
+          const SizedBox(height: 24),
 
-          // CityLoom Logo Icon
+          // CityLoom Logo
           Image.asset(
             'assets/images/logo.png',
             width: 140,
             fit: BoxFit.contain,
-            errorBuilder: (_, _, _) => const Icon(
-              Icons.church_rounded,
-              size: 72,
-              color: AppColors.coral,
-            ),
+            errorBuilder: (_, _, _) => const SizedBox.shrink(),
           ).animate().fadeIn().scale(begin: const Offset(0.9, 0.9)),
           const SizedBox(height: 16),
 
-          // Header
+          // Header: WELL DONE! & Chapter Complete
           Text(
-            'TOUR COMPLETE',
+            'WELL DONE!',
             style: GoogleFonts.dmSans(
-              fontSize: 11.5,
+              fontSize: 11,
               fontWeight: FontWeight.w700,
               letterSpacing: 2,
               color: AppColors.coral,
             ),
           ),
-          const SizedBox(height: 6),
+          const SizedBox(height: 4),
           Text(
-            "You've Explored Greyfriars!",
+            'Chapter Complete',
             style: GoogleFonts.playfairDisplay(
               fontSize: 28,
-              fontWeight: FontWeight.w700,
+              fontWeight: FontWeight.w600,
               color: AppColors.dark,
             ),
             textAlign: TextAlign.center,
           ),
-          const SizedBox(height: 14),
+          const SizedBox(height: 12),
 
-          // Dynamic Summary Message
-          Container(
-            padding: const EdgeInsets.all(18),
-            decoration: BoxDecoration(
-              color: Colors.white.withValues(alpha: 0.9),
-              borderRadius: BorderRadius.circular(18),
-              border: Border.all(color: AppColors.blush),
-              boxShadow: [
-                BoxShadow(
-                  color: AppColors.coral.withValues(alpha: 0.08),
-                  blurRadius: 14,
-                  offset: const Offset(0, 4),
-                ),
-              ],
+          // Description Text
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: Text(
+              appState.unlockedCardsCount > 0
+                  ? "You've explored Greyfriars Kirkyard and unlocked ${appState.unlockedCardsCount} character cards! Check your library to see which ones you're still missing."
+                  : "You've explored Greyfriars Kirkyard! Check your library to see which cards you're still missing.",
+              style: GoogleFonts.dmSans(
+                fontSize: 14,
+                color: AppColors.muted,
+                height: 1.5,
+              ),
+              textAlign: TextAlign.center,
             ),
-            child: Column(
-              children: [
-                Text(
-                  appState.unlockedCardsCount > 0
-                      ? "You've explored Greyfriars Kirkyard and unlocked ${appState.unlockedCardsCount} of ${appState.totalCardsCount} character cards! Check your library or play the quiz to collect the rest."
-                      : "You've explored Greyfriars Kirkyard! Play the quiz to unlock character cards and collect them in your library.",
-                  style: GoogleFonts.dmSans(
-                    fontSize: 14.5,
-                    height: 1.5,
-                    color: AppColors.dark,
+          ),
+          const SizedBox(height: 24),
+
+          // Animated Heartbeat/Pulse Library Book Icon
+          Material(
+            color: Colors.transparent,
+            child: InkWell(
+              onTap: () {
+                SoundService.playTap();
+                appState.navigateTo(AppScreen.library);
+              },
+              borderRadius: BorderRadius.circular(40),
+              child: Padding(
+                padding: const EdgeInsets.all(12),
+                child: Image.asset(
+                  'assets/images/library_icon.png',
+                  width: 76,
+                  height: 60,
+                  fit: BoxFit.contain,
+                  errorBuilder: (_, _, _) => const Icon(
+                    Icons.auto_stories_rounded,
+                    size: 64,
+                    color: AppColors.coral,
                   ),
-                  textAlign: TextAlign.center,
                 ),
-              ],
+              ),
+            )
+                .animate(onPlay: (controller) => controller.repeat(reverse: true))
+                .scale(
+                  begin: const Offset(1.0, 1.0),
+                  end: const Offset(1.10, 1.10),
+                  duration: 1100.ms,
+                  curve: Curves.easeInOut,
+                ),
+          ),
+          const SizedBox(height: 12),
+
+          Text(
+            'Play the quiz to unlock more characters.',
+            style: GoogleFonts.dmSans(
+              fontSize: 12.5,
+              color: AppColors.muted,
             ),
-          ).animate().fadeIn(delay: 200.ms),
+            textAlign: TextAlign.center,
+          ),
+          const SizedBox(height: 24),
 
-          const SizedBox(height: 32),
-
-          // "Take the Quiz" Primary Button
+          // "Start Quiz" Button (Solid coral, no icons)
           PrimaryButton(
-            text: 'Take the Quiz',
-            icon: Icons.quiz_rounded,
+            text: 'Start Quiz',
             onPressed: () {
               SoundService.playTap();
               appState.navigateTo(AppScreen.quizSelect);
             },
-          ).animate().fadeIn(delay: 300.ms),
-          const SizedBox(height: 12),
+          ),
+          const SizedBox(height: 14),
 
-          // "View Library" Secondary Button
-          PrimaryButton(
-            text:
-                'View Collection (${appState.unlockedCardsCount}/${appState.totalCardsCount})',
-            icon: Icons.auto_stories_rounded,
-            isSecondary: true,
-            onPressed: () {
-              SoundService.playTap();
-              appState.navigateTo(AppScreen.library);
-            },
-          ).animate().fadeIn(delay: 400.ms),
-          const SizedBox(height: 12),
-
-          // "Give Feedback" Text Button
-          TextButton.icon(
+          // "Skip to Feedback" Text Link (No icons)
+          TextButton(
             onPressed: () {
               SoundService.playTap();
               appState.navigateTo(AppScreen.survey);
             },
-            icon: const Icon(Icons.rate_review_outlined,
-                size: 16, color: AppColors.dark),
-            label: Text(
-              'Give Feedback',
+            child: Text(
+              'Skip to Feedback',
               style: GoogleFonts.dmSans(
-                fontWeight: FontWeight.w600,
                 fontSize: 13,
-                color: AppColors.dark,
+                fontWeight: FontWeight.w500,
+                color: AppColors.muted,
                 decoration: TextDecoration.underline,
               ),
             ),
-          ).animate().fadeIn(delay: 500.ms),
+          ),
           const SizedBox(height: 24),
         ],
       ),

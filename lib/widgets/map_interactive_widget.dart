@@ -67,7 +67,8 @@ class _MapInteractiveWidgetState extends State<MapInteractiveWidget>
         _hasArrived = true;
         _footstepSoundTimer?.cancel();
         SoundService.playCorrect();
-        Future.delayed(const Duration(milliseconds: 600), () {
+        // Give time for zoom-out to settle before triggering arrival callback
+        Future.delayed(const Duration(milliseconds: 700), () {
           if (mounted) widget.onArrived();
         });
       }
@@ -193,6 +194,8 @@ class _MapInteractiveWidgetState extends State<MapInteractiveWidget>
         ? _calculatePositionOnPath(_currentPath, _walkAnimation.value)
         : _currentPath.first;
 
+    final double zoomScale = widget.isWalking && !_hasArrived ? 1.15 : 1.0;
+
     return Container(
       decoration: BoxDecoration(
         color: AppColors.cream,
@@ -207,68 +210,70 @@ class _MapInteractiveWidgetState extends State<MapInteractiveWidget>
       ),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(16),
-        child: LayoutBuilder(
-          builder: (context, constraints) {
-            final w = constraints.maxWidth;
-            // Let the image determine its own height
-            return Stack(
-              children: [
-                // Map Background Image — new map with A, B, C already on it
-                Image.asset(
-                  'assets/images/map.png',
-                  width: w,
-                  fit: BoxFit.fitWidth,
-                  errorBuilder: (_, _, _) => Container(
-                    height: w * 0.75,
-                    color: const Color(0xFFE5ECC8),
-                    child: const Center(
-                      child: Icon(Icons.map_rounded,
-                          size: 48, color: AppColors.muted),
+        child: AnimatedScale(
+          scale: zoomScale,
+          duration: const Duration(milliseconds: 600),
+          curve: Curves.easeInOutCubic,
+          child: LayoutBuilder(
+            builder: (context, constraints) {
+              final w = constraints.maxWidth;
+              return Stack(
+                children: [
+                  // Map Background Image — new map with A, B, C already on it
+                  Image.asset(
+                    'assets/images/map.png',
+                    width: w,
+                    fit: BoxFit.fitWidth,
+                    errorBuilder: (_, _, _) => Container(
+                      height: w * 0.75,
+                      color: const Color(0xFFE5ECC8),
+                      child: const Center(
+                        child: Icon(Icons.map_rounded,
+                            size: 48, color: AppColors.muted),
+                      ),
                     ),
                   ),
-                ),
 
-                // Footsteps Trail (Dual alternating feet)
-                // We need to position footsteps relative to the image.
-                // Since the image fills width and height is proportional,
-                // we use w and estimated h based on aspect ratio.
-                Positioned.fill(
-                  child: LayoutBuilder(
-                    builder: (context, innerConstraints) {
-                      final iw = innerConstraints.maxWidth;
-                      final ih = innerConstraints.maxHeight;
-                      return Stack(
-                        children: [
-                          ..._footsteps.map((step) {
-                            final px = step.position.dx * iw;
-                            final py = step.position.dy * ih;
-                            return Positioned(
-                              left: px - 5,
-                              top: py - 7,
-                              child: Transform.rotate(
-                                angle: step.angle + math.pi / 2,
-                                child: CustomPaint(
-                                  size: const Size(10, 14),
-                                  painter: _FootprintPainter(isLeft: step.isLeft),
+                  // Footsteps Trail & Explorer Avatar
+                  Positioned.fill(
+                    child: LayoutBuilder(
+                      builder: (context, innerConstraints) {
+                        final iw = innerConstraints.maxWidth;
+                        final ih = innerConstraints.maxHeight;
+                        return Stack(
+                          children: [
+                            ..._footsteps.map((step) {
+                              final px = step.position.dx * iw;
+                              final py = step.position.dy * ih;
+                              return Positioned(
+                                left: px - 5,
+                                top: py - 7,
+                                child: Transform.rotate(
+                                  angle: step.angle + math.pi / 2,
+                                  child: CustomPaint(
+                                    size: const Size(10, 14),
+                                    painter:
+                                        _FootprintPainter(isLeft: step.isLeft),
+                                  ),
                                 ),
-                              ),
-                            );
-                          }),
+                              );
+                            }),
 
-                          // Explorer Avatar Marker
-                          Positioned(
-                            left: (currentPos.dx * iw) - 20,
-                            top: (currentPos.dy * ih) - 40,
-                            child: _buildExplorerAvatar(widget.isWalking),
-                          ),
-                        ],
-                      );
-                    },
+                            // Explorer Avatar Marker
+                            Positioned(
+                              left: (currentPos.dx * iw) - 20,
+                              top: (currentPos.dy * ih) - 40,
+                              child: _buildExplorerAvatar(widget.isWalking),
+                            ),
+                          ],
+                        );
+                      },
+                    ),
                   ),
-                ),
-              ],
-            );
-          },
+                ],
+              );
+            },
+          ),
         ),
       ),
     );

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import '../data/tour_data.dart';
 import '../models/tour_model.dart';
 import '../state/app_state.dart';
+import '../theme/app_theme.dart';
 import '../widgets/app_scaffold.dart';
 import '../widgets/map_interactive_widget.dart';
 import '../widgets/primary_button.dart';
@@ -37,9 +39,9 @@ class _MapScreenState extends State<MapScreen> {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          // Progress Dots
+          // Progress Bars
           ProgressStrip(currentStep: stop.progressStep),
-          const SizedBox(height: 12),
+          const SizedBox(height: 8),
 
           // Header
           Text(
@@ -51,7 +53,7 @@ class _MapScreenState extends State<MapScreen> {
             stop.mapTitle,
             style: Theme.of(context).textTheme.headlineLarge,
           ),
-          const SizedBox(height: 12),
+          const SizedBox(height: 10),
 
           // Description
           Text(
@@ -60,34 +62,68 @@ class _MapScreenState extends State<MapScreen> {
           ),
           const SizedBox(height: 12),
 
-          // Interactive Map Widget with Animated Character and Footsteps
+          // Interactive Map Widget with smooth zoom in on navigation
           MapInteractiveWidget(
             currentStopIndex: widget.stopIndex,
             isWalking: _isNavigating,
             onArrived: () => _onArrived(appState),
           ).animate().fadeIn(duration: 400.ms),
 
-          const SizedBox(height: 24),
+          const SizedBox(height: 20),
 
-          // "I'm at Stop X" Button
-          PrimaryButton(
-            text: _isNavigating
-                ? 'Walking to ${stop.label}...'
-                : "I'm at ${stop.label}",
-            isLoading: _isNavigating,
-            onPressed: _isNavigating
-                ? null
-                : () {
+          // Action Buttons: smoothly hidden during walking animation
+          AnimatedCrossFade(
+            duration: const Duration(milliseconds: 350),
+            crossFadeState: _isNavigating
+                ? CrossFadeState.showSecond
+                : CrossFadeState.showFirst,
+            firstChild: Column(
+              children: [
+                // "I'm at Stop X" Button
+                PrimaryButton(
+                  text: "I'm at ${stop.label}",
+                  onPressed: () {
                     setState(() => _isNavigating = true);
                   },
-          ),
-          const SizedBox(height: 12),
+                ),
+                const SizedBox(height: 12),
 
-          // Skip Button
-          PrimaryButton(
-            text: 'Skip this stop',
-            isSecondary: true,
-            onPressed: _isNavigating ? null : () => _skipStop(appState),
+                // Skip Button
+                PrimaryButton(
+                  text: 'Skip this stop',
+                  isSecondary: true,
+                  onPressed: () => _skipStop(appState),
+                ),
+              ],
+            ),
+            secondChild: Center(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 12),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const SizedBox(
+                      width: 18,
+                      height: 18,
+                      child: CircularProgressIndicator(
+                        strokeWidth: 2,
+                        valueColor: AlwaysStoppedAnimation<Color>(AppColors.coral),
+                      ),
+                    ),
+                    const SizedBox(width: 10),
+                    Text(
+                      'Navigating to ${stop.label}...',
+                      style: GoogleFonts.dmSans(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w600,
+                        color: AppColors.coral,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
           ),
           const SizedBox(height: 24),
         ],

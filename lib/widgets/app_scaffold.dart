@@ -126,33 +126,17 @@ class AppScaffold extends StatelessWidget {
           else
             const SizedBox(width: 36),
 
-          // Center: Logo and Title on the exact same baseline
+          // Center: Title cleanly centered on top bar
           Expanded(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Image.asset(
-                  'assets/images/logo.png',
-                  height: 24,
-                  fit: BoxFit.contain,
-                  errorBuilder: (_, _, _) => const SizedBox.shrink(),
-                ),
-                const SizedBox(width: 8),
-                Flexible(
-                  child: Text(
-                    topBarTitle ?? 'Greyfriars Kirkyard',
-                    style: GoogleFonts.playfairDisplay(
-                      fontSize: 17,
-                      fontWeight: FontWeight.w700,
-                      color: AppColors.dark,
-                    ),
-                    overflow: TextOverflow.ellipsis,
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-              ],
+            child: Text(
+              topBarTitle ?? 'Greyfriars Kirkyard',
+              style: GoogleFonts.playfairDisplay(
+                fontSize: 18,
+                fontWeight: FontWeight.w700,
+                color: AppColors.dark,
+              ),
+              overflow: TextOverflow.ellipsis,
+              textAlign: TextAlign.center,
             ),
           ),
 

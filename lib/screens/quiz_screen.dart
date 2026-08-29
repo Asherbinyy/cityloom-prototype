@@ -222,19 +222,20 @@ class _QuizScreenState extends State<QuizScreen> {
                     child: Row(
                       children: [
                         Container(
-                          width: 44,
-                          height: 44,
+                          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
                           decoration: BoxDecoration(
                             color: accentColor.withValues(alpha: 0.12),
-                            shape: BoxShape.circle,
+                            borderRadius: BorderRadius.circular(12),
                           ),
-                          child: Center(
-                            child: Icon(
-                              isPerfect
-                                  ? Icons.workspace_premium_rounded
-                                  : Icons.play_arrow_rounded,
-                              color: accentColor,
-                              size: 26,
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: List.generate(
+                              diff.index + 1,
+                              (sIdx) => Icon(
+                                Icons.star_rounded,
+                                color: isPerfect ? const Color(0xFFE5A93B) : accentColor,
+                                size: 18,
+                              ),
                             ),
                           ),
                         ),
@@ -243,32 +244,19 @@ class _QuizScreenState extends State<QuizScreen> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Row(
-                                children: [
-                                  Text(
-                                    level.label,
-                                    style: GoogleFonts.playfairDisplay(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.w700,
-                                      color: AppColors.dark,
-                                    ),
-                                  ),
-                                  const SizedBox(width: 8),
-                                  Text(
-                                    '($totalQ Qs)',
-                                    style: GoogleFonts.dmSans(
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w600,
-                                      color: AppColors.muted,
-                                    ),
-                                  ),
-                                ],
+                              Text(
+                                level.label,
+                                style: GoogleFonts.playfairDisplay(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w700,
+                                  color: AppColors.dark,
+                                ),
                               ),
                               const SizedBox(height: 3),
                               Text(
-                                level.description,
+                                '$totalQ questions',
                                 style: GoogleFonts.dmSans(
-                                  fontSize: 12,
+                                  fontSize: 13,
                                   color: AppColors.muted,
                                 ),
                               ),
@@ -1505,10 +1493,9 @@ class _QuizScreenState extends State<QuizScreen> {
 
           const SizedBox(height: 24),
 
-          // Actions
+          // Primary Action: Try Another Tier
           PrimaryButton(
-            text: 'Try Another Level',
-            isSecondary: true,
+            text: 'Try Another Tier',
             onPressed: () {
               SoundService.playTap();
               appState.navigateTo(AppScreen.quizSelect);
@@ -1516,24 +1503,33 @@ class _QuizScreenState extends State<QuizScreen> {
           ),
           const SizedBox(height: 12),
 
-          PrimaryButton(
-            text:
-                'View Collection (${appState.unlockedCardsCount}/${appState.totalCardsCount})',
-            isSecondary: true,
-            onPressed: () {
-              SoundService.playTap();
-              appState.navigateTo(AppScreen.library);
-            },
-          ),
-          const SizedBox(height: 12),
-
-          PrimaryButton(
-            text: 'Listen Again (Home)',
-            isSecondary: true,
-            onPressed: () {
-              SoundService.playTap();
-              appState.navigateTo(AppScreen.home);
-            },
+          // Secondary Row: View Collection & Home
+          Row(
+            children: [
+              Expanded(
+                child: PrimaryButton(
+                  text: 'View Library',
+                  icon: Icons.auto_stories_rounded,
+                  isSecondary: true,
+                  onPressed: () {
+                    SoundService.playTap();
+                    appState.navigateTo(AppScreen.library);
+                  },
+                ),
+              ),
+              const SizedBox(width: 12),
+              Expanded(
+                child: PrimaryButton(
+                  text: 'Home',
+                  icon: Icons.home_rounded,
+                  isSecondary: true,
+                  onPressed: () {
+                    SoundService.playTap();
+                    appState.navigateTo(AppScreen.home);
+                  },
+                ),
+              ),
+            ],
           ),
           const SizedBox(height: 32),
         ],

@@ -13,34 +13,54 @@ class ProgressStrip extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 12),
+    return Container(
+      width: double.infinity,
+      constraints: const BoxConstraints(maxWidth: 440),
+      margin: const EdgeInsets.only(bottom: 18),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
         children: List.generate(totalSteps, (index) {
           final isDone = index < currentStep;
           final isCurrent = index == currentStep;
 
-          return AnimatedContainer(
-            duration: const Duration(milliseconds: 300),
-            curve: Curves.easeInOut,
-            margin: const EdgeInsets.symmetric(horizontal: 4),
-            width: isCurrent ? 24 : 8,
-            height: 8,
-            decoration: BoxDecoration(
-              color: isCurrent
-                  ? AppColors.coral
-                  : (isDone ? AppColors.coral.withValues(alpha: 0.7) : AppColors.blush),
-              borderRadius: BorderRadius.circular(4),
-              boxShadow: isCurrent
-                  ? [
-                      BoxShadow(
-                        color: AppColors.coral.withValues(alpha: 0.4),
-                        blurRadius: 6,
-                        offset: const Offset(0, 2),
-                      ),
-                    ]
-                  : null,
+          Color barColor;
+          if (isDone) {
+            barColor = AppColors.coral;
+          } else if (isCurrent) {
+            barColor = AppColors.sky;
+          } else {
+            barColor = AppColors.blush;
+          }
+
+          return Expanded(
+            child: AnimatedContainer(
+              duration: const Duration(milliseconds: 400),
+              curve: Curves.easeInOut,
+              margin: EdgeInsets.only(
+                left: index == 0 ? 0 : 3,
+                right: index == totalSteps - 1 ? 0 : 3,
+              ),
+              height: 4.5,
+              decoration: BoxDecoration(
+                color: barColor,
+                borderRadius: BorderRadius.circular(2.5),
+                boxShadow: isCurrent
+                    ? [
+                        BoxShadow(
+                          color: AppColors.sky.withValues(alpha: 0.5),
+                          blurRadius: 6,
+                          offset: const Offset(0, 1),
+                        ),
+                      ]
+                    : (isDone
+                        ? [
+                            BoxShadow(
+                              color: AppColors.coral.withValues(alpha: 0.3),
+                              blurRadius: 4,
+                              offset: const Offset(0, 1),
+                            ),
+                          ]
+                        : null),
+              ),
             ),
           );
         }),

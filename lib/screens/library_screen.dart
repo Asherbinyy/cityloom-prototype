@@ -250,31 +250,18 @@ class _LibraryScreenState extends State<LibraryScreen> {
                           Text(
                             '?',
                             style: GoogleFonts.playfairDisplay(
-                              fontSize: 36,
+                              fontSize: 44,
                               fontWeight: FontWeight.w700,
-                              color: Colors.white.withValues(alpha: 0.6),
+                              color: Colors.white.withValues(alpha: 0.65),
                             ),
                           ),
-                          const SizedBox(height: 4),
-                          Text(
-                            card.name,
-                            style: GoogleFonts.dmSans(
-                              fontSize: 11,
-                              fontWeight: FontWeight.w500,
-                              letterSpacing: 0.5,
-                              color: Colors.white.withValues(alpha: 0.8),
-                            ),
-                            textAlign: TextAlign.center,
-                            maxLines: 2,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                          const SizedBox(height: 6),
+                          const SizedBox(height: 8),
                           Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2.5),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10),
                               border: Border.all(
-                                color: Colors.white.withValues(alpha: 0.3),
+                                color: Colors.white.withValues(alpha: 0.35),
                                 width: 1,
                               ),
                             ),
@@ -282,9 +269,9 @@ class _LibraryScreenState extends State<LibraryScreen> {
                               card.rarity.name.toUpperCase(),
                               style: GoogleFonts.dmSans(
                                 fontSize: 9,
-                                fontWeight: FontWeight.w600,
+                                fontWeight: FontWeight.w700,
                                 letterSpacing: 2,
-                                color: Colors.white.withValues(alpha: 0.6),
+                                color: Colors.white.withValues(alpha: 0.7),
                               ),
                             ),
                           ),

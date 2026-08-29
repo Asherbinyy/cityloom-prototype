@@ -1,5 +1,9 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../models/card_model.dart';
+import '../services/sound_service.dart';
 import '../theme/app_theme.dart';
 
 class CardFullscreenDialog extends StatelessWidget {
@@ -9,6 +13,32 @@ class CardFullscreenDialog extends StatelessWidget {
     super.key,
     required this.card,
   });
+
+  void _downloadCard(BuildContext context) async {
+    SoundService.playTap();
+    try {
+      final uri = Uri.parse(card.imageAsset);
+      if (await canLaunchUrl(uri)) {
+        await launchUrl(uri, mode: LaunchMode.externalApplication);
+      } else {
+        // Fallback info
+        if (context.mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(
+                'Long-press or right-click the image to save "${card.name}"',
+                style: GoogleFonts.dmSans(color: Colors.white),
+                textAlign: TextAlign.center,
+              ),
+              backgroundColor: const Color(0xFF281E14),
+              behavior: SnackBarBehavior.floating,
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+            ),
+          );
+        }
+      }
+    } catch (_) {}
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -38,12 +68,12 @@ class CardFullscreenDialog extends StatelessWidget {
             constraints: const BoxConstraints(maxWidth: 420, maxHeight: 680),
             padding: const EdgeInsets.fromLTRB(20, 24, 20, 20),
             decoration: BoxDecoration(
-              color: Colors.white,
+              color: const Color(0xFFFEFAF6),
               borderRadius: BorderRadius.circular(24),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black.withValues(alpha: 0.3),
-                  blurRadius: 24,
+                  color: Colors.black.withValues(alpha: 0.35),
+                  blurRadius: 28,
                   offset: const Offset(0, 8),
                 ),
               ],
@@ -54,8 +84,7 @@ class CardFullscreenDialog extends StatelessWidget {
                 // Header: Name & Rarity
                 Text(
                   card.name,
-                  style: const TextStyle(
-                    fontFamily: 'Playfair Display',
+                  style: GoogleFonts.playfairDisplay(
                     fontSize: 22,
                     fontWeight: FontWeight.bold,
                     color: AppColors.dark,
@@ -72,7 +101,7 @@ class CardFullscreenDialog extends StatelessWidget {
                   ),
                   child: Text(
                     card.rarity.displayName.toUpperCase(),
-                    style: TextStyle(
+                    style: GoogleFonts.dmSans(
                       fontSize: 11,
                       fontWeight: FontWeight.bold,
                       letterSpacing: 1.2,
@@ -80,24 +109,27 @@ class CardFullscreenDialog extends StatelessWidget {
                     ),
                   ),
                 ),
-                const SizedBox(height: 16),
+                const SizedBox(height: 14),
 
-                // Interactive Zoomable Card
+                // Interactive Zoomable & Pannable Card
                 Expanded(
-                  child: InteractiveViewer(
-                    minScale: 0.8,
-                    maxScale: 3.5,
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(16),
-                      child: Image.asset(
-                        card.imageAsset,
-                        fit: BoxFit.contain,
-                        errorBuilder: (_, _, _) => Container(
-                          color: const Color(0xFF2A2A2A),
-                          child: Center(
-                            child: Text(
-                              card.name,
-                              style: const TextStyle(color: Colors.white),
+                  child: GestureDetector(
+                    onLongPress: () => _downloadCard(context),
+                    child: InteractiveViewer(
+                      minScale: 0.8,
+                      maxScale: 3.5,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(16),
+                        child: Image.asset(
+                          card.imageAsset,
+                          fit: BoxFit.contain,
+                          errorBuilder: (_, _, _) => Container(
+                            color: const Color(0xFF2A2A2A),
+                            child: Center(
+                              child: Text(
+                                card.name,
+                                style: const TextStyle(color: Colors.white),
+                              ),
                             ),
                           ),
                         ),
@@ -105,7 +137,7 @@ class CardFullscreenDialog extends StatelessWidget {
                     ),
                   ),
                 ),
-                const SizedBox(height: 14),
+                const SizedBox(height: 12),
 
                 // Historical Bio
                 if (card.historicalBio != null)
@@ -118,7 +150,7 @@ class CardFullscreenDialog extends StatelessWidget {
                     ),
                     child: Text(
                       card.historicalBio!,
-                      style: const TextStyle(
+                      style: GoogleFonts.dmSans(
                         fontSize: 12.5,
                         height: 1.4,
                         color: AppColors.dark,
@@ -126,6 +158,22 @@ class CardFullscreenDialog extends StatelessWidget {
                       textAlign: TextAlign.center,
                     ),
                   ),
+                const SizedBox(height: 12),
+
+                // Download / Save Action Button
+                TextButton.icon(
+                  onPressed: () => _downloadCard(context),
+                  icon: const Icon(Icons.download_rounded, size: 18, color: AppColors.coral),
+                  label: Text(
+                    'Save / Open High-Res Image',
+                    style: GoogleFonts.dmSans(
+                      fontSize: 13,
+                      fontWeight: FontWeight.w600,
+                      color: AppColors.coral,
+                      decoration: TextDecoration.underline,
+                    ),
+                  ),
+                ),
               ],
             ),
           ),
