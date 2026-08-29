@@ -1729,9 +1729,10 @@ class _QuizScreenState extends State<QuizScreen> {
                           fontSize: 13.5, color: AppColors.dark),
                     ),
                   ),
-                  const OrderDragIcon(
+                  const Icon(
+                    Icons.swap_vert_rounded,
                     size: 24,
-                    color: AppColors.muted,
+                    color: Color(0xFF6B6B6B),
                   ),
                 ],
               ),
