@@ -18,8 +18,9 @@ class QuitQuizDialog extends StatelessWidget {
         constraints: const BoxConstraints(maxWidth: 360),
         padding: const EdgeInsets.all(24),
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: const Color(0xFFFEFAF6),
           borderRadius: BorderRadius.circular(22),
+          border: Border.all(color: AppColors.blush),
           boxShadow: [
             BoxShadow(
               color: Colors.black.withValues(alpha: 0.15),

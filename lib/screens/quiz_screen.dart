@@ -7,6 +7,7 @@ import '../data/quiz_data.dart';
 import '../models/quiz_model.dart';
 import '../services/analytics_service.dart';
 import '../services/sound_service.dart';
+import '../services/tts_service.dart';
 import '../state/app_state.dart';
 import '../theme/app_theme.dart';
 import '../widgets/app_scaffold.dart';
@@ -43,6 +44,7 @@ class _QuizScreenState extends State<QuizScreen> {
   bool _isAnswered = false;
   bool _isLastAnswerCorrect = false;
   bool _unlockDialogsProcessed = false;
+  bool _isTtsReading = false;
 
   static const List<Color> matchBorderColors = [
     Color(0xFF9B59B6), // Purple
@@ -67,9 +69,11 @@ class _QuizScreenState extends State<QuizScreen> {
     _selectedFillGapOption = null;
     _selectedPairs.clear();
     _activeMatchLeftIndex = null;
-    _currentOrderIndices = [];
+    _currentOrderIndices.clear();
     _isAnswered = false;
     _isLastAnswerCorrect = false;
+    _isTtsReading = false;
+    TtsService.stop();
     _unlockDialogsProcessed = false;
   }
 
@@ -200,34 +204,6 @@ class _QuizScreenState extends State<QuizScreen> {
                     padding: const EdgeInsets.all(18),
                     child: Row(
                       children: [
-                        Container(
-                          width: 44,
-                          height: 44,
-                          decoration: BoxDecoration(
-                            color: isPerfect
-                                ? const Color(0xFFE8F8EA)
-                                : accentColor.withValues(alpha: 0.12),
-                            borderRadius: BorderRadius.circular(12),
-                            border: Border.all(
-                              color: isPerfect
-                                  ? const Color(0xFF6BCB77)
-                                  : accentColor.withValues(alpha: 0.3),
-                              width: 1.2,
-                            ),
-                          ),
-                          child: Center(
-                            child: Icon(
-                              isPerfect
-                                  ? Icons.workspace_premium_rounded
-                                  : Icons.star_rounded,
-                              color: isPerfect
-                                  ? const Color(0xFF2D7A36)
-                                  : accentColor,
-                              size: 24,
-                            ),
-                          ),
-                        ),
-                        const SizedBox(width: 14),
                         Expanded(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -235,18 +211,38 @@ class _QuizScreenState extends State<QuizScreen> {
                               Text(
                                 level.label,
                                 style: GoogleFonts.playfairDisplay(
-                                  fontSize: 18,
+                                  fontSize: 19,
                                   fontWeight: FontWeight.w700,
                                   color: AppColors.dark,
                                 ),
                               ),
-                              const SizedBox(height: 3),
-                              Text(
-                                '$totalQ questions',
-                                style: GoogleFonts.dmSans(
-                                  fontSize: 13,
-                                  color: AppColors.muted,
-                                ),
+                              const SizedBox(height: 5),
+                              Row(
+                                children: [
+                                  Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: List.generate(
+                                      diff.index + 1,
+                                      (sIdx) => const Padding(
+                                        padding: EdgeInsets.only(right: 2),
+                                        child: Icon(
+                                          Icons.star_rounded,
+                                          color: Color(0xFFE5A93B),
+                                          size: 16,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  const SizedBox(width: 6),
+                                  Text(
+                                    '•  $totalQ questions',
+                                    style: GoogleFonts.dmSans(
+                                      fontSize: 13,
+                                      fontWeight: FontWeight.w500,
+                                      color: AppColors.muted,
+                                    ),
+                                  ),
+                                ],
                               ),
                             ],
                           ),
@@ -331,7 +327,7 @@ class _QuizScreenState extends State<QuizScreen> {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          // Question Progress Indicator
+          // Question Progress Indicator & Audio TTS Read-Aloud
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -344,23 +340,85 @@ class _QuizScreenState extends State<QuizScreen> {
                   color: AppColors.coral,
                 ),
               ),
-              Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 10, vertical: 3),
-                decoration: BoxDecoration(
-                  color: AppColors.cream,
-                  borderRadius: BorderRadius.circular(10),
-                  border: Border.all(
-                      color: AppColors.coral.withValues(alpha: 0.3)),
-                ),
-                child: Text(
-                  'Score: $_score',
-                  style: GoogleFonts.dmSans(
-                    fontSize: 12,
-                    fontWeight: FontWeight.bold,
-                    color: AppColors.dark,
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Material(
+                    color: Colors.transparent,
+                    child: InkWell(
+                      onTap: () {
+                        setState(() {
+                          _isTtsReading = !_isTtsReading;
+                        });
+                        if (_isTtsReading) {
+                          TtsService.readQuestion(q);
+                        } else {
+                          TtsService.stop();
+                        }
+                      },
+                      borderRadius: BorderRadius.circular(10),
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 8, vertical: 3),
+                        decoration: BoxDecoration(
+                          color: _isTtsReading
+                              ? const Color(0xFFFFF0E6)
+                              : AppColors.cream,
+                          borderRadius: BorderRadius.circular(10),
+                          border: Border.all(
+                            color: _isTtsReading
+                                ? AppColors.coral
+                                : AppColors.blush,
+                          ),
+                        ),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Icon(
+                              _isTtsReading
+                                  ? Icons.stop_circle_rounded
+                                  : Icons.volume_up_rounded,
+                              size: 14,
+                              color: _isTtsReading
+                                  ? AppColors.coral
+                                  : AppColors.dark,
+                            ),
+                            const SizedBox(width: 4),
+                            Text(
+                              _isTtsReading ? 'Stop' : 'Listen',
+                              style: GoogleFonts.dmSans(
+                                fontSize: 11,
+                                fontWeight: FontWeight.bold,
+                                color: _isTtsReading
+                                    ? AppColors.coral
+                                    : AppColors.dark,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
                   ),
-                ),
+                  const SizedBox(width: 8),
+                  Container(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 10, vertical: 3),
+                    decoration: BoxDecoration(
+                      color: AppColors.cream,
+                      borderRadius: BorderRadius.circular(10),
+                      border: Border.all(
+                          color: AppColors.coral.withValues(alpha: 0.3)),
+                    ),
+                    child: Text(
+                      'Score: $_score',
+                      style: GoogleFonts.dmSans(
+                        fontSize: 12,
+                        fontWeight: FontWeight.bold,
+                        color: AppColors.dark,
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ],
           ),

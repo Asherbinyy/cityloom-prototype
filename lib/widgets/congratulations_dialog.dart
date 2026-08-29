@@ -21,8 +21,9 @@ class CongratulationsDialog extends StatelessWidget {
         constraints: const BoxConstraints(maxWidth: 380),
         padding: const EdgeInsets.all(28),
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: const Color(0xFFFEFAF6),
           borderRadius: BorderRadius.circular(24),
+          border: Border.all(color: AppColors.blush),
           boxShadow: [
             BoxShadow(
               color: AppColors.coral.withValues(alpha: 0.25),

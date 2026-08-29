@@ -329,6 +329,32 @@
       }
     };
 
+    window.cityLoomTTS = {
+      speaking: false,
+      speak: function(text) {
+        try {
+          if (!('speechSynthesis' in window)) return;
+          window.speechSynthesis.cancel();
+          var utter = new SpeechSynthesisUtterance(text);
+          utter.rate = 0.95;
+          utter.pitch = 1.0;
+          utter.lang = 'en-GB';
+          utter.onstart = function() { window.cityLoomTTS.speaking = true; };
+          utter.onend = function() { window.cityLoomTTS.speaking = false; };
+          utter.onerror = function() { window.cityLoomTTS.speaking = false; };
+          window.speechSynthesis.speak(utter);
+        } catch(e) { console.warn(e); }
+      },
+      stop: function() {
+        try {
+          if ('speechSynthesis' in window) {
+            window.speechSynthesis.cancel();
+          }
+          window.cityLoomTTS.speaking = false;
+        } catch(e) { console.warn(e); }
+      }
+    };
+
     function hideSplash() {
       var splash = document.getElementById('loading-splash');
       if (splash && !splash.classList.contains('hidden')) {

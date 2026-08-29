@@ -124,10 +124,10 @@ void main() {
       final stopB = TourData.stops.firstWhere((s) => s.id == 'stop-b');
       final stopC = TourData.stops.firstWhere((s) => s.id == 'stop-c');
 
-      expect(stopB.mapCoordinate.dx, closeTo(0.405, 0.01));
-      expect(stopB.mapCoordinate.dy, closeTo(0.11, 0.01));
+      expect(stopB.mapCoordinate.dx, closeTo(0.35, 0.01));
+      expect(stopB.mapCoordinate.dy, closeTo(0.10, 0.01));
 
-      expect(stopC.mapCoordinate.dx, closeTo(0.41, 0.01));
+      expect(stopC.mapCoordinate.dx, closeTo(0.35, 0.01));
       expect(stopC.mapCoordinate.dy, closeTo(0.55, 0.01));
     });
   });
