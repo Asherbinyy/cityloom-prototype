@@ -5,35 +5,74 @@ class TtsService {
   static bool _isPlaying = false;
   static bool get isPlaying => _isPlaying;
 
-  static void speak(String text) {
-    debugPrint('[TtsService] Speaking: $text');
+  static bool _isPaused = false;
+  static bool get isPaused => _isPaused;
+
+  static double _currentSpeed = 1.0;
+  static double get currentSpeed => _currentSpeed;
+
+  static void speak(String text, {double rate = 0.92}) {
+    debugPrint('[TtsService] Speaking: $text (rate: $rate)');
     _isPlaying = true;
+    _isPaused = false;
+    _currentSpeed = rate;
+  }
+
+  static void pause() {
+    _isPaused = true;
+  }
+
+  static void resume() {
+    _isPaused = false;
+  }
+
+  static void restart() {
+    _isPaused = false;
+    _isPlaying = true;
+  }
+
+  static void setSpeed(double rate) {
+    _currentSpeed = rate;
   }
 
   static void stop() {
     _isPlaying = false;
+    _isPaused = false;
   }
 
-  static void readQuestion(QuizQuestion q) {
+  static bool startListening(Function(String text) onResult) {
+    debugPrint('[TtsService] STT listening started');
+    return false;
+  }
+
+  static void stopListening() {
+    debugPrint('[TtsService] STT listening stopped');
+  }
+
+  static void readQuestion(QuizQuestion q, {double speed = 1.0}) {
     final buffer = StringBuffer();
     buffer.write('Question: ${q.question}. ');
+
+    if (q.instruction != null && q.instruction!.isNotEmpty) {
+      buffer.write('${q.instruction!}. ');
+    }
 
     switch (q.type) {
       case QuestionType.single:
       case QuestionType.oddOneOut:
-        buffer.write('This is a single choice question. The options are: ');
+        buffer.write('Single choice. The options are: ');
         for (var i = 0; i < q.options.length; i++) {
           buffer.write('Option ${i + 1}: ${q.options[i]}. ');
         }
         break;
       case QuestionType.multiSelect:
-        buffer.write('This is a multiple choice question. Select all that apply. The options are: ');
+        buffer.write('Multiple choice. The options are: ');
         for (var i = 0; i < q.options.length; i++) {
           buffer.write('Option ${i + 1}: ${q.options[i]}. ');
         }
         break;
       case QuestionType.trueFalse:
-        buffer.write('This is a true or false question. Option 1: True. Option 2: False. ');
+        buffer.write('True or false. Option 1: True. Option 2: False. ');
         break;
       case QuestionType.fillGapSingle:
         buffer.write('Fill in the blank. The options are: ');
@@ -49,6 +88,6 @@ class TtsService {
         break;
     }
 
-    speak(buffer.toString());
+    speak(buffer.toString(), rate: speed);
   }
 }

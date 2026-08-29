@@ -12,6 +12,7 @@ import '../state/app_state.dart';
 import '../theme/app_theme.dart';
 import '../widgets/app_scaffold.dart';
 import '../widgets/card_reveal_dialog.dart';
+import '../widgets/confetti_overlay.dart';
 import '../widgets/congratulations_dialog.dart';
 import '../widgets/learn_more_dialog.dart';
 import '../widgets/primary_button.dart';
@@ -44,7 +45,16 @@ class _QuizScreenState extends State<QuizScreen> {
   bool _isAnswered = false;
   bool _isLastAnswerCorrect = false;
   bool _unlockDialogsProcessed = false;
-  bool _isTtsReading = false;
+
+  // TTS & Audio Narration States
+  bool _isAudioBarVisible = false;
+  bool _isAutoNarrateEnabled = false;
+  bool _isAudioPlaying = false;
+  bool _isAudioPaused = false;
+  double _currentSpeechRate = 1.0;
+  bool _isListeningSpeech = false;
+  String? _speechFeedbackText;
+  bool _hasTriggeredCongratsSound = false;
 
   static const List<Color> matchBorderColors = [
     Color(0xFF9B59B6), // Purple
@@ -62,7 +72,7 @@ class _QuizScreenState extends State<QuizScreen> {
     Color(0x1FE74C3C),
   ];
 
-  void _resetQuestionState() {
+  void _resetQuestionState({bool advanceQuestion = false}) {
     _selectedSingleIndex = null;
     _selectedTF = null;
     _selectedMultiIndices.clear();
@@ -72,9 +82,140 @@ class _QuizScreenState extends State<QuizScreen> {
     _currentOrderIndices.clear();
     _isAnswered = false;
     _isLastAnswerCorrect = false;
-    _isTtsReading = false;
-    TtsService.stop();
+    _speechFeedbackText = null;
+    _isListeningSpeech = false;
     _unlockDialogsProcessed = false;
+
+    if (_isAutoNarrateEnabled && advanceQuestion) {
+      _isAudioPlaying = true;
+      _isAudioPaused = false;
+      _isAudioBarVisible = true;
+    } else if (!advanceQuestion) {
+      _isAudioPlaying = false;
+      _isAudioPaused = false;
+      _isAudioBarVisible = false;
+      _isAutoNarrateEnabled = false;
+      _hasTriggeredCongratsSound = false;
+      TtsService.stop();
+    }
+  }
+
+  void _playQuestionAudio(QuizQuestion q) {
+    setState(() {
+      _isAudioBarVisible = true;
+      _isAutoNarrateEnabled = true;
+      _isAudioPlaying = true;
+      _isAudioPaused = false;
+    });
+    TtsService.readQuestion(q, speed: _currentSpeechRate);
+  }
+
+  void _cycleSpeechSpeed(QuizQuestion q) {
+    setState(() {
+      if (_currentSpeechRate == 1.0) {
+        _currentSpeechRate = 1.25;
+      } else if (_currentSpeechRate == 1.25) {
+        _currentSpeechRate = 1.5;
+      } else {
+        _currentSpeechRate = 1.0;
+      }
+    });
+    TtsService.setSpeed(_currentSpeechRate);
+  }
+
+  void _closeAudioNarration() {
+    setState(() {
+      _isAudioBarVisible = false;
+      _isAutoNarrateEnabled = false;
+      _isAudioPlaying = false;
+      _isAudioPaused = false;
+      _speechFeedbackText = null;
+    });
+    TtsService.stop();
+  }
+
+  void _handleVoiceAnswerInput(QuizQuestion q, AppState appState) {
+    if (_isAnswered) return;
+    setState(() {
+      _isListeningSpeech = true;
+      _speechFeedbackText = 'Listening... Speak your answer';
+    });
+
+    final success = TtsService.startListening((transcript) {
+      if (mounted) {
+        _parseAndSelectAnswer(transcript, q, appState);
+      }
+    });
+
+    if (!success) {
+      setState(() {
+        _isListeningSpeech = false;
+        _speechFeedbackText = 'Voice input not supported in this browser.';
+      });
+    }
+  }
+
+  void _parseAndSelectAnswer(
+      String rawTranscript, QuizQuestion q, AppState appState) {
+    final text = rawTranscript.trim().toLowerCase();
+    setState(() {
+      _isListeningSpeech = false;
+      _speechFeedbackText = 'Recognized: "$rawTranscript"';
+    });
+
+    if (q.type == QuestionType.single || q.type == QuestionType.oddOneOut) {
+      int? foundIndex;
+      if (text.contains('one') || text.contains('1') || text.contains('first')) {
+        foundIndex = 0;
+      } else if (text.contains('two') || text.contains('2') || text.contains('second')) {
+        foundIndex = 1;
+      } else if (text.contains('three') || text.contains('3') || text.contains('third')) {
+        foundIndex = 2;
+      } else if (text.contains('four') || text.contains('4') || text.contains('fourth')) {
+        foundIndex = 3;
+      } else {
+        for (int i = 0; i < q.options.length; i++) {
+          if (text.contains(q.options[i].toLowerCase()) ||
+              q.options[i].toLowerCase().contains(text)) {
+            foundIndex = i;
+            break;
+          }
+        }
+      }
+      if (foundIndex != null && foundIndex < q.options.length) {
+        setState(() => _selectedSingleIndex = foundIndex);
+      }
+    } else if (q.type == QuestionType.trueFalse) {
+      if (text.contains('true') || text.contains('yes') || text.contains('correct') || text.contains('1')) {
+        setState(() => _selectedTF = true);
+      } else if (text.contains('false') || text.contains('no') || text.contains('wrong') || text.contains('2')) {
+        setState(() => _selectedTF = false);
+      }
+    } else if (q.type == QuestionType.fillGapSingle) {
+      String? foundOpt;
+      for (final opt in q.options) {
+        if (text.contains(opt.toLowerCase())) {
+          foundOpt = opt;
+          break;
+        }
+      }
+      if (foundOpt != null) {
+        setState(() => _selectedFillGapOption = foundOpt);
+      }
+    } else if (q.type == QuestionType.multiSelect) {
+      for (int i = 0; i < q.options.length; i++) {
+        if (text.contains(q.options[i].toLowerCase()) ||
+            q.options[i].toLowerCase().contains(text)) {
+          setState(() {
+            if (_selectedMultiIndices.contains(i)) {
+              _selectedMultiIndices.remove(i);
+            } else {
+              _selectedMultiIndices.add(i);
+            }
+          });
+        }
+      }
+    }
   }
 
   void _initOrderIndices(QuizQuestion q) {
@@ -347,13 +488,11 @@ class _QuizScreenState extends State<QuizScreen> {
                     color: Colors.transparent,
                     child: InkWell(
                       onTap: () {
-                        setState(() {
-                          _isTtsReading = !_isTtsReading;
-                        });
-                        if (_isTtsReading) {
-                          TtsService.readQuestion(q);
+                        SoundService.playTap();
+                        if (_isAudioBarVisible) {
+                          _closeAudioNarration();
                         } else {
-                          TtsService.stop();
+                          _playQuestionAudio(q);
                         }
                       },
                       borderRadius: BorderRadius.circular(10),
@@ -361,12 +500,12 @@ class _QuizScreenState extends State<QuizScreen> {
                         padding: const EdgeInsets.symmetric(
                             horizontal: 8, vertical: 3),
                         decoration: BoxDecoration(
-                          color: _isTtsReading
+                          color: _isAudioBarVisible
                               ? const Color(0xFFFFF0E6)
                               : AppColors.cream,
                           borderRadius: BorderRadius.circular(10),
                           border: Border.all(
-                            color: _isTtsReading
+                            color: _isAudioBarVisible
                                 ? AppColors.coral
                                 : AppColors.blush,
                           ),
@@ -375,21 +514,21 @@ class _QuizScreenState extends State<QuizScreen> {
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             Icon(
-                              _isTtsReading
-                                  ? Icons.stop_circle_rounded
-                                  : Icons.volume_up_rounded,
+                              _isAudioBarVisible
+                                  ? Icons.volume_up_rounded
+                                  : Icons.volume_up_outlined,
                               size: 14,
-                              color: _isTtsReading
+                              color: _isAudioBarVisible
                                   ? AppColors.coral
                                   : AppColors.dark,
                             ),
                             const SizedBox(width: 4),
                             Text(
-                              _isTtsReading ? 'Stop' : 'Listen',
+                              _isAudioBarVisible ? 'Active' : 'Listen',
                               style: GoogleFonts.dmSans(
                                 fontSize: 11,
                                 fontWeight: FontWeight.bold,
-                                color: _isTtsReading
+                                color: _isAudioBarVisible
                                     ? AppColors.coral
                                     : AppColors.dark,
                               ),
@@ -434,6 +573,199 @@ class _QuizScreenState extends State<QuizScreen> {
               minHeight: 6,
             ),
           ),
+
+          // Dedicated Interactive Audio Overlay Bar (Underneath Question Bar)
+          if (_isAudioBarVisible) ...[
+            const SizedBox(height: 12),
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+              decoration: BoxDecoration(
+                color: const Color(0xFFFFF0E6),
+                borderRadius: BorderRadius.circular(16),
+                border: Border.all(
+                  color: AppColors.coral.withValues(alpha: 0.4),
+                  width: 1.2,
+                ),
+                boxShadow: [
+                  BoxShadow(
+                    color: AppColors.coral.withValues(alpha: 0.08),
+                    blurRadius: 8,
+                    offset: const Offset(0, 2),
+                  ),
+                ],
+              ),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Row(
+                    children: [
+                      // 1. Play / Pause Button
+                      Material(
+                        color: Colors.transparent,
+                        child: IconButton(
+                          icon: Icon(
+                            _isAudioPlaying && !_isAudioPaused
+                                ? Icons.pause_circle_filled_rounded
+                                : Icons.play_circle_fill_rounded,
+                            color: AppColors.coral,
+                            size: 28,
+                          ),
+                          padding: EdgeInsets.zero,
+                          constraints: const BoxConstraints(),
+                          onPressed: () {
+                            SoundService.playTap();
+                            if (_isAudioPlaying && !_isAudioPaused) {
+                              TtsService.pause();
+                              setState(() => _isAudioPaused = true);
+                            } else if (_isAudioPaused) {
+                              TtsService.resume();
+                              setState(() => _isAudioPaused = false);
+                            } else {
+                              _playQuestionAudio(q);
+                            }
+                          },
+                        ),
+                      ),
+                      const SizedBox(width: 8),
+
+                      // 2. Restart Button
+                      Material(
+                        color: Colors.transparent,
+                        child: InkWell(
+                          onTap: () {
+                            SoundService.playTap();
+                            _playQuestionAudio(q);
+                          },
+                          borderRadius: BorderRadius.circular(16),
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 6, vertical: 4),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                const Icon(Icons.replay_rounded,
+                                    size: 16, color: AppColors.dark),
+                                const SizedBox(width: 3),
+                                Text(
+                                  'Restart',
+                                  style: GoogleFonts.dmSans(
+                                    fontSize: 11.5,
+                                    fontWeight: FontWeight.w600,
+                                    color: AppColors.dark,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(width: 8),
+
+                      // 3. Speed Button (1.0x, 1.25x, 1.5x)
+                      Material(
+                        color: Colors.transparent,
+                        child: InkWell(
+                          onTap: () => _cycleSpeechSpeed(q),
+                          borderRadius: BorderRadius.circular(10),
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 7, vertical: 3),
+                            decoration: BoxDecoration(
+                              color: AppColors.cream,
+                              borderRadius: BorderRadius.circular(8),
+                              border: Border.all(color: AppColors.blush),
+                            ),
+                            child: Text(
+                              '${_currentSpeechRate.toStringAsFixed(_currentSpeechRate == 1.0 ? 0 : 2)}x',
+                              style: GoogleFonts.dmSans(
+                                fontSize: 11,
+                                fontWeight: FontWeight.bold,
+                                color: AppColors.dark,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      const Spacer(),
+
+                      // 4. Voice Answer Button
+                      Material(
+                        color: Colors.transparent,
+                        child: InkWell(
+                          onTap: () => _handleVoiceAnswerInput(q, appState),
+                          borderRadius: BorderRadius.circular(12),
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 8, vertical: 4),
+                            decoration: BoxDecoration(
+                              color: _isListeningSpeech
+                                  ? const Color(0xFFFFD1D1)
+                                  : AppColors.coral,
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Icon(
+                                  _isListeningSpeech
+                                      ? Icons.mic_rounded
+                                      : Icons.mic_none_rounded,
+                                  size: 13,
+                                  color: _isListeningSpeech
+                                      ? const Color(0xFFA33333)
+                                      : Colors.white,
+                                ),
+                                const SizedBox(width: 4),
+                                Text(
+                                  _isListeningSpeech ? 'Listening...' : 'Voice',
+                                  style: GoogleFonts.dmSans(
+                                    fontSize: 11,
+                                    fontWeight: FontWeight.bold,
+                                    color: _isListeningSpeech
+                                        ? const Color(0xFFA33333)
+                                        : Colors.white,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(width: 6),
+
+                      // 5. Close Button
+                      Material(
+                        color: Colors.transparent,
+                        child: InkWell(
+                          onTap: () {
+                            SoundService.playTap();
+                            _closeAudioNarration();
+                          },
+                          borderRadius: BorderRadius.circular(20),
+                          child: const Padding(
+                            padding: EdgeInsets.all(4),
+                            child: Icon(Icons.close_rounded,
+                                size: 16, color: AppColors.muted),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  if (_speechFeedbackText != null) ...[
+                    const SizedBox(height: 4),
+                    Text(
+                      _speechFeedbackText!,
+                      style: GoogleFonts.dmSans(
+                        fontSize: 11.5,
+                        fontWeight: FontWeight.w600,
+                        color: AppColors.coral,
+                      ),
+                    ),
+                  ],
+                ],
+              ),
+            ).animate().fadeIn(duration: 200.ms),
+          ],
           const SizedBox(height: 20),
 
           // Question Prompt
@@ -522,8 +854,12 @@ class _QuizScreenState extends State<QuizScreen> {
                 if (_currentQIndex + 1 < questions.length) {
                   setState(() {
                     _currentQIndex++;
-                    _resetQuestionState();
+                    _resetQuestionState(advanceQuestion: true);
                   });
+                  if (_isAutoNarrateEnabled) {
+                    final nextQ = questions[_currentQIndex];
+                    _playQuestionAudio(nextQ);
+                  }
                 } else {
                   appState.finishQuiz(appState.selectedDifficulty, _score);
                 }
@@ -693,6 +1029,7 @@ class _QuizScreenState extends State<QuizScreen> {
                       if (isCorrect) _score++;
                     });
                     appState.recordQuestionResult(q.id, isCorrect);
+                    _onAnswerRecorded(context, appState);
                   },
           ),
       ],
@@ -729,6 +1066,7 @@ class _QuizScreenState extends State<QuizScreen> {
                       if (isCorrect) _score++;
                     });
                     appState.recordQuestionResult(q.id, isCorrect);
+                    _onAnswerRecorded(context, appState);
                   },
           ),
       ],
@@ -930,6 +1268,7 @@ class _QuizScreenState extends State<QuizScreen> {
                       if (isCorrect) _score++;
                     });
                     appState.recordQuestionResult(q.id, isCorrect);
+                    _onAnswerRecorded(context, appState);
                   },
           ),
       ],
@@ -1045,6 +1384,7 @@ class _QuizScreenState extends State<QuizScreen> {
                       if (isCorrect) _score++;
                     });
                     appState.recordQuestionResult(q.id, isCorrect);
+                    _onAnswerRecorded(context, appState);
                   },
           ),
       ],
@@ -1259,6 +1599,7 @@ class _QuizScreenState extends State<QuizScreen> {
                       if (isCorrect) _score++;
                     });
                     appState.recordQuestionResult(q.id, isCorrect);
+                    _onAnswerRecorded(context, appState);
                   },
           ),
       ],
@@ -1363,10 +1704,19 @@ class _QuizScreenState extends State<QuizScreen> {
                 if (isCorrect) _score++;
               });
               appState.recordQuestionResult(q.id, isCorrect);
+              _onAnswerRecorded(context, appState);
             },
           ),
       ],
     );
+  }
+
+  void _onAnswerRecorded(BuildContext context, AppState appState) {
+    if (appState.hasPendingUnlocks) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        _showNextPendingUnlock(context, appState);
+      });
+    }
   }
 
   void _showLearnMore(BuildContext context, QuizQuestion q, String option) {
@@ -1382,10 +1732,18 @@ class _QuizScreenState extends State<QuizScreen> {
 
   // ================= 3. RESULTS VIEW =================
   Widget _buildResultsView(BuildContext context, AppState appState) {
-    final diff = appState.selectedDifficulty ?? QuizDifficulty.explorer;
+    final diff = appState.selectedDifficulty;
     final level = QuizData.levels[diff]!;
     final totalQ = level.questions.length;
     final isPerfect = _score == totalQ;
+
+    // Trigger celebration sound on 100% perfect score
+    if (isPerfect && !_hasTriggeredCongratsSound) {
+      _hasTriggeredCongratsSound = true;
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        SoundService.playCongrats();
+      });
+    }
 
     // Check & trigger card unlock modals
     _checkCardUnlocks(context, appState);
@@ -1397,27 +1755,29 @@ class _QuizScreenState extends State<QuizScreen> {
         SoundService.playTap();
         appState.navigateTo(AppScreen.quizSelect);
       },
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          const SizedBox(height: 12),
-          Container(
-            padding: const EdgeInsets.all(18),
-            decoration: BoxDecoration(
-              color: isPerfect ? const Color(0xFFFFF3CD) : const Color(0xFFFEFAF6),
-              shape: BoxShape.circle,
-              boxShadow: [
-                BoxShadow(
-                  color: AppColors.coral.withValues(alpha: 0.25),
-                  blurRadius: 20,
-                  offset: const Offset(0, 6),
-                ),
-              ],
-            ),
-            child: Icon(
-              isPerfect
-                  ? Icons.military_tech_rounded
-                  : Icons.emoji_events_rounded,
+      body: ConfettiOverlay(
+        isPlaying: isPerfect,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            const SizedBox(height: 12),
+            Container(
+              padding: const EdgeInsets.all(18),
+              decoration: BoxDecoration(
+                color: isPerfect ? const Color(0xFFFFF3CD) : const Color(0xFFFEFAF6),
+                shape: BoxShape.circle,
+                boxShadow: [
+                  BoxShadow(
+                    color: AppColors.coral.withValues(alpha: 0.25),
+                    blurRadius: 20,
+                    offset: const Offset(0, 6),
+                  ),
+                ],
+              ),
+              child: Icon(
+                isPerfect
+                    ? Icons.military_tech_rounded
+                    : Icons.emoji_events_rounded,
               size: 54,
               color: isPerfect ? const Color(0xFFD97706) : AppColors.coral,
             ),
@@ -1598,6 +1958,7 @@ class _QuizScreenState extends State<QuizScreen> {
           ),
           const SizedBox(height: 32),
         ],
+      ),
       ),
     );
   }

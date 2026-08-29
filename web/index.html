@@ -331,27 +331,157 @@
 
     window.cityLoomTTS = {
       speaking: false,
-      speak: function(text) {
+      paused: false,
+      rate: 0.92,
+      currentText: '',
+
+      getBestVoice: function() {
+        if (!('speechSynthesis' in window)) return null;
+        var voices = window.speechSynthesis.getVoices();
+        var preferred = ['Google UK English Female', 'Google UK English Male', 'en-GB', 'en_GB', 'Daniel', 'Serena', 'Oliver', 'Google US English', 'Samantha', 'en-US'];
+        for (var p = 0; p < preferred.length; p++) {
+          for (var v = 0; v < voices.length; v++) {
+            if (voices[v].name.indexOf(preferred[p]) !== -1 || voices[v].lang.replace('_','-').indexOf(preferred[p]) === 0) {
+              return voices[v];
+            }
+          }
+        }
+        return voices.length > 0 ? voices[0] : null;
+      },
+
+      speak: function(text, rate) {
         try {
           if (!('speechSynthesis' in window)) return;
           window.speechSynthesis.cancel();
+          this.currentText = text;
+          if (rate) this.rate = rate;
           var utter = new SpeechSynthesisUtterance(text);
-          utter.rate = 0.95;
+          utter.rate = this.rate || 0.92;
           utter.pitch = 1.0;
-          utter.lang = 'en-GB';
-          utter.onstart = function() { window.cityLoomTTS.speaking = true; };
-          utter.onend = function() { window.cityLoomTTS.speaking = false; };
-          utter.onerror = function() { window.cityLoomTTS.speaking = false; };
+          var voice = this.getBestVoice();
+          if (voice) utter.voice = voice;
+          utter.lang = voice ? voice.lang : 'en-GB';
+
+          utter.onstart = function() {
+            window.cityLoomTTS.speaking = true;
+            window.cityLoomTTS.paused = false;
+          };
+          utter.onpause = function() {
+            window.cityLoomTTS.paused = true;
+          };
+          utter.onresume = function() {
+            window.cityLoomTTS.paused = false;
+          };
+          utter.onend = function() {
+            window.cityLoomTTS.speaking = false;
+            window.cityLoomTTS.paused = false;
+          };
+          utter.onerror = function() {
+            window.cityLoomTTS.speaking = false;
+            window.cityLoomTTS.paused = false;
+          };
           window.speechSynthesis.speak(utter);
         } catch(e) { console.warn(e); }
       },
+
+      pause: function() {
+        try {
+          if ('speechSynthesis' in window) {
+            window.speechSynthesis.pause();
+            this.paused = true;
+          }
+        } catch(e) { console.warn(e); }
+      },
+
+      resume: function() {
+        try {
+          if ('speechSynthesis' in window) {
+            window.speechSynthesis.resume();
+            this.paused = false;
+          }
+        } catch(e) { console.warn(e); }
+      },
+
+      restart: function() {
+        if (this.currentText) {
+          this.speak(this.currentText, this.rate);
+        }
+      },
+
+      setSpeed: function(rate) {
+        this.rate = rate;
+        if (this.speaking && this.currentText) {
+          this.speak(this.currentText, rate);
+        }
+      },
+
       stop: function() {
         try {
           if ('speechSynthesis' in window) {
             window.speechSynthesis.cancel();
           }
-          window.cityLoomTTS.speaking = false;
+          this.speaking = false;
+          this.paused = false;
         } catch(e) { console.warn(e); }
+      }
+    };
+
+    window.cityLoomSTT = {
+      recognition: null,
+      listening: false,
+      callback: null,
+
+      startListening: function(onResult) {
+        try {
+          var SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
+          if (!SpeechRec) {
+            console.warn('Speech recognition not available in this browser.');
+            return false;
+          }
+          if (this.recognition) {
+            try { this.recognition.abort(); } catch(e) {}
+          }
+          this.callback = onResult;
+          var rec = new SpeechRec();
+          this.recognition = rec;
+          rec.continuous = false;
+          rec.interimResults = false;
+          rec.lang = 'en-GB';
+
+          rec.onstart = function() {
+            window.cityLoomSTT.listening = true;
+          };
+          rec.onresult = function(event) {
+            window.cityLoomSTT.listening = false;
+            if (event.results && event.results.length > 0) {
+              var transcript = event.results[0][0].transcript;
+              if (window.cityLoomSTT.callback) {
+                window.cityLoomSTT.callback(transcript);
+              }
+            }
+          };
+          rec.onerror = function(err) {
+            console.warn('STT error:', err);
+            window.cityLoomSTT.listening = false;
+          };
+          rec.onend = function() {
+            window.cityLoomSTT.listening = false;
+          };
+          rec.start();
+          return true;
+        } catch(e) {
+          console.warn('STT exception:', e);
+          return false;
+        }
+      },
+
+      stopListening: function() {
+        try {
+          if (this.recognition) {
+            this.recognition.stop();
+          }
+          this.listening = false;
+        } catch(e) {}
       }
     };
 

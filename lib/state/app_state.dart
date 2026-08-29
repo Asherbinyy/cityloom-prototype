@@ -54,6 +54,7 @@ class AppState extends ChangeNotifier {
   int get currentQuizScore => _currentQuizScore;
   int get totalCardsCount => CardData.cards.length;
   int get unlockedCardsCount => _unlockedCardIds.length;
+  bool get hasPendingUnlocks => _cardUnlockQueue.isNotEmpty;
 
   bool isCardUnlocked(String cardId) => _unlockedCardIds.contains(cardId);
 
@@ -236,32 +237,35 @@ class AppState extends ChangeNotifier {
     // (Handled via unlockStoryCard('charles'))
 
     // 4. Burke: Apprentice Q6 answered correctly
-    if (!_unlockedCardIds.contains('burke') && _questionResults['apprentice_q6'] == true) {
+    if (!_unlockedCardIds.contains('burke') &&
+        (_questionResults['apprentice_q6'] == true || _questionResults['apprentice_q5'] == true)) {
       _unlockCard('burke');
     }
 
     // 5. Hare: Historian Q2 answered correctly
-    if (!_unlockedCardIds.contains('hare') && _questionResults['historian_q2'] == true) {
+    if (!_unlockedCardIds.contains('hare') &&
+        (_questionResults['historian_q2'] == true || _questionResults['historian_q3'] == true)) {
       _unlockCard('hare');
     }
 
-    // 6. Margaret: Burke + Hare unlocked + Scholar Q12 correct
+    // 6. Margaret: Burke + Hare unlocked + Scholar Margaret question correct
     if (!_unlockedCardIds.contains('margaret') &&
         _unlockedCardIds.contains('burke') &&
         _unlockedCardIds.contains('hare') &&
-        _questionResults['scholar_q12'] == true) {
+        (_questionResults['scholar_q12'] == true || _questionResults['scholar_q13'] == true)) {
       _unlockCard('margaret');
     }
 
-    // 7. McKenzie: Scholar Q7 answered correctly
-    if (!_unlockedCardIds.contains('mckenzie') && _questionResults['scholar_q7'] == true) {
+    // 7. McKenzie: Scholar McKenzie question answered correctly
+    if (!_unlockedCardIds.contains('mckenzie') &&
+        (_questionResults['scholar_q7'] == true || _questionResults['scholar_q8'] == true)) {
       _unlockCard('mckenzie');
     }
 
-    // 8. Henrietta: Charles I unlocked + Scholar Q4 correct
+    // 8. Henrietta: Charles I unlocked + Scholar Henrietta question correct
     if (!_unlockedCardIds.contains('henrietta') &&
         _unlockedCardIds.contains('charles') &&
-        _questionResults['scholar_q4'] == true) {
+        (_questionResults['scholar_q4'] == true || _questionResults['scholar_q5'] == true)) {
       _unlockCard('henrietta');
     }
 
