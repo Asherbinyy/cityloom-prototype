@@ -1,14 +1,558 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <base href="/cityloom-prototype/">
+
   <meta charset="UTF-8">
-  <meta http-equiv="refresh" content="0; url=./docs/">
+  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+  <meta name="description" content="CityLoom interactive walking tour of Greyfriars Kirkyard, Edinburgh.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+  <!-- iOS meta tags & icons -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="CityLoom">
+  <link rel="apple-touch-icon" href="favicon.png">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="favicon.png"/>
+
   <title>CityLoom - Greyfriars Kirkyard</title>
+  <link rel="manifest" href="manifest.json">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      margin: 0;
+      padding: 0;
+      background: #fff4eb;
+      background: linear-gradient(180deg, #fff4eb 0%, #fdeada 40%, #f5e1cf 100%);
+      font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      overflow: hidden;
+    }
+
+    #loading-splash {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(180deg, #fff4eb 0%, #fdeada 50%, #f5e1cf 100%);
+      z-index: 999999;
+      transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.5s;
+    }
+
+    #loading-splash.hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .splash-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 32px 24px;
+      max-width: 360px;
+      width: 90%;
+    }
+
+    .splash-logo-wrap {
+      width: auto;
+      height: auto;
+      background: transparent;
+      padding: 0;
+      box-shadow: none;
+      margin-bottom: 20px;
+      animation: pulseGlow 2.4s ease-in-out infinite;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .splash-logo-wrap img {
+      width: 140px;
+      height: auto;
+      object-fit: contain;
+      background: transparent;
+    }
+
+    @keyframes pulseGlow {
+      0%, 100% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.05);
+      }
+    }
+
+    .splash-title {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 30px;
+      font-weight: 700;
+      color: #2a2a2a;
+      letter-spacing: 0.5px;
+      margin-bottom: 6px;
+    }
+
+    .splash-subtitle {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #fda692;
+      margin-bottom: 28px;
+    }
+
+    .splash-progress-track {
+      width: 180px;
+      height: 6px;
+      background: rgba(253, 166, 146, 0.25);
+      border-radius: 6px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .splash-progress-bar {
+      height: 100%;
+      width: 45%;
+      background: linear-gradient(90deg, #fda692, #a5cee4);
+      border-radius: 6px;
+      position: absolute;
+      animation: progressSlide 1.6s ease-in-out infinite;
+    }
+
+    @keyframes progressSlide {
+      0% { left: -45%; }
+      50% { left: 40%; width: 55%; }
+      100% { left: 100%; width: 45%; }
+    }
+
+    .splash-loading-text {
+      margin-top: 14px;
+      font-size: 12px;
+      color: #6b6b6b;
+      font-style: italic;
+    }
+  </style>
+
   <script>
-    window.location.replace(window.location.pathname.endsWith('/') ? window.location.pathname + 'docs/' : window.location.pathname + '/docs/');
+    // Web Audio Synthesizer for instant native-feel sound effects
+    var cityLoomAudioCtx = null;
+
+    function getCityLoomAudioCtx() {
+      if (!cityLoomAudioCtx) {
+        var AudioCtx = window.AudioContext || window.webkitAudioContext;
+        if (AudioCtx) {
+          cityLoomAudioCtx = new AudioCtx();
+        }
+      }
+      if (cityLoomAudioCtx && cityLoomAudioCtx.state === 'suspended') {
+        cityLoomAudioCtx.resume();
+      }
+      return cityLoomAudioCtx;
+    }
+
+    window.cityLoomSound = {
+      playUnlock: function() {
+        try {
+          var ctx = getCityLoomAudioCtx();
+          if (!ctx) return;
+          var notes = [523.25, 659.25, 783.99, 1046.50]; // C5, E5, G5, C6
+          notes.forEach(function(freq, i) {
+            var osc = ctx.createOscillator();
+            var gain = ctx.createGain();
+            osc.connect(gain);
+            gain.connect(ctx.destination);
+            osc.type = 'sine';
+            var t = ctx.currentTime + (i * 0.11);
+            gain.gain.setValueAtTime(0.001, t);
+            gain.gain.linearRampToValueAtTime(0.12, t + 0.02);
+            gain.gain.exponentialRampToValueAtTime(0.001, t + 0.35);
+            osc.frequency.value = freq;
+            osc.start(t);
+            osc.stop(t + 0.36);
+          });
+        } catch(e) { console.warn(e); }
+      },
+
+      playCongrats: function() {
+        try {
+          var ctx = getCityLoomAudioCtx();
+          if (!ctx) return;
+          var notes = [523, 659, 784, 1047, 784, 1047, 1319, 1568];
+          notes.forEach(function(freq, i) {
+            var osc = ctx.createOscillator();
+            var gain = ctx.createGain();
+            osc.connect(gain);
+            gain.connect(ctx.destination);
+            osc.type = 'sine';
+            var t = ctx.currentTime + (i * 0.09);
+            gain.gain.setValueAtTime(0.001, t);
+            gain.gain.linearRampToValueAtTime(i < 4 ? 0.10 : 0.14, t + 0.02);
+            gain.gain.exponentialRampToValueAtTime(0.001, t + 0.38);
+            osc.frequency.value = freq;
+            osc.start(t);
+            osc.stop(t + 0.39);
+          });
+          // Sustained celebratory major triad chord
+          var chord = [1046.50, 1318.51, 1567.98];
+          chord.forEach(function(freq) {
+            var osc = ctx.createOscillator();
+            var gain = ctx.createGain();
+            osc.connect(gain);
+            gain.connect(ctx.destination);
+            osc.type = 'sine';
+            var t = ctx.currentTime + 0.75;
+            gain.gain.setValueAtTime(0.001, t);
+            gain.gain.linearRampToValueAtTime(0.09, t + 0.04);
+            gain.gain.exponentialRampToValueAtTime(0.001, t + 0.95);
+            osc.frequency.value = freq;
+            osc.start(t);
+            osc.stop(t + 0.96);
+          });
+        } catch(e) { console.warn(e); }
+      },
+
+      playCorrect: function() {
+        try {
+          var ctx = getCityLoomAudioCtx();
+          if (!ctx) return;
+          var notes = [659.25, 987.77]; // E5, B5
+          notes.forEach(function(freq, i) {
+            var osc = ctx.createOscillator();
+            var gain = ctx.createGain();
+            osc.connect(gain);
+            gain.connect(ctx.destination);
+            osc.type = 'triangle';
+            var t = ctx.currentTime + (i * 0.08);
+            gain.gain.setValueAtTime(0.001, t);
+            gain.gain.linearRampToValueAtTime(0.12, t + 0.02);
+            gain.gain.exponentialRampToValueAtTime(0.001, t + 0.28);
+            osc.frequency.value = freq;
+            osc.start(t);
+            osc.stop(t + 0.29);
+          });
+        } catch(e) { console.warn(e); }
+      },
+
+      playIncorrect: function() {
+        try {
+          var ctx = getCityLoomAudioCtx();
+          if (!ctx) return;
+          var osc = ctx.createOscillator();
+          var gain = ctx.createGain();
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+          osc.type = 'sawtooth';
+          var t = ctx.currentTime;
+          gain.gain.setValueAtTime(0.08, t);
+          gain.gain.exponentialRampToValueAtTime(0.001, t + 0.22);
+          osc.frequency.setValueAtTime(220, t);
+          osc.frequency.exponentialRampToValueAtTime(140, t + 0.2);
+          osc.start(t);
+          osc.stop(t + 0.23);
+        } catch(e) { console.warn(e); }
+      },
+
+      playFootstep: function() {
+        try {
+          var ctx = getCityLoomAudioCtx();
+          if (!ctx) return;
+          var osc = ctx.createOscillator();
+          var gain = ctx.createGain();
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+          osc.type = 'sine';
+          var t = ctx.currentTime;
+          var pitch = 130 + Math.random() * 30;
+          gain.gain.setValueAtTime(0.05, t);
+          gain.gain.exponentialRampToValueAtTime(0.001, t + 0.09);
+          osc.frequency.setValueAtTime(pitch, t);
+          osc.frequency.exponentialRampToValueAtTime(70, t + 0.08);
+          osc.start(t);
+          osc.stop(t + 0.1);
+        } catch(e) { console.warn(e); }
+      },
+
+      playTap: function() {
+        try {
+          var ctx = getCityLoomAudioCtx();
+          if (!ctx) return;
+          var osc = ctx.createOscillator();
+          var gain = ctx.createGain();
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+          osc.type = 'sine';
+          var t = ctx.currentTime;
+          gain.gain.setValueAtTime(0.06, t);
+          gain.gain.exponentialRampToValueAtTime(0.001, t + 0.04);
+          osc.frequency.setValueAtTime(720, t);
+          osc.start(t);
+          osc.stop(t + 0.05);
+        } catch(e) { console.warn(e); }
+      },
+
+      playLocked: function() {
+        try {
+          if (navigator.vibrate) {
+            navigator.vibrate([40, 30, 40]);
+          }
+          var ctx = getCityLoomAudioCtx();
+          if (!ctx) return;
+          var osc = ctx.createOscillator();
+          var gain = ctx.createGain();
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+          osc.type = 'square';
+          var t = ctx.currentTime;
+          gain.gain.setValueAtTime(0.04, t);
+          gain.gain.exponentialRampToValueAtTime(0.001, t + 0.12);
+          osc.frequency.setValueAtTime(160, t);
+          osc.start(t);
+          osc.stop(t + 0.13);
+        } catch(e) { console.warn(e); }
+      }
+    };
+
+    window.cityLoomTTS = {
+      speaking: false,
+      paused: false,
+      rate: 0.92,
+      currentText: '',
+
+      getBestVoice: function() {
+        if (!('speechSynthesis' in window)) return null;
+        var voices = window.speechSynthesis.getVoices();
+        var preferred = ['Google UK English Female', 'Google UK English Male', 'en-GB', 'en_GB', 'Daniel', 'Serena', 'Oliver', 'Google US English', 'Samantha', 'en-US'];
+        for (var p = 0; p < preferred.length; p++) {
+          for (var v = 0; v < voices.length; v++) {
+            if (voices[v].name.indexOf(preferred[p]) !== -1 || voices[v].lang.replace('_','-').indexOf(preferred[p]) === 0) {
+              return voices[v];
+            }
+          }
+        }
+        return voices.length > 0 ? voices[0] : null;
+      },
+
+      speak: function(text, rate) {
+        try {
+          if (!('speechSynthesis' in window)) return;
+          window.speechSynthesis.cancel();
+          this.currentText = text;
+          if (rate) this.rate = rate;
+          var utter = new SpeechSynthesisUtterance(text);
+          utter.rate = this.rate || 0.92;
+          utter.pitch = 1.0;
+          var voice = this.getBestVoice();
+          if (voice) utter.voice = voice;
+          utter.lang = voice ? voice.lang : 'en-GB';
+
+          utter.onstart = function() {
+            window.cityLoomTTS.speaking = true;
+            window.cityLoomTTS.paused = false;
+          };
+          utter.onpause = function() {
+            window.cityLoomTTS.paused = true;
+          };
+          utter.onresume = function() {
+            window.cityLoomTTS.paused = false;
+          };
+          utter.onend = function() {
+            window.cityLoomTTS.speaking = false;
+            window.cityLoomTTS.paused = false;
+          };
+          utter.onerror = function() {
+            window.cityLoomTTS.speaking = false;
+            window.cityLoomTTS.paused = false;
+          };
+          window.speechSynthesis.speak(utter);
+        } catch(e) { console.warn(e); }
+      },
+
+      pause: function() {
+        try {
+          if ('speechSynthesis' in window) {
+            window.speechSynthesis.pause();
+            this.paused = true;
+          }
+        } catch(e) { console.warn(e); }
+      },
+
+      resume: function() {
+        try {
+          if ('speechSynthesis' in window) {
+            window.speechSynthesis.resume();
+            this.paused = false;
+          }
+        } catch(e) { console.warn(e); }
+      },
+
+      restart: function() {
+        if (this.currentText) {
+          this.speak(this.currentText, this.rate);
+        }
+      },
+
+      setSpeed: function(rate) {
+        this.rate = rate;
+        if (this.speaking && this.currentText) {
+          this.speak(this.currentText, rate);
+        }
+      },
+
+      stop: function() {
+        try {
+          if ('speechSynthesis' in window) {
+            window.speechSynthesis.cancel();
+          }
+          this.speaking = false;
+          this.paused = false;
+        } catch(e) { console.warn(e); }
+      }
+    };
+
+    window.cityLoomSTT = {
+      recognition: null,
+      listening: false,
+      callback: null,
+
+      startListening: function(onResult) {
+        try {
+          var SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
+          if (!SpeechRec) {
+            console.warn('Speech recognition not available in this browser.');
+            return false;
+          }
+          if (this.recognition) {
+            try { this.recognition.abort(); } catch(e) {}
+          }
+          this.callback = onResult;
+          var rec = new SpeechRec();
+          this.recognition = rec;
+          rec.continuous = false;
+          rec.interimResults = false;
+          rec.lang = 'en-GB';
+
+          rec.onstart = function() {
+            window.cityLoomSTT.listening = true;
+          };
+          rec.onresult = function(event) {
+            window.cityLoomSTT.listening = false;
+            if (event.results && event.results.length > 0) {
+              var transcript = event.results[0][0].transcript;
+              if (window.cityLoomSTT.callback) {
+                window.cityLoomSTT.callback(transcript);
+              }
+            }
+          };
+          rec.onerror = function(err) {
+            console.warn('STT error:', err);
+            window.cityLoomSTT.listening = false;
+          };
+          rec.onend = function() {
+            window.cityLoomSTT.listening = false;
+          };
+          rec.start();
+          return true;
+        } catch(e) {
+          console.warn('STT exception:', e);
+          return false;
+        }
+      },
+
+      stopListening: function() {
+        try {
+          if (this.recognition) {
+            this.recognition.stop();
+          }
+          this.listening = false;
+        } catch(e) {}
+      }
+    };
+
+    function hideSplash() {
+      var splash = document.getElementById('loading-splash');
+      if (splash && !splash.classList.contains('hidden')) {
+        splash.classList.add('hidden');
+        setTimeout(function() {
+          if (splash && splash.parentNode) {
+            splash.parentNode.removeChild(splash);
+          }
+        }, 500);
+      }
+    }
+
+    // Bulletproof splash hiding on Flutter render + fallback timers
+    window.addEventListener('flutter-first-frame', hideSplash);
+    window.addEventListener('load', function() {
+      setTimeout(hideSplash, 1200);
+    });
+    setTimeout(hideSplash, 2200);
   </script>
 </head>
 <body>
-  <p>Redirecting to <a href="./docs/">CityLoom</a>...</p>
+  <div id="loading-splash">
+    <div class="splash-card">
+      <div class="splash-title">CityLoom</div>
+      <div class="splash-subtitle">Greyfriars Kirkyard</div>
+      <div class="splash-progress-track">
+        <div class="splash-progress-bar"></div>
+      </div>
+      <div class="splash-loading-text">Preparing historical tour...</div>
+    </div>
+  </div>
+
+  <script src="flutter_bootstrap.js" async></script>
+
+  <!-- Non-blocking Firebase App & Analytics SDK -->
+  <script>
+    window.addEventListener('DOMContentLoaded', function() {
+      try {
+        var s1 = document.createElement('script');
+        s1.src = 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js';
+        s1.async = true;
+        s1.onload = function() {
+          var s2 = document.createElement('script');
+          s2.src = 'https://www.gstatic.com/firebasejs/10.12.0/firebase-analytics-compat.js';
+          s2.async = true;
+          s2.onload = function() {
+            try {
+              if (window.firebase) {
+                var firebaseConfig = {
+                  projectId: "cityloomprototype-4a07a",
+                  appId: "1:605679330487:web:f48bf8dbda8834fa7d9932",
+                  storageBucket: "cityloomprototype-4a07a.firebasestorage.app",
+                  apiKey: "AIzaSyAqyaaDltoRbBh8emSv5GRByz_i4rkVZxk",
+                  authDomain: "cityloomprototype-4a07a.firebaseapp.com",
+                  messagingSenderId: "605679330487",
+                  measurementId: "G-6JVR4S3MT1"
+                };
+                window.firebase.initializeApp(firebaseConfig);
+                window.firebaseAnalytics = window.firebase.analytics();
+                console.log('[Firebase] Connected to cityloomprototype-4a07a');
+              }
+            } catch(e) { console.warn('[Firebase] Init notice:', e); }
+          };
+          document.body.appendChild(s2);
+        };
+        document.body.appendChild(s1);
+      } catch(e) { console.warn('[Firebase] Loader notice:', e); }
+    });
+  </script>
 </body>
 </html>
