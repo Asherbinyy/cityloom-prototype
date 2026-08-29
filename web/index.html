@@ -522,6 +522,30 @@
     </div>
   </div>
 
+  <!-- Firebase App & Analytics SDK -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-analytics-compat.js"></script>
+  <script>
+    try {
+      const firebaseConfig = {
+        projectId: "cityloomprototype-4a07a",
+        appId: "1:605679330487:web:f48bf8dbda8834fa7d9932",
+        storageBucket: "cityloomprototype-4a07a.firebasestorage.app",
+        apiKey: "AIzaSyAqyaaDltoRbBh8emSv5GRByz_i4rkVZxk",
+        authDomain: "cityloomprototype-4a07a.firebaseapp.com",
+        messagingSenderId: "605679330487",
+        measurementId: "G-6JVR4S3MT1"
+      };
+      if (window.firebase) {
+        window.firebase.initializeApp(firebaseConfig);
+        window.firebaseAnalytics = window.firebase.analytics();
+        console.log('[Firebase] Initialized for cityloomprototype-4a07a');
+      }
+    } catch(e) {
+      console.warn('[Firebase] Init notice:', e);
+    }
+  </script>
+
   <script src="flutter_bootstrap.js" async></script>
 </body>
 </html>

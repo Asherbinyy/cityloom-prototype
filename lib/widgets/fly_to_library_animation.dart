@@ -79,13 +79,14 @@ class _FlyCardWidgetState extends State<_FlyCardWidget>
     final startX = size.width / 2;
     final startY = size.height / 2;
 
-    // Target: Top-right library icon position
-    final targetX = size.width - 45;
-    final targetY = 38.0;
+    // Target: Top-right library icon position (centered inside 480px AppScaffold max width)
+    final contentWidth = math.min(size.width, 480.0);
+    final targetX = (size.width + contentWidth) / 2 - 48.0;
+    final targetY = MediaQuery.of(context).padding.top + 24.0;
 
-    // Control point for a nice arc trajectory
-    final controlX = size.width * 0.75;
-    final controlY = size.height * 0.20;
+    // Control point for a high curved arc trajectory
+    final controlX = (startX + targetX) / 2 + 20.0;
+    final controlY = math.max(10.0, targetY - 20.0);
 
     return AnimatedBuilder(
       animation: _progress,

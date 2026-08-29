@@ -21,8 +21,8 @@ class AnalyticsService {
   static const String _prefPendingEvents = 'cityloom_analytics_pending_events';
 
   // Configurable Firebase project endpoint (or fallback collector)
-  String _firebaseProjectId = 'cityloom-tour-prototype';
-  String _firebaseApiKey = '';
+  String _firebaseProjectId = 'cityloomprototype-4a07a';
+  String _firebaseApiKey = 'AIzaSyAqyaaDltoRbBh8emSv5GRByz_i4rkVZxk';
 
   String? _userId;
   String? _sessionId;

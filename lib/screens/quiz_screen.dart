@@ -16,6 +16,7 @@ import '../widgets/confetti_overlay.dart';
 import '../widgets/congratulations_dialog.dart';
 import '../widgets/fly_to_library_animation.dart';
 import '../widgets/learn_more_dialog.dart';
+import '../widgets/order_drag_icon.dart';
 import '../widgets/primary_button.dart';
 import '../widgets/quit_quiz_dialog.dart';
 
@@ -56,6 +57,7 @@ class _QuizScreenState extends State<QuizScreen> {
   bool _isListeningSpeech = false;
   String? _speechFeedbackText;
   bool _hasTriggeredCongratsSound = false;
+  bool _confettiActive = false;
 
   static const List<Color> matchBorderColors = [
     Color(0xFF9B59B6), // Purple
@@ -1727,8 +1729,7 @@ class _QuizScreenState extends State<QuizScreen> {
                           fontSize: 13.5, color: AppColors.dark),
                     ),
                   ),
-                  const Icon(
-                    Icons.unfold_more_rounded,
+                  const OrderDragIcon(
                     size: 24,
                     color: AppColors.muted,
                   ),
@@ -1797,16 +1798,20 @@ class _QuizScreenState extends State<QuizScreen> {
     final totalQ = level.questions.length;
     final isPerfect = _score == totalQ;
 
-    // Trigger celebration sound on 100% perfect score
-    if (isPerfect && !_hasTriggeredCongratsSound) {
+    // Check & trigger card unlock modals
+    _checkCardUnlocks(context, appState);
+
+    // Trigger celebration sound on 100% perfect score ONLY if no dialogs are pending
+    if (isPerfect &&
+        !_hasTriggeredCongratsSound &&
+        !appState.hasPendingUnlocks &&
+        _unlockDialogsProcessed) {
       _hasTriggeredCongratsSound = true;
+      _confettiActive = true;
       WidgetsBinding.instance.addPostFrameCallback((_) {
         SoundService.playCongrats();
       });
     }
-
-    // Check & trigger card unlock modals
-    _checkCardUnlocks(context, appState);
 
     return AppScaffold(
       topBarTitle: 'Quiz Results',
@@ -1816,7 +1821,7 @@ class _QuizScreenState extends State<QuizScreen> {
         appState.navigateTo(AppScreen.quizSelect);
       },
       body: ConfettiOverlay(
-        isPlaying: isPerfect,
+        isPlaying: _confettiActive && isPerfect,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
@@ -2054,16 +2059,32 @@ class _QuizScreenState extends State<QuizScreen> {
           },
         ),
       );
-    } else if (appState.unlockedCardsCount == appState.totalCardsCount &&
-        !appState.congratsShown) {
-      appState.markCongratsShown();
-      showDialog(
-        context: context,
-        builder: (_) => CongratulationsDialog(
-          onViewLibrary: () => appState.navigateTo(AppScreen.library),
-          onGiveFeedback: () => appState.navigateTo(AppScreen.survey),
-        ),
-      );
+    } else {
+      // All card reveals have completed! Now trigger fresh celebratory confetti and victory sound
+      final diff = appState.selectedDifficulty;
+      final level = QuizData.levels[diff];
+      final totalQ = level?.questions.length ?? 5;
+      final isPerfect = _score == totalQ;
+
+      if (isPerfect && !_confettiActive) {
+        setState(() {
+          _confettiActive = true;
+          _hasTriggeredCongratsSound = true;
+        });
+        SoundService.playCongrats();
+      }
+
+      if (appState.unlockedCardsCount == appState.totalCardsCount &&
+          !appState.congratsShown) {
+        appState.markCongratsShown();
+        showDialog(
+          context: context,
+          builder: (_) => CongratulationsDialog(
+            onViewLibrary: () => appState.navigateTo(AppScreen.library),
+            onGiveFeedback: () => appState.navigateTo(AppScreen.survey),
+          ),
+        );
+      }
     }
   }
 }

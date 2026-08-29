@@ -34,14 +34,14 @@ class PrimaryButton extends StatelessWidget {
       height: height,
       decoration: BoxDecoration(
         color: isSecondary
-            ? Colors.transparent
+            ? const Color(0xFFFFF1E8)
             : (isEnabled
                 ? AppColors.coral
                 : AppColors.coral.withValues(alpha: 0.5)),
         borderRadius: BorderRadius.circular(40),
         border: Border.all(
           color: isSecondary
-              ? AppColors.coral
+              ? const Color(0xFFFDA692)
               : (isEnabled ? AppColors.coral : Colors.transparent),
           width: 1.6,
         ),
