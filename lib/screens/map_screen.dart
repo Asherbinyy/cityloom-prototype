@@ -96,34 +96,7 @@ class _MapScreenState extends State<MapScreen> {
                 ),
               ],
             ),
-            secondChild: Center(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 12),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const SizedBox(
-                      width: 18,
-                      height: 18,
-                      child: CircularProgressIndicator(
-                        strokeWidth: 2,
-                        valueColor: AlwaysStoppedAnimation<Color>(AppColors.coral),
-                      ),
-                    ),
-                    const SizedBox(width: 10),
-                    Text(
-                      'Navigating to ${stop.label}...',
-                      style: GoogleFonts.dmSans(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w600,
-                        color: AppColors.coral,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
+            secondChild: const SizedBox(height: 52),
           ),
           const SizedBox(height: 24),
         ],

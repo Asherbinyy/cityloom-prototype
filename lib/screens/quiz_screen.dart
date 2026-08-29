@@ -106,29 +106,7 @@ class _QuizScreenState extends State<QuizScreen> {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          const SizedBox(height: 8),
-          Center(
-            child: Container(
-              padding: const EdgeInsets.all(12),
-              decoration: BoxDecoration(
-                color: AppColors.cream,
-                shape: BoxShape.circle,
-                boxShadow: [
-                  BoxShadow(
-                    color: AppColors.coral.withValues(alpha: 0.2),
-                    blurRadius: 16,
-                    offset: const Offset(0, 4),
-                  ),
-                ],
-              ),
-              child: const Icon(
-                Icons.quiz_rounded,
-                size: 40,
-                color: AppColors.coral,
-              ),
-            ),
-          ),
-          const SizedBox(height: 14),
+          const SizedBox(height: 12),
 
           Text(
             'CHOOSE YOUR CHALLENGE',
@@ -140,7 +118,7 @@ class _QuizScreenState extends State<QuizScreen> {
             ),
             textAlign: TextAlign.center,
           ),
-          const SizedBox(height: 4),
+          const SizedBox(height: 6),
 
           Text(
             'Kirkyard Quiz',
@@ -266,27 +244,41 @@ class _QuizScreenState extends State<QuizScreen> {
                         if (best != null)
                           Container(
                             padding: const EdgeInsets.symmetric(
-                                horizontal: 10, vertical: 4),
+                                horizontal: 10, vertical: 5),
                             decoration: BoxDecoration(
                               color: isPerfect
                                   ? const Color(0xFFE8F8EA)
-                                  : AppColors.cream,
+                                  : const Color(0xFFFDEADA),
                               borderRadius: BorderRadius.circular(12),
                               border: Border.all(
                                 color: isPerfect
                                     ? const Color(0xFF6BCB77)
-                                    : AppColors.coral.withValues(alpha: 0.4),
+                                    : AppColors.coral.withValues(alpha: 0.5),
+                                width: 1.2,
                               ),
                             ),
-                            child: Text(
-                              '$best/$totalQ',
-                              style: GoogleFonts.dmSans(
-                                fontSize: 12,
-                                fontWeight: FontWeight.bold,
-                                color: isPerfect
-                                    ? const Color(0xFF2D7A36)
-                                    : AppColors.dark,
-                              ),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Text(
+                                  'Best: $best/$totalQ',
+                                  style: GoogleFonts.dmSans(
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w700,
+                                    color: isPerfect
+                                        ? const Color(0xFF2D7A36)
+                                        : AppColors.dark,
+                                  ),
+                                ),
+                                if (isPerfect) ...[
+                                  const SizedBox(width: 4),
+                                  const Icon(
+                                    Icons.star_rounded,
+                                    size: 14,
+                                    color: Color(0xFFE5A93B),
+                                  ),
+                                ],
+                              ],
                             ),
                           ),
                       ],
@@ -1503,13 +1495,12 @@ class _QuizScreenState extends State<QuizScreen> {
           ),
           const SizedBox(height: 12),
 
-          // Secondary Row: View Collection & Home
+          // Secondary Row: View Collection & Home (No icons)
           Row(
             children: [
               Expanded(
                 child: PrimaryButton(
                   text: 'View Library',
-                  icon: Icons.auto_stories_rounded,
                   isSecondary: true,
                   onPressed: () {
                     SoundService.playTap();
@@ -1521,7 +1512,6 @@ class _QuizScreenState extends State<QuizScreen> {
               Expanded(
                 child: PrimaryButton(
                   text: 'Home',
-                  icon: Icons.home_rounded,
                   isSecondary: true,
                   onPressed: () {
                     SoundService.playTap();

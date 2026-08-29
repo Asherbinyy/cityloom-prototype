@@ -18,25 +18,7 @@ class CardFullscreenDialog extends StatelessWidget {
     SoundService.playTap();
     try {
       final uri = Uri.parse(card.imageAsset);
-      if (await canLaunchUrl(uri)) {
-        await launchUrl(uri, mode: LaunchMode.externalApplication);
-      } else {
-        // Fallback info
-        if (context.mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(
-                'Long-press or right-click the image to save "${card.name}"',
-                style: GoogleFonts.dmSans(color: Colors.white),
-                textAlign: TextAlign.center,
-              ),
-              backgroundColor: const Color(0xFF281E14),
-              behavior: SnackBarBehavior.floating,
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-            ),
-          );
-        }
-      }
+      await launchUrl(uri, mode: LaunchMode.externalApplication);
     } catch (_) {}
   }
 
@@ -113,23 +95,20 @@ class CardFullscreenDialog extends StatelessWidget {
 
                 // Interactive Zoomable & Pannable Card
                 Expanded(
-                  child: GestureDetector(
-                    onLongPress: () => _downloadCard(context),
-                    child: InteractiveViewer(
-                      minScale: 0.8,
-                      maxScale: 3.5,
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(16),
-                        child: Image.asset(
-                          card.imageAsset,
-                          fit: BoxFit.contain,
-                          errorBuilder: (_, _, _) => Container(
-                            color: const Color(0xFF2A2A2A),
-                            child: Center(
-                              child: Text(
-                                card.name,
-                                style: const TextStyle(color: Colors.white),
-                              ),
+                  child: InteractiveViewer(
+                    minScale: 0.8,
+                    maxScale: 3.5,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(16),
+                      child: Image.asset(
+                        card.imageAsset,
+                        fit: BoxFit.contain,
+                        errorBuilder: (_, _, _) => Container(
+                          color: const Color(0xFF2A2A2A),
+                          child: Center(
+                            child: Text(
+                              card.name,
+                              style: const TextStyle(color: Colors.white),
                             ),
                           ),
                         ),
@@ -160,17 +139,16 @@ class CardFullscreenDialog extends StatelessWidget {
                   ),
                 const SizedBox(height: 12),
 
-                // Download / Save Action Button
+                // Download Button (clean, concise, no snackbar)
                 TextButton.icon(
                   onPressed: () => _downloadCard(context),
                   icon: const Icon(Icons.download_rounded, size: 18, color: AppColors.coral),
                   label: Text(
-                    'Save / Open High-Res Image',
+                    'Download',
                     style: GoogleFonts.dmSans(
-                      fontSize: 13,
-                      fontWeight: FontWeight.w600,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w700,
                       color: AppColors.coral,
-                      decoration: TextDecoration.underline,
                     ),
                   ),
                 ),

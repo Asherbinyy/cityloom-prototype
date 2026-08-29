@@ -26,20 +26,40 @@ class _LibraryScreenState extends State<LibraryScreen> {
     final appState = context.watch<AppState>();
 
     return AppScaffold(
-      topBarTitle: 'Card Library',
+      topBarTitle: '',
       onBack: () => appState.goBack(),
       showLibraryBtn: false,
       backgroundGradient: AppScaffold.libraryGradient,
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          const SizedBox(height: 8),
+          // Header (matching HTML Screenshot 1)
+          Center(
+            child: Image.asset(
+              'assets/images/library_icon.png',
+              width: 58,
+              height: 46,
+              fit: BoxFit.contain,
+              errorBuilder: (_, _, _) => const Icon(
+                Icons.auto_stories_rounded,
+                size: 46,
+                color: AppColors.coral,
+              ),
+            ),
+          )
+              .animate(onPlay: (controller) => controller.repeat(reverse: true))
+              .scale(
+                begin: const Offset(1.0, 1.0),
+                end: const Offset(1.08, 1.08),
+                duration: 1200.ms,
+                curve: Curves.easeInOut,
+              ),
+          const SizedBox(height: 12),
 
-          // Header
           Text(
-            'COLLECTION',
+            'YOUR COLLECTION',
             style: GoogleFonts.dmSans(
-              fontSize: 11,
+              fontSize: 12,
               fontWeight: FontWeight.w700,
               letterSpacing: 2,
               color: AppColors.coral,
@@ -49,17 +69,6 @@ class _LibraryScreenState extends State<LibraryScreen> {
           const SizedBox(height: 4),
 
           Text(
-            'Historical Library',
-            style: GoogleFonts.playfairDisplay(
-              fontSize: 26,
-              fontWeight: FontWeight.w600,
-              color: AppColors.dark,
-            ),
-            textAlign: TextAlign.center,
-          ),
-          const SizedBox(height: 6),
-
-          Text(
             '${appState.unlockedCardsCount} / ${appState.totalCardsCount} cards',
             style: GoogleFonts.dmSans(
               fontSize: 13,
@@ -67,9 +76,9 @@ class _LibraryScreenState extends State<LibraryScreen> {
             ),
             textAlign: TextAlign.center,
           ),
-          const SizedBox(height: 16),
+          const SizedBox(height: 18),
 
-          // Sections: Common, Uncommon, Rare, Legendary
+          // Rarity Sections: Common, Uncommon, Rare, Legendary
           _buildRaritySection(context, appState, CardRarity.common),
           _buildRaritySection(context, appState, CardRarity.uncommon),
           _buildRaritySection(context, appState, CardRarity.rare),
@@ -146,15 +155,15 @@ class _LibraryScreenState extends State<LibraryScreen> {
           ),
           const SizedBox(height: 6),
 
-          // Grid of Cards (aspect ratio 2/3 like in HTML)
+          // Grid of Cards (3 columns matching HTML Screenshot 1)
           GridView.builder(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
+              crossAxisCount: 3,
               childAspectRatio: 0.67,
-              crossAxisSpacing: 12,
-              mainAxisSpacing: 12,
+              crossAxisSpacing: 10,
+              mainAxisSpacing: 10,
             ),
             itemCount: cards.length,
             itemBuilder: (context, index) {
@@ -228,9 +237,10 @@ class _LibraryScreenState extends State<LibraryScreen> {
                               card.name,
                               style: GoogleFonts.playfairDisplay(
                                 fontWeight: FontWeight.bold,
-                                fontSize: 16,
+                                fontSize: 13,
                                 color: AppColors.dark,
                               ),
+                              textAlign: TextAlign.center,
                             ),
                           ),
                         ),
@@ -238,44 +248,23 @@ class _LibraryScreenState extends State<LibraryScreen> {
                     ),
                   )
                 else
-                  // Locked Card: Dark Overlay with ? and Name matching HTML
+                  // Locked Card: Ornate Card Back Artwork (matching HTML CARD_LOCKED_SRC)
                   Positioned.fill(
-                    child: Container(
-                      color: const Color(0xFF281E14).withValues(alpha: 0.6),
-                      padding: const EdgeInsets.all(8),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Text(
+                    child: Image.asset(
+                      'assets/images/card_locked.jpg',
+                      fit: BoxFit.cover,
+                      errorBuilder: (_, _, _) => Container(
+                        color: const Color(0xFFD8D0C4),
+                        child: Center(
+                          child: Text(
                             '?',
                             style: GoogleFonts.playfairDisplay(
-                              fontSize: 44,
+                              fontSize: 36,
                               fontWeight: FontWeight.w700,
                               color: Colors.white.withValues(alpha: 0.65),
                             ),
                           ),
-                          const SizedBox(height: 8),
-                          Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2.5),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              border: Border.all(
-                                color: Colors.white.withValues(alpha: 0.35),
-                                width: 1,
-                              ),
-                            ),
-                            child: Text(
-                              card.rarity.name.toUpperCase(),
-                              style: GoogleFonts.dmSans(
-                                fontSize: 9,
-                                fontWeight: FontWeight.w700,
-                                letterSpacing: 2,
-                                color: Colors.white.withValues(alpha: 0.7),
-                              ),
-                            ),
-                          ),
-                        ],
+                        ),
                       ),
                     ),
                   ),
@@ -285,16 +274,16 @@ class _LibraryScreenState extends State<LibraryScreen> {
                   Positioned.fill(
                     child: Center(
                       child: Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
+                        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 5),
                         decoration: BoxDecoration(
-                          color: const Color(0xFF281E14).withValues(alpha: 0.85),
+                          color: const Color(0xFF281E14).withValues(alpha: 0.88),
                           borderRadius: BorderRadius.circular(8),
                         ),
                         child: Text(
                           'Locked',
                           style: GoogleFonts.dmSans(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w500,
+                            fontSize: 11,
+                            fontWeight: FontWeight.w600,
                             color: const Color(0xFFE8DCC6),
                           ),
                         ),

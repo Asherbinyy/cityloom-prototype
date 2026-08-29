@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import '../models/tour_model.dart';
 
 class TourData {
-  // Initial entrance coordinate — bottom-left white area near "Kirk Yard" on new map
-  static const Offset entranceCoordinate = Offset(0.08, 0.95);
+  // Initial entrance coordinate — bottom entrance gate path on new map
+  static const Offset entranceCoordinate = Offset(0.50, 0.95);
 
   static const List<TourStop> stops = [
     TourStop(
@@ -20,7 +20,7 @@ class TourData {
       unlockedCardId: 'mary',
       mapCoordinate: entranceCoordinate,
       walkPath: [
-        Offset(0.08, 0.95),
+        Offset(0.50, 0.95),
       ],
       progressStep: 0,
       storyScript:
@@ -70,13 +70,13 @@ As you explore today, listen closely to the audio stories at each stop. Complete
       audioAsset: 'assets/audio/mortsafes.mp3',
       photoAsset: 'assets/images/screen-stop-a_photo.jpg',
       unlockedCardId: null,
-      mapCoordinate: Offset(0.42, 0.72),
+      mapCoordinate: Offset(0.49, 0.58),
       walkPath: [
-        Offset(0.08, 0.95),
-        Offset(0.18, 0.88),
-        Offset(0.28, 0.82),
-        Offset(0.35, 0.78),
-        Offset(0.42, 0.72),
+        Offset(0.50, 0.95),
+        Offset(0.50, 0.85),
+        Offset(0.50, 0.72),
+        Offset(0.50, 0.64),
+        Offset(0.49, 0.58),
       ],
       progressStep: 1,
       storyScript:
@@ -126,21 +126,19 @@ These iron cages you see before you are authentic survivals of Edinburgh's grave
       title: "Covenanters' Prison",
       mapTitle: "Head to the Covenanters' Prison",
       mapDesc:
-          "Walk towards the southern section of the graveyard to find the gated entrance to the Covenanters' Prison.",
+          "Walk towards the northern section of the graveyard to find the gated entrance to the Covenanters' Prison.",
       stopDesc:
           'Stand near the iron gates of the prison. Listen to the tragic story of what took place here in 1679.',
       audioAsset: 'assets/audio/covenanters.mp3',
       photoAsset: '',
       unlockedCardId: null,
-      mapCoordinate: Offset(0.13, 0.12),
+      mapCoordinate: Offset(0.42, 0.10),
       walkPath: [
-        Offset(0.42, 0.72),
-        Offset(0.38, 0.62),
-        Offset(0.32, 0.50),
-        Offset(0.25, 0.38),
-        Offset(0.20, 0.28),
-        Offset(0.15, 0.18),
-        Offset(0.13, 0.12),
+        Offset(0.49, 0.58),
+        Offset(0.46, 0.48),
+        Offset(0.43, 0.35),
+        Offset(0.42, 0.22),
+        Offset(0.42, 0.10),
       ],
       progressStep: 2,
       storyScript:
@@ -162,7 +160,7 @@ Today, this enclosure remains a solemn memorial to their sacrifice.''',
           startSeconds: 16.0,
           endSeconds: 38.0,
           text:
-              'In 1679, over 1,200 Scottish Covenanters were imprisoned in this open field without shelter.',
+              'In 1679, over 1,200 Scottish Covenanters were imprisoned in this muddy field without shelter.',
         ),
         TourSubtitle(
           startSeconds: 38.0,
@@ -190,13 +188,13 @@ Today, this enclosure remains a solemn memorial to their sacrifice.''',
       audioAsset: 'assets/audio/black_mausoleum.mp3',
       photoAsset: '',
       unlockedCardId: null,
-      mapCoordinate: Offset(0.10, 0.48),
+      mapCoordinate: Offset(0.415, 0.55),
       walkPath: [
-        Offset(0.13, 0.12),
-        Offset(0.10, 0.20),
-        Offset(0.08, 0.30),
-        Offset(0.08, 0.38),
-        Offset(0.10, 0.48),
+        Offset(0.42, 0.10),
+        Offset(0.42, 0.22),
+        Offset(0.42, 0.35),
+        Offset(0.42, 0.45),
+        Offset(0.415, 0.55),
       ],
       progressStep: 3,
       storyScript:
