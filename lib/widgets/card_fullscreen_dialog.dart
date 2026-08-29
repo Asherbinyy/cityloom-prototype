@@ -1,11 +1,16 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'dart:convert';
 import '../models/card_model.dart';
 import '../services/analytics_service.dart';
 import '../services/sound_service.dart';
 import '../theme/app_theme.dart';
+
+// Conditionally import web download helper
+import 'card_download_stub.dart'
+    if (dart.library.js_interop) 'card_download_web.dart';
 
 class CardFullscreenDialog extends StatelessWidget {
   final CharacterCard card;
@@ -19,9 +24,33 @@ class CardFullscreenDialog extends StatelessWidget {
     SoundService.playTap();
     AnalyticsService.instance.logCardViewedFullscreen(card.id, downloaded: true);
     try {
-      final uri = Uri.parse(card.imageAsset);
-      await launchUrl(uri, mode: LaunchMode.externalApplication);
-    } catch (_) {}
+      final ByteData data = await rootBundle.load(card.imageAsset);
+      final Uint8List bytes = data.buffer.asUint8List();
+      final String base64Data = base64Encode(bytes);
+      final String fileName = '${card.id}_card.png';
+
+      downloadFile(base64Data, fileName);
+
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: const Text('Card saved!'),
+            backgroundColor: AppColors.coral,
+            behavior: SnackBarBehavior.floating,
+            duration: const Duration(seconds: 2),
+          ),
+        );
+      }
+    } catch (e) {
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Could not download: $e'),
+            backgroundColor: Colors.red.shade400,
+          ),
+        );
+      }
+    }
   }
 
   @override
