@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../models/card_model.dart';
+import '../services/analytics_service.dart';
 import '../services/sound_service.dart';
 import '../theme/app_theme.dart';
 
@@ -16,6 +17,7 @@ class CardFullscreenDialog extends StatelessWidget {
 
   void _downloadCard(BuildContext context) async {
     SoundService.playTap();
+    AnalyticsService.instance.logCardViewedFullscreen(card.id, downloaded: true);
     try {
       final uri = Uri.parse(card.imageAsset);
       await launchUrl(uri, mode: LaunchMode.externalApplication);

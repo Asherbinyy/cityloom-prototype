@@ -5,6 +5,7 @@ import '../data/card_data.dart';
 import '../data/quiz_data.dart';
 import '../models/card_model.dart';
 import '../models/quiz_model.dart';
+import '../services/analytics_service.dart';
 
 enum AppScreen {
   home,
@@ -105,6 +106,7 @@ class AppState extends ChangeNotifier {
     if (_currentScreen != screen) {
       _history.add(_currentScreen);
       _currentScreen = screen;
+      AnalyticsService.instance.logEvent('screen_view', {'screen_name': screen.name});
       notifyListeners();
     }
   }
@@ -169,11 +171,17 @@ class AppState extends ChangeNotifier {
 
   void selectQuizDifficulty(QuizDifficulty difficulty) {
     _selectedDifficulty = difficulty;
+    AnalyticsService.instance.logQuizStarted(difficulty.id);
     navigateTo(AppScreen.quizRunner);
   }
 
   void recordQuestionResult(String questionId, bool isCorrect) {
     _questionResults[questionId] = isCorrect;
+    AnalyticsService.instance.logEvent('quiz_question_answered', {
+      'question_id': questionId,
+      'is_correct': isCorrect,
+      'current_difficulty': _selectedDifficulty?.id ?? 'unknown',
+    });
     _checkAndQueueUnlocks();
     _saveToPrefs();
   }
@@ -185,6 +193,13 @@ class AppState extends ChangeNotifier {
     if (score > prevBest) {
       _bestScores[key] = score;
     }
+    final totalQ = QuizData.levels[difficulty]?.questions.length ?? 5;
+    AnalyticsService.instance.logQuizCompleted(
+      difficulty: difficulty.id,
+      score: score,
+      totalQuestions: totalQ,
+      isPerfect: score == totalQ,
+    );
     _checkAndQueueUnlocks();
     _saveToPrefs();
     navigateTo(AppScreen.quizResult);
@@ -194,6 +209,12 @@ class AppState extends ChangeNotifier {
     if (!_unlockedCardIds.contains(cardId)) {
       _unlockedCardIds.add(cardId);
       _cardUnlockQueue.remove(cardId); // ensure unique
+      AnalyticsService.instance.logCardUnlocked(
+        cardId: cardId,
+        cardName: CardData.cards[cardId]?.name ?? cardId,
+        rarity: CardData.cards[cardId]?.rarity.name ?? 'story',
+        triggerReason: 'story_progress',
+      );
       _saveToPrefs();
       _checkAndQueueUnlocks();
       notifyListeners();
@@ -279,6 +300,12 @@ class AppState extends ChangeNotifier {
     if (!_cardUnlockQueue.contains(cardId)) {
       _cardUnlockQueue.add(cardId);
     }
+    AnalyticsService.instance.logCardUnlocked(
+      cardId: cardId,
+      cardName: CardData.cards[cardId]?.name ?? cardId,
+      rarity: CardData.cards[cardId]?.rarity.name ?? 'quiz',
+      triggerReason: 'quiz_achievement',
+    );
   }
 
   String? popNextCardToReveal() {

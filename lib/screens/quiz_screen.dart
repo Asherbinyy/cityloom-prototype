@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../data/quiz_data.dart';
 import '../models/quiz_model.dart';
+import '../services/analytics_service.dart';
 import '../services/sound_service.dart';
 import '../state/app_state.dart';
 import '../theme/app_theme.dart';
@@ -1485,6 +1486,8 @@ class _QuizScreenState extends State<QuizScreen> {
                   text: 'Give Feedback (Google Form)',
                   onPressed: () async {
                     SoundService.playTap();
+                    AnalyticsService.instance
+                        .logSurveyClick('post_quiz_results_card');
                     final uri =
                         Uri.parse('https://forms.gle/2iMZ6P9CGV3iMUja7');
                     if (await canLaunchUrl(uri)) {

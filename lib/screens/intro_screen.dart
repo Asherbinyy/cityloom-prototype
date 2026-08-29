@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:provider/provider.dart';
 import '../data/tour_data.dart';
+import '../services/analytics_service.dart';
 import '../services/sound_service.dart';
 import '../state/app_state.dart';
 import '../widgets/app_scaffold.dart';
@@ -71,6 +72,7 @@ class IntroScreen extends StatelessWidget {
             isSecondary: true,
             onPressed: () {
               SoundService.playTap();
+              AnalyticsService.instance.logEvent('tour_intro_skipped');
               appState.navigateTo(AppScreen.mapA);
             },
           ),
@@ -82,6 +84,7 @@ class IntroScreen extends StatelessWidget {
 
   void _handleNext(BuildContext context, AppState appState) {
     SoundService.playTap();
+    AnalyticsService.instance.logEvent('tour_intro_completed');
     final bool isNewlyUnlocked = appState.unlockStoryCard('mary');
 
     if (isNewlyUnlocked) {

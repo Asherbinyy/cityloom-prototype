@@ -12,8 +12,11 @@ import 'state/app_state.dart';
 import 'state/audio_controller.dart';
 import 'theme/app_theme.dart';
 
+import 'services/analytics_service.dart';
+
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
+  AnalyticsService.instance.init();
   runApp(
     MultiProvider(
       providers: [

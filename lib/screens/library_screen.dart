@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import '../data/card_data.dart';
 import '../models/card_model.dart';
+import '../services/analytics_service.dart';
 import '../services/sound_service.dart';
 import '../state/app_state.dart';
 import '../theme/app_theme.dart';
@@ -205,6 +206,7 @@ class _LibraryScreenState extends State<LibraryScreen> {
             onTap: () {
               if (isUnlocked) {
                 SoundService.playTap();
+                AnalyticsService.instance.logCardViewedFullscreen(card.id);
                 showDialog(
                   context: context,
                   builder: (_) => CardFullscreenDialog(card: card),

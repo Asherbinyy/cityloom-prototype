@@ -3,6 +3,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
+import '../services/analytics_service.dart';
 import '../services/sound_service.dart';
 import '../state/app_state.dart';
 import '../theme/app_theme.dart';
@@ -15,6 +16,7 @@ class SurveyScreen extends StatelessWidget {
   const SurveyScreen({super.key});
 
   Future<void> _openSurvey() async {
+    AnalyticsService.instance.logSurveyClick('feedback_screen');
     final uri = Uri.parse(surveyUrl);
     if (await canLaunchUrl(uri)) {
       await launchUrl(uri, mode: LaunchMode.externalApplication);

@@ -327,18 +327,27 @@
           osc.stop(t + 0.13);
         } catch(e) { console.warn(e); }
       }
+    };
+
     function hideSplash() {
       var splash = document.getElementById('loading-splash');
       if (splash && !splash.classList.contains('hidden')) {
         splash.classList.add('hidden');
-        setTimeout(function() { if (splash.parentNode) splash.remove(); }, 600);
+        setTimeout(function() {
+          if (splash && splash.parentNode) {
+            splash.parentNode.removeChild(splash);
+          }
+        }, 500);
       }
     }
 
-    // Auto hide splash when Flutter renders first frame + safety timer
+    // Auto hide splash on Flutter rendering + fast timeout fallback
     window.addEventListener('flutter-first-frame', hideSplash);
     window.addEventListener('load', function() {
-      setTimeout(hideSplash, 2800);
+      setTimeout(hideSplash, 2000);
+    });
+    document.addEventListener('DOMContentLoaded', function() {
+      setTimeout(hideSplash, 3500);
     });
   </script>
 </head>
