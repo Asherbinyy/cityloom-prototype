@@ -921,8 +921,9 @@ class _QuizScreenState extends State<QuizScreen> {
       context: context,
       builder: (_) => QuitQuizDialog(
         onConfirmQuit: () {
-          Navigator.of(context).pop();
-          appState.goBack();
+          TtsService.stop();
+          _resetQuestionState(appState: appState);
+          appState.navigateTo(AppScreen.quizSelect);
         },
       ),
     );
