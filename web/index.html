@@ -510,16 +510,25 @@
           if (splash && splash.parentNode) {
             splash.parentNode.removeChild(splash);
           }
-        }, 500);
+        }, 400);
       }
     }
 
-    // Bulletproof splash hiding on Flutter render + fallback timers
+    // Hide splash when Flutter engine renders the first frame
     window.addEventListener('flutter-first-frame', hideSplash);
-    window.addEventListener('load', function() {
-      setTimeout(hideSplash, 1200);
-    });
-    setTimeout(hideSplash, 2200);
+
+    // Dynamic observer: dismiss splash as soon as Flutter canvas mounts
+    var checkCount = 0;
+    var splashInterval = setInterval(function() {
+      checkCount++;
+      var flutterView = document.querySelector('flutter-view') || 
+                        document.querySelector('flt-glass-pane') ||
+                        document.querySelector('flt-scene-host');
+      if (flutterView || checkCount >= 40) {
+        hideSplash();
+        clearInterval(splashInterval);
+      }
+    }, 200);
   </script>
 </head>
 <body>
