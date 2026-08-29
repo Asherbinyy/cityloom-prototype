@@ -90,11 +90,17 @@ class _AudioPlayerCardState extends State<AudioPlayerCard> {
       nextSpeed = 1.5;
     } else if (_playbackSpeed == 1.5) {
       nextSpeed = 2.0;
+    } else if (_playbackSpeed == 2.0) {
+      nextSpeed = 3.0;
     } else {
       nextSpeed = 1.0;
     }
     setState(() => _playbackSpeed = nextSpeed);
-    await _player.setPlaybackRate(nextSpeed);
+    try {
+      await _player.setPlaybackRate(nextSpeed);
+    } catch (e) {
+      debugPrint('Playback rate error: $e');
+    }
   }
 
   String _formatDuration(Duration d) {

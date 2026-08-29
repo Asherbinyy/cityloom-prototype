@@ -161,6 +161,8 @@ class _QuizScreenState extends State<QuizScreen> {
         _currentSpeechRate = 1.25;
       } else if (_currentSpeechRate == 1.25) {
         _currentSpeechRate = 1.5;
+      } else if (_currentSpeechRate == 1.5) {
+        _currentSpeechRate = 2.0;
       } else {
         _currentSpeechRate = 1.0;
       }
@@ -706,7 +708,7 @@ class _QuizScreenState extends State<QuizScreen> {
                       ),
                       const SizedBox(width: 8),
 
-                      // 3. Speed Button (1.0x, 1.25x, 1.5x)
+                      // 3. Speed Button (1.0x, 1.25x, 1.5x, 2.0x)
                       Material(
                         color: Colors.transparent,
                         child: InkWell(
@@ -721,7 +723,7 @@ class _QuizScreenState extends State<QuizScreen> {
                               border: Border.all(color: AppColors.blush),
                             ),
                             child: Text(
-                              '${_currentSpeechRate.toStringAsFixed(_currentSpeechRate == 1.0 ? 0 : 2)}x',
+                              '${_currentSpeechRate.toStringAsFixed(_currentSpeechRate == 1.0 || _currentSpeechRate == 2.0 ? 0 : 2)}x',
                               style: GoogleFonts.dmSans(
                                 fontSize: 11,
                                 fontWeight: FontWeight.bold,
@@ -733,52 +735,7 @@ class _QuizScreenState extends State<QuizScreen> {
                       ),
                       const Spacer(),
 
-                      // 4. Voice Answer Button
-                      Material(
-                        color: Colors.transparent,
-                        child: InkWell(
-                          onTap: () => _handleVoiceAnswerInput(q, appState),
-                          borderRadius: BorderRadius.circular(12),
-                          child: Container(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 8, vertical: 4),
-                            decoration: BoxDecoration(
-                              color: _isListeningSpeech
-                                  ? const Color(0xFFFFD1D1)
-                                  : AppColors.coral,
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Icon(
-                                  _isListeningSpeech
-                                      ? Icons.mic_rounded
-                                      : Icons.mic_none_rounded,
-                                  size: 13,
-                                  color: _isListeningSpeech
-                                      ? const Color(0xFFA33333)
-                                      : Colors.white,
-                                ),
-                                const SizedBox(width: 4),
-                                Text(
-                                  _isListeningSpeech ? 'Listening...' : 'Voice',
-                                  style: GoogleFonts.dmSans(
-                                    fontSize: 11,
-                                    fontWeight: FontWeight.bold,
-                                    color: _isListeningSpeech
-                                        ? const Color(0xFFA33333)
-                                        : Colors.white,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(width: 6),
-
-                      // 5. Close Button
+                      // 4. Close Button
                       Material(
                         color: Colors.transparent,
                         child: InkWell(
@@ -796,17 +753,6 @@ class _QuizScreenState extends State<QuizScreen> {
                       ),
                     ],
                   ),
-                  if (_speechFeedbackText != null) ...[
-                    const SizedBox(height: 4),
-                    Text(
-                      _speechFeedbackText!,
-                      style: GoogleFonts.dmSans(
-                        fontSize: 11.5,
-                        fontWeight: FontWeight.w600,
-                        color: AppColors.coral,
-                      ),
-                    ),
-                  ],
                 ],
               ),
             ).animate().fadeIn(duration: 200.ms),
@@ -1667,6 +1613,8 @@ class _QuizScreenState extends State<QuizScreen> {
         ReorderableListView.builder(
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
+          // FIX: stops Flutter drawing its own drag_handle icon on top of ours
+          buildDefaultDragHandles: false,
           proxyDecorator: (Widget child, int index, Animation<double> animation) {
             return Material(
               color: Colors.transparent,
@@ -1729,10 +1677,15 @@ class _QuizScreenState extends State<QuizScreen> {
                           fontSize: 13.5, color: AppColors.dark),
                     ),
                   ),
-                  const Icon(
-                    Icons.swap_vert_rounded,
-                    size: 24,
-                    color: Color(0xFF6B6B6B),
+                  // FIX: our icon is now the one and only drag handle
+                  ReorderableDragStartListener(
+                    index: idx,
+                    enabled: !_isAnswered,
+                    child: const Icon(
+                      Icons.drag_indicator_rounded,
+                      size: 24,
+                      color: Color(0xFF6B6B6B),
+                    ),
                   ),
                 ],
               ),

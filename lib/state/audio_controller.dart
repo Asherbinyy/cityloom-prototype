@@ -119,10 +119,16 @@ class AudioController extends ChangeNotifier {
       _playbackSpeed = 1.5;
     } else if (_playbackSpeed == 1.5) {
       _playbackSpeed = 2.0;
+    } else if (_playbackSpeed == 2.0) {
+      _playbackSpeed = 3.0;
     } else {
       _playbackSpeed = 1.0;
     }
-    await _player.setPlaybackRate(_playbackSpeed);
+    try {
+      await _player.setPlaybackRate(_playbackSpeed);
+    } catch (e) {
+      debugPrint('Playback rate error: $e');
+    }
     notifyListeners();
   }
 

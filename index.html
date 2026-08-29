@@ -23,11 +23,11 @@
   <meta charset="UTF-8">
   <meta content="IE=Edge" http-equiv="X-UA-Compatible">
   <meta name="description" content="CityLoom interactive walking tour of Greyfriars Kirkyard, Edinburgh.">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 
   <!-- iOS meta tags & icons -->
   <meta name="mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="CityLoom">
   <link rel="apple-touch-icon" href="favicon.png">
 
@@ -47,17 +47,21 @@
       margin: 0;
       padding: 0;
     }
-    body {
+    html, body {
       margin: 0;
       padding: 0;
+      width: 100%;
+      height: 100%;
+      height: 100dvh;
+      overflow: hidden;
       background: #fff4eb;
       background: linear-gradient(180deg, #fff4eb 0%, #fdeada 40%, #f5e1cf 100%);
       font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 100vh;
-      overflow: hidden;
+      /* iOS safe area padding */
+      padding-top: env(safe-area-inset-top);
+      padding-bottom: env(safe-area-inset-bottom);
+      padding-left: env(safe-area-inset-left);
+      padding-right: env(safe-area-inset-right);
     }
 
     #loading-splash {
@@ -351,19 +355,59 @@
       paused: false,
       rate: 0.92,
       currentText: '',
+      cachedVoice: null,
 
       getBestVoice: function() {
         if (!('speechSynthesis' in window)) return null;
         var voices = window.speechSynthesis.getVoices();
-        var preferred = ['Google UK English Female', 'Google UK English Male', 'en-GB', 'en_GB', 'Daniel', 'Serena', 'Oliver', 'Google US English', 'Samantha', 'en-US'];
-        for (var p = 0; p < preferred.length; p++) {
+        if (!voices || voices.length === 0) return null;
+
+        // Preferred female, natural and Scottish/UK/English voices
+        var preferredFemale = [
+          'Google UK English Female',
+          'Fiona',              // Scottish English (Perfect for Edinburgh)
+          'Serena',             // British English Female (iOS premium)
+          'Martha',             // British English Female (iOS)
+          'Stephanie',          // British English Female
+          'Moira',              // Irish/UK Female
+          'Karen',              // English Female
+          'Samantha',           // US English Female (High clarity)
+          'Victoria',           // English Female
+          'Tessa',              // English Female
+          'Kate',               // English Female
+          'Google US English Female',
+          'Google US English'
+        ];
+
+        // 1. Check preferred high-quality female list
+        for (var p = 0; p < preferredFemale.length; p++) {
           for (var v = 0; v < voices.length; v++) {
-            if (voices[v].name.indexOf(preferred[p]) !== -1 || voices[v].lang.replace('_','-').indexOf(preferred[p]) === 0) {
+            var name = voices[v].name || '';
+            if (name.indexOf(preferredFemale[p]) !== -1) {
               return voices[v];
             }
           }
         }
-        return voices.length > 0 ? voices[0] : null;
+
+        // 2. Any voice explicitly tagged female/woman
+        for (var v = 0; v < voices.length; v++) {
+          var name = (voices[v].name || '').toLowerCase();
+          if (name.includes('female') || name.includes('woman') || name.includes('girl')) {
+            return voices[v];
+          }
+        }
+
+        // 3. Exclude known male voice names (Daniel, Oliver, George, Arthur, Fred, Alex)
+        var maleNames = ['daniel', 'oliver', 'george', 'arthur', 'fred', 'alex', 'david', 'male', 'man', 'guy'];
+        for (var v = 0; v < voices.length; v++) {
+          var name = (voices[v].name || '').toLowerCase();
+          var isMale = maleNames.some(function(m) { return name.includes(m); });
+          if (!isMale && voices[v].lang && voices[v].lang.startsWith('en')) {
+            return voices[v];
+          }
+        }
+
+        return voices[0];
       },
 
       speak: function(text, rate) {
@@ -374,7 +418,7 @@
           if (rate) this.rate = rate;
           var utter = new SpeechSynthesisUtterance(text);
           utter.rate = this.rate || 0.92;
-          utter.pitch = 1.0;
+          utter.pitch = 1.05; // Slightly higher pitch for clear, natural feminine tone
           var voice = this.getBestVoice();
           if (voice) utter.voice = voice;
           utter.lang = voice ? voice.lang : 'en-GB';
