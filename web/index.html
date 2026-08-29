@@ -4,6 +4,15 @@
   <base href="$FLUTTER_BASE_HREF">
 
   <script>
+    // Invalidate stale Service Worker and cache from older builds
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.getRegistrations().then(function(registrations) {
+        for (var registration of registrations) {
+          registration.update();
+        }
+      });
+    }
+
     // Normalize /docs/ URL to root /cityloom-prototype/ seamlessly
     if (window.location.pathname.endsWith('/docs') || window.location.pathname.endsWith('/docs/')) {
       var cleanPath = window.location.pathname.replace(/\/docs\/?$/, '') + '/';
