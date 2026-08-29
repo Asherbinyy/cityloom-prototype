@@ -42,6 +42,7 @@ class _AudioPlayerCardState extends State<AudioPlayerCard> {
     _initAudio();
   }
 
+  int _lastRenderedSecond = -1;
   int _lastRenderedMs = 0;
 
   Future<void> _initAudio() async {
@@ -55,9 +56,11 @@ class _AudioPlayerCardState extends State<AudioPlayerCard> {
 
     _positionSub = _player.onPositionChanged.listen((pos) {
       if (mounted && !_isSeeking) {
-        final nowMs = pos.inMilliseconds;
-        if ((nowMs - _lastRenderedMs).abs() >= 180 || nowMs == 0) {
-          _lastRenderedMs = nowMs;
+        final sec = pos.inSeconds;
+        final ms = pos.inMilliseconds;
+        if (sec != _lastRenderedSecond || (ms - _lastRenderedMs).abs() >= 250) {
+          _lastRenderedSecond = sec;
+          _lastRenderedMs = ms;
           setState(() => _position = pos);
         }
       }
@@ -65,6 +68,7 @@ class _AudioPlayerCardState extends State<AudioPlayerCard> {
 
     try {
       final cleanPath = widget.audioAsset.replaceFirst('assets/', '');
+      await _player.setReleaseMode(ReleaseMode.stop);
       await _player.setSource(AssetSource(cleanPath));
     } catch (e) {
       debugPrint('Audio source setup error: $e');

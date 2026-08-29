@@ -29,13 +29,16 @@ class AudioController extends ChangeNotifier {
     _initStreams();
   }
 
+  int _lastRenderedSecond = -1;
   int _lastRenderedMs = 0;
 
   void _initStreams() {
     _posSub = _player.onPositionChanged.listen((pos) {
-      final nowMs = pos.inMilliseconds;
-      if ((nowMs - _lastRenderedMs).abs() >= 180 || nowMs == 0) {
-        _lastRenderedMs = nowMs;
+      final sec = pos.inSeconds;
+      final ms = pos.inMilliseconds;
+      if (sec != _lastRenderedSecond || (ms - _lastRenderedMs).abs() >= 250) {
+        _lastRenderedSecond = sec;
+        _lastRenderedMs = ms;
         _position = pos;
         notifyListeners();
       }

@@ -347,6 +347,64 @@
       }
     };
 
+    // Mobile & Desktop Native Card Image Downloader
+    window.cityLoomDownloadCard = function(base64Data, fileName) {
+      try {
+        var byteCharacters = atob(base64Data);
+        var byteNumbers = new Array(byteCharacters.length);
+        for (var i = 0; i < byteCharacters.length; i++) {
+          byteNumbers[i] = byteCharacters.charCodeAt(i);
+        }
+        var byteArray = new Uint8Array(byteNumbers);
+        var blob = new Blob([byteArray], { type: 'image/png' });
+
+        // On mobile (iOS Safari/Chrome, Android): Use Web Share API for native "Save Image" to Photos
+        var file = new File([blob], fileName, { type: 'image/png' });
+        if (navigator.canShare && navigator.canShare({ files: [file] })) {
+          navigator.share({
+            files: [file],
+            title: fileName.replace('.png', '').replace(/_/g, ' '),
+          }).catch(function(err) {
+            if (err.name !== 'AbortError') {
+              // Fallback to blob download if share was cancelled or failed
+              downloadBlobFallback(blob, fileName);
+            }
+          });
+          return true;
+        } else {
+          // Desktop / Windows fallback: Anchor download
+          downloadBlobFallback(blob, fileName);
+          return true;
+        }
+      } catch(e) {
+        console.warn('Download error:', e);
+        return false;
+      }
+    };
+
+    function downloadBlobFallback(blob, fileName) {
+      var blobUrl = URL.createObjectURL(blob);
+      var link = document.createElement('a');
+      link.href = blobUrl;
+      link.download = fileName;
+      link.style.display = 'none';
+      document.body.appendChild(link);
+      link.click();
+      setTimeout(function() {
+        if (link.parentNode) link.parentNode.removeChild(link);
+        URL.revokeObjectURL(blobUrl);
+      }, 3000);
+    }
+
+    // Audio buffering optimizer for iOS WebKit
+    try {
+      var origPlay = HTMLAudioElement.prototype.play;
+      HTMLAudioElement.prototype.play = function() {
+        this.preload = 'auto';
+        return origPlay.apply(this, arguments);
+      };
+    } catch(e) {}
+
     window.cityLoomTTS = {
       speaking: false,
       paused: false,
