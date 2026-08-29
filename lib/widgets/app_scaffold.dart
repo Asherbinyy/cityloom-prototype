@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import '../services/sound_service.dart';
@@ -98,7 +99,7 @@ class AppScaffold extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          // Left: Back button
+          // Left: Clean Back Chevron matching HTML .back-btn
           if (canGoBack)
             Material(
               color: Colors.transparent,
@@ -111,34 +112,21 @@ class AppScaffold extends StatelessWidget {
                     appState.goBack();
                   }
                 },
-                borderRadius: BorderRadius.circular(24),
-                child: Container(
-                  width: 40,
-                  height: 40,
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                    color: Colors.white.withValues(alpha: 0.85),
-                    shape: BoxShape.circle,
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withValues(alpha: 0.06),
-                        blurRadius: 8,
-                        offset: const Offset(0, 2),
-                      ),
-                    ],
-                  ),
-                  child: const Icon(
+                borderRadius: BorderRadius.circular(20),
+                child: const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+                  child: Icon(
                     Icons.arrow_back_ios_new_rounded,
-                    size: 18,
+                    size: 20,
                     color: AppColors.coral,
                   ),
                 ),
               ),
             )
           else
-            const SizedBox(width: 40),
+            const SizedBox(width: 36),
 
-          // Center: Logo and Title on the exact same level
+          // Center: Logo and Title on the exact same baseline
           Expanded(
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -168,7 +156,7 @@ class AppScaffold extends StatelessWidget {
             ),
           ),
 
-          // Right: Exact Library Icon from HTML with count badge
+          // Right: Exact Library Icon from HTML with count badge + subtle pulse animation
           if (showLibraryBtn && appState.currentScreen != AppScreen.library)
             Material(
               color: Colors.transparent,
@@ -182,7 +170,7 @@ class AppScaffold extends StatelessWidget {
                   padding:
                       const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                   decoration: BoxDecoration(
-                    color: Colors.white.withValues(alpha: 0.9),
+                    color: AppColors.cream.withValues(alpha: 0.9),
                     borderRadius: BorderRadius.circular(20),
                     border: Border.all(
                       color: AppColors.coral.withValues(alpha: 0.4),
@@ -201,7 +189,7 @@ class AppScaffold extends StatelessWidget {
                     children: [
                       Image.asset(
                         'assets/images/library_icon.png',
-                        width: 26,
+                        width: 24,
                         height: 20,
                         fit: BoxFit.contain,
                         errorBuilder: (_, _, _) => const Icon(
@@ -221,11 +209,18 @@ class AppScaffold extends StatelessWidget {
                       ),
                     ],
                   ),
-                ),
+                )
+                    .animate(onPlay: (controller) => controller.repeat(reverse: true))
+                    .scale(
+                      begin: const Offset(1.0, 1.0),
+                      end: const Offset(1.06, 1.06),
+                      duration: 1200.ms,
+                      curve: Curves.easeInOut,
+                    ),
               ),
             )
           else
-            const SizedBox(width: 40),
+            const SizedBox(width: 36),
         ],
       ),
     );

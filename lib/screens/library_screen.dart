@@ -19,6 +19,7 @@ class LibraryScreen extends StatefulWidget {
 
 class _LibraryScreenState extends State<LibraryScreen> {
   final Map<String, bool> _shakingMap = {};
+  final Map<String, bool> _toastMap = {};
 
   @override
   Widget build(BuildContext context) {
@@ -38,10 +39,10 @@ class _LibraryScreenState extends State<LibraryScreen> {
           Text(
             'COLLECTION',
             style: GoogleFonts.dmSans(
-              fontSize: 12,
+              fontSize: 11,
               fontWeight: FontWeight.w700,
               letterSpacing: 2,
-              color: const Color(0xFF2563EB),
+              color: AppColors.coral,
             ),
             textAlign: TextAlign.center,
           ),
@@ -50,8 +51,8 @@ class _LibraryScreenState extends State<LibraryScreen> {
           Text(
             'Historical Library',
             style: GoogleFonts.playfairDisplay(
-              fontSize: 28,
-              fontWeight: FontWeight.w700,
+              fontSize: 26,
+              fontWeight: FontWeight.w600,
               color: AppColors.dark,
             ),
             textAlign: TextAlign.center,
@@ -59,15 +60,14 @@ class _LibraryScreenState extends State<LibraryScreen> {
           const SizedBox(height: 6),
 
           Text(
-            '${appState.unlockedCardsCount} / ${appState.totalCardsCount} cards unlocked',
+            '${appState.unlockedCardsCount} / ${appState.totalCardsCount} cards',
             style: GoogleFonts.dmSans(
-              fontSize: 14,
-              fontWeight: FontWeight.bold,
-              color: const Color(0xFF2563EB),
+              fontSize: 13,
+              color: AppColors.muted,
             ),
             textAlign: TextAlign.center,
           ),
-          const SizedBox(height: 20),
+          const SizedBox(height: 16),
 
           // Sections: Common, Uncommon, Rare, Legendary
           _buildRaritySection(context, appState, CardRarity.common),
@@ -87,76 +87,83 @@ class _LibraryScreenState extends State<LibraryScreen> {
         CardData.cards.values.where((c) => c.rarity == rarity).toList();
     if (cards.isEmpty) return const SizedBox.shrink();
 
-    Color labelColor;
+    Color bgColor;
+    Color textColor;
+    Color borderColor;
     String labelText;
 
     switch (rarity) {
       case CardRarity.common:
-        labelText = 'Common';
-        labelColor = const Color(0xFF2A2A2A);
+        labelText = 'COMMON';
+        bgColor = const Color(0xFFFDA692).withValues(alpha: 0.25);
+        textColor = const Color(0xFFC06040);
+        borderColor = const Color(0xFFC06040).withValues(alpha: 0.5);
         break;
       case CardRarity.uncommon:
-        labelText = 'Uncommon';
-        labelColor = const Color(0xFF2563EB);
+        labelText = 'UNCOMMON';
+        bgColor = const Color(0xFFFDA692).withValues(alpha: 0.2);
+        textColor = const Color(0xFFB05A40);
+        borderColor = const Color(0xFFB05A40).withValues(alpha: 0.5);
         break;
       case CardRarity.rare:
-        labelText = 'Rare';
-        labelColor = const Color(0xFF9333EA);
+        labelText = 'RARE';
+        bgColor = const Color(0xFFB43C32).withValues(alpha: 0.2);
+        textColor = const Color(0xFF8A2020);
+        borderColor = const Color(0xFF8A2020).withValues(alpha: 0.5);
         break;
       case CardRarity.legendary:
-        labelText = 'Legendary';
-        labelColor = const Color(0xFFD97706);
+        labelText = 'LEGENDARY';
+        bgColor = const Color(0xFF8C82C8).withValues(alpha: 0.2);
+        textColor = const Color(0xFF5A4A9A);
+        borderColor = const Color(0xFF5A4A9A).withValues(alpha: 0.5);
         break;
     }
 
     return Padding(
-      padding: const EdgeInsets.only(bottom: 20),
+      padding: const EdgeInsets.only(bottom: 16),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 6),
-            child: Row(
-              children: [
-                Container(
-                  width: 8,
-                  height: 8,
-                  decoration: BoxDecoration(
-                    color: labelColor,
-                    shape: BoxShape.circle,
-                  ),
-                ),
-                const SizedBox(width: 8),
-                Text(
-                  labelText,
-                  style: GoogleFonts.playfairDisplay(
-                    fontSize: 18,
-                    fontWeight: FontWeight.w700,
-                    color: labelColor,
-                  ),
-                ),
-              ],
+          // Section Pill Label
+          Container(
+            margin: const EdgeInsets.symmetric(vertical: 8),
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 3),
+            decoration: BoxDecoration(
+              color: bgColor,
+              borderRadius: BorderRadius.circular(12),
+              border: Border.all(color: borderColor, width: 1),
+            ),
+            child: Text(
+              labelText,
+              style: GoogleFonts.dmSans(
+                fontSize: 10,
+                fontWeight: FontWeight.w700,
+                letterSpacing: 2,
+                color: textColor,
+              ),
+              textAlign: TextAlign.center,
             ),
           ),
           const SizedBox(height: 6),
 
-          // Grid of Cards
+          // Grid of Cards (aspect ratio 2/3 like in HTML)
           GridView.builder(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
-              childAspectRatio: 0.68,
-              crossAxisSpacing: 14,
-              mainAxisSpacing: 14,
+              childAspectRatio: 0.67,
+              crossAxisSpacing: 12,
+              mainAxisSpacing: 12,
             ),
             itemCount: cards.length,
             itemBuilder: (context, index) {
               final card = cards[index];
               final isUnlocked = appState.isCardUnlocked(card.id);
               final isShaking = _shakingMap[card.id] ?? false;
+              final showToast = _toastMap[card.id] ?? false;
 
-              return _buildCardItem(context, card, isUnlocked, isShaking);
+              return _buildCardItem(context, card, isUnlocked, isShaking, showToast);
             },
           ),
         ],
@@ -165,20 +172,21 @@ class _LibraryScreenState extends State<LibraryScreen> {
   }
 
   Widget _buildCardItem(
-      BuildContext context, CharacterCard card, bool isUnlocked, bool isShaking) {
-    Widget cardWidget = Container(
+      BuildContext context, CharacterCard card, bool isUnlocked, bool isShaking, bool showToast) {
+    Widget cardContent = Container(
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(16),
+        color: isUnlocked ? Colors.transparent : const Color(0xFFD8D0C4),
+        borderRadius: BorderRadius.circular(10),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withValues(alpha: isUnlocked ? 0.15 : 0.06),
-            blurRadius: isUnlocked ? 12 : 6,
-            offset: const Offset(0, 4),
+            color: Colors.black.withValues(alpha: 0.18),
+            blurRadius: 10,
+            offset: const Offset(0, 3),
           ),
         ],
       ),
       child: ClipRRect(
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(10),
         child: Material(
           color: Colors.transparent,
           child: InkWell(
@@ -191,123 +199,139 @@ class _LibraryScreenState extends State<LibraryScreen> {
                 );
               } else {
                 SoundService.playLocked();
-                setState(() => _shakingMap[card.id] = true);
-                Future.delayed(const Duration(milliseconds: 600), () {
+                setState(() {
+                  _shakingMap[card.id] = true;
+                  _toastMap[card.id] = true;
+                });
+                Future.delayed(const Duration(milliseconds: 500), () {
                   if (mounted) setState(() => _shakingMap[card.id] = false);
                 });
-
-                ScaffoldMessenger.of(context).hideCurrentSnackBar();
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: Text(
-                      '🔒 ${card.name}: ${card.hint}',
-                      style: GoogleFonts.dmSans(
-                        fontSize: 13,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.white,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-                    backgroundColor: const Color(0xFF281E14).withValues(alpha: 0.92),
-                    duration: const Duration(seconds: 2),
-                    behavior: SnackBarBehavior.floating,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                  ),
-                );
+                Future.delayed(const Duration(milliseconds: 1000), () {
+                  if (mounted) setState(() => _toastMap[card.id] = false);
+                });
               }
             },
-            child: isUnlocked
-                ? Hero(
-                    tag: 'card_${card.id}',
-                    child: Image.asset(
-                      card.imageAsset,
-                      fit: BoxFit.cover,
-                      errorBuilder: (_, _, _) => Container(
-                        color: AppColors.cream,
-                        child: Center(
-                          child: Text(
-                            card.name,
-                            style: GoogleFonts.playfairDisplay(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16,
-                              color: AppColors.dark,
+            child: Stack(
+              children: [
+                // Unlocked Card: Full Image
+                if (isUnlocked)
+                  Positioned.fill(
+                    child: Hero(
+                      tag: 'card_${card.id}',
+                      child: Image.asset(
+                        card.imageAsset,
+                        fit: BoxFit.cover,
+                        errorBuilder: (_, _, _) => Container(
+                          color: AppColors.cream,
+                          child: Center(
+                            child: Text(
+                              card.name,
+                              style: GoogleFonts.playfairDisplay(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16,
+                                color: AppColors.dark,
+                              ),
                             ),
                           ),
                         ),
                       ),
                     ),
                   )
-                : Container(
-                    decoration: BoxDecoration(
-                      gradient: const LinearGradient(
-                        colors: [Color(0xFF2C241D), Color(0xFF1E1812)],
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                      ),
-                      borderRadius: BorderRadius.circular(16),
-                      border: Border.all(
-                        color: AppColors.coral.withValues(alpha: 0.3),
-                        width: 1.5,
-                      ),
-                    ),
-                    padding: const EdgeInsets.all(12),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Container(
-                          padding: const EdgeInsets.all(10),
-                          decoration: BoxDecoration(
-                            color: Colors.black.withValues(alpha: 0.3),
-                            shape: BoxShape.circle,
-                            border: Border.all(
-                              color: AppColors.coral.withValues(alpha: 0.4),
+                else
+                  // Locked Card: Dark Overlay with ? and Name matching HTML
+                  Positioned.fill(
+                    child: Container(
+                      color: const Color(0xFF281E14).withValues(alpha: 0.6),
+                      padding: const EdgeInsets.all(8),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text(
+                            '?',
+                            style: GoogleFonts.playfairDisplay(
+                              fontSize: 36,
+                              fontWeight: FontWeight.w700,
+                              color: Colors.white.withValues(alpha: 0.6),
                             ),
                           ),
-                          child: const Icon(
-                            Icons.lock_rounded,
-                            size: 26,
-                            color: Color(0xFFD4AF37), // Antique gold lock
+                          const SizedBox(height: 4),
+                          Text(
+                            card.name,
+                            style: GoogleFonts.dmSans(
+                              fontSize: 11,
+                              fontWeight: FontWeight.w500,
+                              letterSpacing: 0.5,
+                              color: Colors.white.withValues(alpha: 0.8),
+                            ),
+                            textAlign: TextAlign.center,
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
                           ),
-                        ),
-                        const SizedBox(height: 10),
-                        Text(
-                          card.name,
-                          style: GoogleFonts.playfairDisplay(
-                            fontSize: 13,
-                            fontWeight: FontWeight.w700,
-                            color: const Color(0xFFE5D5C5),
+                          const SizedBox(height: 6),
+                          Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              border: Border.all(
+                                color: Colors.white.withValues(alpha: 0.3),
+                                width: 1,
+                              ),
+                            ),
+                            child: Text(
+                              card.rarity.name.toUpperCase(),
+                              style: GoogleFonts.dmSans(
+                                fontSize: 9,
+                                fontWeight: FontWeight.w600,
+                                letterSpacing: 2,
+                                color: Colors.white.withValues(alpha: 0.6),
+                              ),
+                            ),
                           ),
-                          textAlign: TextAlign.center,
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                        const SizedBox(height: 6),
-                        Text(
-                          'Tap to see hint',
-                          style: GoogleFonts.dmSans(
-                            fontSize: 10.5,
-                            fontStyle: FontStyle.italic,
-                            color: const Color(0xFF9E8E7E),
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
+
+                // On-Card Locked Toast (like HTML .toast-locked)
+                if (showToast)
+                  Positioned.fill(
+                    child: Center(
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
+                        decoration: BoxDecoration(
+                          color: const Color(0xFF281E14).withValues(alpha: 0.85),
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: Text(
+                          'Locked',
+                          style: GoogleFonts.dmSans(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w500,
+                            color: const Color(0xFFE8DCC6),
+                          ),
+                        ),
+                      )
+                          .animate()
+                          .fadeIn(duration: 150.ms)
+                          .scale(begin: const Offset(0.9, 0.9), end: const Offset(1, 1), duration: 150.ms)
+                          .then(delay: 600.ms)
+                          .fadeOut(duration: 250.ms),
+                    ),
+                  ),
+              ],
+            ),
           ),
         ),
       ),
     );
 
     if (isShaking) {
-      return cardWidget
+      return cardContent
           .animate(onComplete: (_) {})
           .shake(duration: 500.ms, hz: 6, curve: Curves.easeInOut);
     }
 
-    return cardWidget;
+    return cardContent;
   }
 }

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import '../models/tour_model.dart';
 
 class TourData {
-  // Initial entrance coordinate on the white area in the very left gateway of the map
-  static const Offset entranceCoordinate = Offset(0.12, 0.16);
+  // Initial entrance coordinate — bottom-left white area near "Kirk Yard" on new map
+  static const Offset entranceCoordinate = Offset(0.08, 0.95);
 
   static const List<TourStop> stops = [
     TourStop(
@@ -20,7 +20,7 @@ class TourData {
       unlockedCardId: 'mary',
       mapCoordinate: entranceCoordinate,
       walkPath: [
-        Offset(0.12, 0.16),
+        Offset(0.08, 0.95),
       ],
       progressStep: 0,
       storyScript:
@@ -70,15 +70,13 @@ As you explore today, listen closely to the audio stories at each stop. Complete
       audioAsset: 'assets/audio/mortsafes.mp3',
       photoAsset: 'assets/images/screen-stop-a_photo.jpg',
       unlockedCardId: null,
-      mapCoordinate: Offset(0.52, 0.59),
+      mapCoordinate: Offset(0.42, 0.72),
       walkPath: [
-        Offset(0.12, 0.16),
-        Offset(0.22, 0.16),
-        Offset(0.33, 0.16),
-        Offset(0.42, 0.22),
-        Offset(0.50, 0.35),
-        Offset(0.56, 0.48),
-        Offset(0.52, 0.59),
+        Offset(0.08, 0.95),
+        Offset(0.18, 0.88),
+        Offset(0.28, 0.82),
+        Offset(0.35, 0.78),
+        Offset(0.42, 0.72),
       ],
       progressStep: 1,
       storyScript:
@@ -134,14 +132,15 @@ These iron cages you see before you are authentic survivals of Edinburgh's grave
       audioAsset: 'assets/audio/covenanters.mp3',
       photoAsset: '',
       unlockedCardId: null,
-      mapCoordinate: Offset(0.44, 0.15),
+      mapCoordinate: Offset(0.13, 0.12),
       walkPath: [
-        Offset(0.52, 0.59),
-        Offset(0.56, 0.48),
-        Offset(0.50, 0.35),
-        Offset(0.42, 0.22),
-        Offset(0.33, 0.16),
-        Offset(0.44, 0.15),
+        Offset(0.42, 0.72),
+        Offset(0.38, 0.62),
+        Offset(0.32, 0.50),
+        Offset(0.25, 0.38),
+        Offset(0.20, 0.28),
+        Offset(0.15, 0.18),
+        Offset(0.13, 0.12),
       ],
       progressStep: 2,
       storyScript:
@@ -191,14 +190,13 @@ Today, this enclosure remains a solemn memorial to their sacrifice.''',
       audioAsset: 'assets/audio/black_mausoleum.mp3',
       photoAsset: '',
       unlockedCardId: null,
-      mapCoordinate: Offset(0.44, 0.52),
+      mapCoordinate: Offset(0.10, 0.48),
       walkPath: [
-        Offset(0.44, 0.15),
-        Offset(0.33, 0.16),
-        Offset(0.24, 0.24),
-        Offset(0.25, 0.38),
-        Offset(0.33, 0.48),
-        Offset(0.44, 0.52),
+        Offset(0.13, 0.12),
+        Offset(0.10, 0.20),
+        Offset(0.08, 0.30),
+        Offset(0.08, 0.38),
+        Offset(0.10, 0.48),
       ],
       progressStep: 3,
       storyScript:

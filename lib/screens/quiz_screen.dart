@@ -111,7 +111,7 @@ class _QuizScreenState extends State<QuizScreen> {
             child: Container(
               padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: AppColors.cream,
                 shape: BoxShape.circle,
                 boxShadow: [
                   BoxShadow(
@@ -190,7 +190,7 @@ class _QuizScreenState extends State<QuizScreen> {
             return Container(
               margin: const EdgeInsets.only(bottom: 14),
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: AppColors.cream,
                 borderRadius: BorderRadius.circular(18),
                 border: Border.all(
                   color: isPerfect ? accentColor : AppColors.blush,
@@ -529,7 +529,7 @@ class _QuizScreenState extends State<QuizScreen> {
           final isCorrectOption = idx == q.correct;
           final hasLearnMore = q.learnMoreMap?.containsKey(option) ?? false;
 
-          Color bgColor = Colors.white;
+          Color bgColor = const Color(0xFFFEFAF6);
           Color borderColor = AppColors.blush;
           Color textColor = AppColors.dark;
 
@@ -692,7 +692,7 @@ class _QuizScreenState extends State<QuizScreen> {
     final isSelected = _selectedTF == val;
     final isCorrectOption = val == q.correct;
 
-    Color bgColor = Colors.white;
+    Color bgColor = const Color(0xFFFEFAF6);
     Color borderColor = AppColors.blush;
     Color textColor = AppColors.dark;
 
@@ -765,7 +765,7 @@ class _QuizScreenState extends State<QuizScreen> {
           final isCorrectOption = correctList.contains(idx);
           final hasLearnMore = q.learnMoreMap?.containsKey(option) ?? false;
 
-          Color bgColor = isChecked ? AppColors.cream : Colors.white;
+          Color bgColor = isChecked ? AppColors.cream : const Color(0xFFFEFAF6);
           Color borderColor = isChecked ? AppColors.coral : AppColors.blush;
           Color textColor = AppColors.dark;
 
@@ -818,7 +818,7 @@ class _QuizScreenState extends State<QuizScreen> {
                         width: 24,
                         height: 24,
                         decoration: BoxDecoration(
-                          color: isChecked ? AppColors.coral : Colors.white,
+                          color: isChecked ? AppColors.coral : const Color(0xFFFEFAF6),
                           borderRadius: BorderRadius.circular(6),
                           border: Border.all(
                             color:
@@ -921,7 +921,7 @@ class _QuizScreenState extends State<QuizScreen> {
             final isSelected = _selectedFillGapOption == opt;
             final isCorrectOption = opt == q.correct;
 
-            Color bgColor = isSelected ? AppColors.cream : Colors.white;
+            Color bgColor = isSelected ? AppColors.cream : const Color(0xFFFEFAF6);
             Color borderColor = isSelected ? AppColors.coral : AppColors.blush;
             Color textColor = AppColors.dark;
 
@@ -1028,7 +1028,7 @@ class _QuizScreenState extends State<QuizScreen> {
                   final isPaired = _selectedPairs.containsKey(lIdx);
                   final isActive = _activeMatchLeftIndex == lIdx;
 
-                  Color bgColor = Colors.white;
+                  Color bgColor = const Color(0xFFFEFAF6);
                   Color borderColor = AppColors.blush;
 
                   if (_isAnswered) {
@@ -1105,7 +1105,7 @@ class _QuizScreenState extends State<QuizScreen> {
                 children: List.generate(rightList.length, (rIdx) {
                   final isPaired = _selectedPairs.values.contains(rIdx);
 
-                  Color bgColor = Colors.white;
+                  Color bgColor = const Color(0xFFFEFAF6);
                   Color borderColor = AppColors.blush;
 
                   if (_isAnswered) {
@@ -1245,7 +1245,7 @@ class _QuizScreenState extends State<QuizScreen> {
               margin: const EdgeInsets.only(bottom: 8),
               padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: const Color(0xFFFEFAF6),
                 borderRadius: BorderRadius.circular(14),
                 border: Border.all(color: AppColors.blush),
               ),
@@ -1351,7 +1351,7 @@ class _QuizScreenState extends State<QuizScreen> {
           Container(
             padding: const EdgeInsets.all(18),
             decoration: BoxDecoration(
-              color: isPerfect ? const Color(0xFFFFF3CD) : Colors.white,
+              color: isPerfect ? const Color(0xFFFFF3CD) : const Color(0xFFFEFAF6),
               shape: BoxShape.circle,
               boxShadow: [
                 BoxShadow(
@@ -1397,7 +1397,7 @@ class _QuizScreenState extends State<QuizScreen> {
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 28, vertical: 20),
             decoration: BoxDecoration(
-              color: Colors.white,
+              color: const Color(0xFFFEFAF6),
               borderRadius: BorderRadius.circular(20),
               border: Border.all(color: AppColors.blush),
               boxShadow: [

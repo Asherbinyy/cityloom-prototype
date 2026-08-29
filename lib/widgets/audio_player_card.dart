@@ -114,7 +114,7 @@ class _AudioPlayerCardState extends State<AudioPlayerCard> {
       width: double.infinity,
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: AppColors.cream,
         borderRadius: BorderRadius.circular(20),
         border: Border.all(color: AppColors.blush, width: 1.5),
         boxShadow: [

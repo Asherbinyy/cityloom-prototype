@@ -195,217 +195,81 @@ class _MapInteractiveWidgetState extends State<MapInteractiveWidget>
 
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: AppColors.blush, width: 1.5),
+        color: AppColors.cream,
+        borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(
-            color: AppColors.coral.withValues(alpha: 0.15),
-            blurRadius: 18,
-            offset: const Offset(0, 6),
+            color: Colors.black.withValues(alpha: 0.08),
+            blurRadius: 12,
+            offset: const Offset(0, 2),
           ),
         ],
       ),
       child: ClipRRect(
-        borderRadius: BorderRadius.circular(19),
-        child: AspectRatio(
-          aspectRatio: 1.05,
-          child: LayoutBuilder(
-            builder: (context, constraints) {
-              final w = constraints.maxWidth;
-              final h = constraints.maxHeight;
-
-              return Stack(
-                children: [
-                  // Map Background Image
-                  Positioned.fill(
-                    child: Image.asset(
-                      'assets/images/map.png',
-                      fit: BoxFit.cover,
-                      errorBuilder: (_, _, _) => Container(
-                        color: const Color(0xFFE5ECC8),
-                        child: const Center(
-                          child: Icon(Icons.map_rounded,
-                              size: 48, color: AppColors.muted),
-                        ),
-                      ),
+        borderRadius: BorderRadius.circular(16),
+        child: LayoutBuilder(
+          builder: (context, constraints) {
+            final w = constraints.maxWidth;
+            // Let the image determine its own height
+            return Stack(
+              children: [
+                // Map Background Image — new map with A, B, C already on it
+                Image.asset(
+                  'assets/images/map.png',
+                  width: w,
+                  fit: BoxFit.fitWidth,
+                  errorBuilder: (_, _, _) => Container(
+                    height: w * 0.75,
+                    color: const Color(0xFFE5ECC8),
+                    child: const Center(
+                      child: Icon(Icons.map_rounded,
+                          size: 48, color: AppColors.muted),
                     ),
                   ),
-
-                  // Footsteps Trail (Dual alternating feet)
-                  ..._footsteps.map((step) {
-                    final px = step.position.dx * w;
-                    final py = step.position.dy * h;
-                    return Positioned(
-                      left: px - 5,
-                      top: py - 7,
-                      child: Transform.rotate(
-                        angle: step.angle + math.pi / 2,
-                        child: CustomPaint(
-                          size: const Size(10, 14),
-                          painter: _FootprintPainter(isLeft: step.isLeft),
-                        ),
-                      ),
-                    );
-                  }),
-
-                  // Stop Pins (A, B, C)
-                  _buildStopPin(
-                    stopIndex: 1,
-                    letter: 'A',
-                    name: 'Mortsafes',
-                    pos: TourData.stops[1].mapCoordinate,
-                    w: w,
-                    h: h,
-                  ),
-                  _buildStopPin(
-                    stopIndex: 2,
-                    letter: 'B',
-                    name: "Covenanters' Prison",
-                    pos: TourData.stops[2].mapCoordinate,
-                    w: w,
-                    h: h,
-                  ),
-                  _buildStopPin(
-                    stopIndex: 3,
-                    letter: 'C',
-                    name: 'Mausoleum',
-                    pos: TourData.stops[3].mapCoordinate,
-                    w: w,
-                    h: h,
-                  ),
-
-                  // Explorer Avatar Marker (Moving along the path)
-                  Positioned(
-                    left: (currentPos.dx * w) - 20,
-                    top: (currentPos.dy * h) - 40,
-                    child: _buildExplorerAvatar(widget.isWalking),
-                  ),
-                ],
-              );
-            },
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildStopPin({
-    required int stopIndex,
-    required String letter,
-    required String name,
-    required Offset pos,
-    required double w,
-    required double h,
-  }) {
-    final isCompleted = widget.currentStopIndex > stopIndex;
-    final isTarget = widget.currentStopIndex == stopIndex;
-
-    final px = pos.dx * w;
-    final py = pos.dy * h;
-
-    return Positioned(
-      left: px - 22,
-      top: py - 22,
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          // Pin Marker
-          if (isCompleted)
-            // Creative, polished Completed Badge
-            Container(
-              width: 36,
-              height: 36,
-              decoration: BoxDecoration(
-                gradient: const LinearGradient(
-                  colors: [Color(0xFF27AE60), Color(0xFF2ECC71)],
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
                 ),
-                shape: BoxShape.circle,
-                border: Border.all(color: Colors.white, width: 2.5),
-                boxShadow: [
-                  BoxShadow(
-                    color: const Color(0xFF27AE60).withValues(alpha: 0.4),
-                    blurRadius: 10,
-                    offset: const Offset(0, 3),
-                  ),
-                ],
-              ),
-              child: const Center(
-                child: Icon(
-                  Icons.check_rounded,
-                  color: Colors.white,
-                  size: 20,
-                ),
-              ),
-            )
-          else
-            // Active / Future Pin
-            Container(
-              width: isTarget ? 42 : 32,
-              height: isTarget ? 42 : 32,
-              decoration: BoxDecoration(
-                color: isTarget ? AppColors.coral : Colors.white,
-                shape: BoxShape.circle,
-                border: Border.all(
-                  color: isTarget ? Colors.white : AppColors.coral,
-                  width: isTarget ? 2.5 : 2,
-                ),
-                boxShadow: [
-                  BoxShadow(
-                    color: isTarget
-                        ? AppColors.coral.withValues(alpha: 0.45)
-                        : Colors.black.withValues(alpha: 0.1),
-                    blurRadius: isTarget ? 12 : 6,
-                    offset: const Offset(0, 3),
-                  ),
-                ],
-              ),
-              child: Center(
-                child: Text(
-                  letter,
-                  style: GoogleFonts.playfairDisplay(
-                    fontSize: isTarget ? 18 : 14,
-                    fontWeight: FontWeight.bold,
-                    color: isTarget ? Colors.white : AppColors.coral,
-                  ),
-                ),
-              ),
-            ),
-          const SizedBox(height: 3),
 
-          // Label Pill
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 2),
-            decoration: BoxDecoration(
-              color: Colors.white.withValues(alpha: 0.92),
-              borderRadius: BorderRadius.circular(10),
-              border: Border.all(
-                color: isTarget
-                    ? AppColors.coral
-                    : AppColors.muted.withValues(alpha: 0.3),
-                width: 1,
-              ),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withValues(alpha: 0.08),
-                  blurRadius: 4,
-                  offset: const Offset(0, 1),
+                // Footsteps Trail (Dual alternating feet)
+                // We need to position footsteps relative to the image.
+                // Since the image fills width and height is proportional,
+                // we use w and estimated h based on aspect ratio.
+                Positioned.fill(
+                  child: LayoutBuilder(
+                    builder: (context, innerConstraints) {
+                      final iw = innerConstraints.maxWidth;
+                      final ih = innerConstraints.maxHeight;
+                      return Stack(
+                        children: [
+                          ..._footsteps.map((step) {
+                            final px = step.position.dx * iw;
+                            final py = step.position.dy * ih;
+                            return Positioned(
+                              left: px - 5,
+                              top: py - 7,
+                              child: Transform.rotate(
+                                angle: step.angle + math.pi / 2,
+                                child: CustomPaint(
+                                  size: const Size(10, 14),
+                                  painter: _FootprintPainter(isLeft: step.isLeft),
+                                ),
+                              ),
+                            );
+                          }),
+
+                          // Explorer Avatar Marker
+                          Positioned(
+                            left: (currentPos.dx * iw) - 20,
+                            top: (currentPos.dy * ih) - 40,
+                            child: _buildExplorerAvatar(widget.isWalking),
+                          ),
+                        ],
+                      );
+                    },
+                  ),
                 ),
               ],
-            ),
-            child: Text(
-              name,
-              style: GoogleFonts.dmSans(
-                fontSize: 10,
-                fontWeight: isTarget ? FontWeight.bold : FontWeight.w600,
-                color: isTarget ? AppColors.dark : AppColors.muted,
-              ),
-            ),
-          ),
-        ],
+            );
+          },
+        ),
       ),
     );
   }
