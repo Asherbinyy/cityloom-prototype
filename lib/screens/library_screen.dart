@@ -35,15 +35,18 @@ class _LibraryScreenState extends State<LibraryScreen> {
         children: [
           // Header (matching HTML Screenshot 1)
           Center(
-            child: Image.asset(
-              'assets/images/library_icon.png',
-              width: 58,
-              height: 46,
-              fit: BoxFit.contain,
-              errorBuilder: (_, _, _) => const Icon(
-                Icons.auto_stories_rounded,
-                size: 46,
-                color: AppColors.coral,
+            child: Hero(
+              tag: 'top_library_icon',
+              child: Image.asset(
+                'assets/images/library_icon.png',
+                width: 58,
+                height: 46,
+                fit: BoxFit.contain,
+                errorBuilder: (_, _, _) => const Icon(
+                  Icons.auto_stories_rounded,
+                  size: 46,
+                  color: AppColors.coral,
+                ),
               ),
             ),
           )

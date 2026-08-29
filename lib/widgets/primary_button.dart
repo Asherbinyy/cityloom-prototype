@@ -34,7 +34,7 @@ class PrimaryButton extends StatelessWidget {
       height: height,
       decoration: BoxDecoration(
         color: isSecondary
-            ? const Color(0xFFFDA692).withValues(alpha: 0.16)
+            ? const Color(0xFFFEFAF6)
             : (isEnabled
                 ? AppColors.coral
                 : AppColors.coral.withValues(alpha: 0.5)),
@@ -43,13 +43,13 @@ class PrimaryButton extends StatelessWidget {
           color: isSecondary
               ? AppColors.coral
               : (isEnabled ? AppColors.coral : Colors.transparent),
-          width: 1.5,
+          width: 2.0,
         ),
         boxShadow: isEnabled
             ? [
                 BoxShadow(
                   color: isSecondary
-                      ? AppColors.coral.withValues(alpha: 0.12)
+                      ? Colors.black.withValues(alpha: 0.06)
                       : AppColors.coral.withValues(alpha: 0.38),
                   blurRadius: 12,
                   offset: const Offset(0, 3),

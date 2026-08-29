@@ -74,12 +74,12 @@ class SurveyScreen extends StatelessWidget {
           Container(
             padding: const EdgeInsets.all(22),
             decoration: BoxDecoration(
-              color: Colors.white,
+              color: const Color(0xFFFEFAF6),
               borderRadius: BorderRadius.circular(20),
               border: Border.all(color: AppColors.blush),
               boxShadow: [
                 BoxShadow(
-                  color: AppColors.coral.withValues(alpha: 0.1),
+                  color: Colors.black.withValues(alpha: 0.05),
                   blurRadius: 16,
                   offset: const Offset(0, 4),
                 ),

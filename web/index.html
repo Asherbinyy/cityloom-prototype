@@ -327,15 +327,18 @@
           osc.stop(t + 0.13);
         } catch(e) { console.warn(e); }
       }
-    };
-
-    // Auto hide splash when Flutter renders first frame
-    window.addEventListener('flutter-first-frame', function () {
+    function hideSplash() {
       var splash = document.getElementById('loading-splash');
-      if (splash) {
+      if (splash && !splash.classList.contains('hidden')) {
         splash.classList.add('hidden');
-        setTimeout(function() { splash.remove(); }, 600);
+        setTimeout(function() { if (splash.parentNode) splash.remove(); }, 600);
       }
+    }
+
+    // Auto hide splash when Flutter renders first frame + safety timer
+    window.addEventListener('flutter-first-frame', hideSplash);
+    window.addEventListener('load', function() {
+      setTimeout(hideSplash, 2800);
     });
   </script>
 </head>

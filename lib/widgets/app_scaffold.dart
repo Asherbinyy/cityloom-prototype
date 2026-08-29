@@ -171,15 +171,18 @@ class AppScaffold extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Image.asset(
-                        'assets/images/library_icon.png',
-                        width: 24,
-                        height: 20,
-                        fit: BoxFit.contain,
-                        errorBuilder: (_, _, _) => const Icon(
-                          Icons.collections_bookmark_rounded,
-                          size: 16,
-                          color: AppColors.coral,
+                      Hero(
+                        tag: 'top_library_icon',
+                        child: Image.asset(
+                          'assets/images/library_icon.png',
+                          width: 24,
+                          height: 20,
+                          fit: BoxFit.contain,
+                          errorBuilder: (_, _, _) => const Icon(
+                            Icons.collections_bookmark_rounded,
+                            size: 16,
+                            color: AppColors.coral,
+                          ),
                         ),
                       ),
                       const SizedBox(width: 5),

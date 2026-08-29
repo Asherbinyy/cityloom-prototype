@@ -5,6 +5,8 @@
 *.swp
 *.wav
 "Prototype Files/Audio/story/*.wav"
+Prototype Files/
+QA.md
 .DS_Store
 .atom/
 .build/

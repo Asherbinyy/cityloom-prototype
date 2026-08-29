@@ -200,20 +200,29 @@ class _QuizScreenState extends State<QuizScreen> {
                     child: Row(
                       children: [
                         Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+                          width: 44,
+                          height: 44,
                           decoration: BoxDecoration(
-                            color: accentColor.withValues(alpha: 0.12),
+                            color: isPerfect
+                                ? const Color(0xFFE8F8EA)
+                                : accentColor.withValues(alpha: 0.12),
                             borderRadius: BorderRadius.circular(12),
+                            border: Border.all(
+                              color: isPerfect
+                                  ? const Color(0xFF6BCB77)
+                                  : accentColor.withValues(alpha: 0.3),
+                              width: 1.2,
+                            ),
                           ),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: List.generate(
-                              diff.index + 1,
-                              (sIdx) => Icon(
-                                Icons.star_rounded,
-                                color: isPerfect ? const Color(0xFFE5A93B) : accentColor,
-                                size: 18,
-                              ),
+                          child: Center(
+                            child: Icon(
+                              isPerfect
+                                  ? Icons.workspace_premium_rounded
+                                  : Icons.star_rounded,
+                              color: isPerfect
+                                  ? const Color(0xFF2D7A36)
+                                  : accentColor,
+                              size: 24,
                             ),
                           ),
                         ),
@@ -871,6 +880,10 @@ class _QuizScreenState extends State<QuizScreen> {
   // --- Fill Gap Single with Deselect and Confirm ---
   Widget _buildFillGapSingle(QuizQuestion q, AppState appState) {
     final blankText = _selectedFillGapOption ?? '[_____]';
+    final correctStr = (q.correct is int)
+        ? q.options[q.correct as int]
+        : q.correct.toString();
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -899,7 +912,7 @@ class _QuizScreenState extends State<QuizScreen> {
           runSpacing: 10,
           children: q.options.map((opt) {
             final isSelected = _selectedFillGapOption == opt;
-            final isCorrectOption = opt == q.correct;
+            final isCorrectOption = opt == correctStr;
 
             Color bgColor = isSelected ? AppColors.cream : const Color(0xFFFEFAF6);
             Color borderColor = isSelected ? AppColors.coral : AppColors.blush;
@@ -961,7 +974,7 @@ class _QuizScreenState extends State<QuizScreen> {
             onPressed: _selectedFillGapOption == null
                 ? null
                 : () {
-                    final isCorrect = _selectedFillGapOption == q.correct;
+                    final isCorrect = _selectedFillGapOption == correctStr;
                     if (isCorrect) {
                       SoundService.playCorrect();
                     } else {
@@ -1308,13 +1321,14 @@ class _QuizScreenState extends State<QuizScreen> {
     );
   }
 
-  // ================= 4. RESULTS VIEW =================
+  // ================= 3. RESULTS VIEW =================
   Widget _buildResultsView(BuildContext context, AppState appState) {
-    final level = QuizData.levels[appState.selectedDifficulty]!;
+    final diff = appState.selectedDifficulty ?? QuizDifficulty.explorer;
+    final level = QuizData.levels[diff]!;
     final totalQ = level.questions.length;
     final isPerfect = _score == totalQ;
 
-    // Check newly unlocked cards sequentially
+    // Check & trigger card unlock modals
     _checkCardUnlocks(context, appState);
 
     return AppScaffold(
