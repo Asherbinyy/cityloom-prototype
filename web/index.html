@@ -497,14 +497,12 @@
       }
     }
 
-    // Auto hide splash on Flutter rendering + fast timeout fallback
+    // Bulletproof splash hiding on Flutter render + fallback timers
     window.addEventListener('flutter-first-frame', hideSplash);
     window.addEventListener('load', function() {
-      setTimeout(hideSplash, 2000);
+      setTimeout(hideSplash, 1200);
     });
-    document.addEventListener('DOMContentLoaded', function() {
-      setTimeout(hideSplash, 3500);
-    });
+    setTimeout(hideSplash, 2200);
   </script>
 </head>
 <body>
@@ -522,30 +520,42 @@
     </div>
   </div>
 
-  <!-- Firebase App & Analytics SDK -->
-  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-analytics-compat.js"></script>
-  <script>
-    try {
-      const firebaseConfig = {
-        projectId: "cityloomprototype-4a07a",
-        appId: "1:605679330487:web:f48bf8dbda8834fa7d9932",
-        storageBucket: "cityloomprototype-4a07a.firebasestorage.app",
-        apiKey: "AIzaSyAqyaaDltoRbBh8emSv5GRByz_i4rkVZxk",
-        authDomain: "cityloomprototype-4a07a.firebaseapp.com",
-        messagingSenderId: "605679330487",
-        measurementId: "G-6JVR4S3MT1"
-      };
-      if (window.firebase) {
-        window.firebase.initializeApp(firebaseConfig);
-        window.firebaseAnalytics = window.firebase.analytics();
-        console.log('[Firebase] Initialized for cityloomprototype-4a07a');
-      }
-    } catch(e) {
-      console.warn('[Firebase] Init notice:', e);
-    }
-  </script>
-
   <script src="flutter_bootstrap.js" async></script>
+
+  <!-- Non-blocking Firebase App & Analytics SDK -->
+  <script>
+    window.addEventListener('DOMContentLoaded', function() {
+      try {
+        var s1 = document.createElement('script');
+        s1.src = 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js';
+        s1.async = true;
+        s1.onload = function() {
+          var s2 = document.createElement('script');
+          s2.src = 'https://www.gstatic.com/firebasejs/10.12.0/firebase-analytics-compat.js';
+          s2.async = true;
+          s2.onload = function() {
+            try {
+              if (window.firebase) {
+                var firebaseConfig = {
+                  projectId: "cityloomprototype-4a07a",
+                  appId: "1:605679330487:web:f48bf8dbda8834fa7d9932",
+                  storageBucket: "cityloomprototype-4a07a.firebasestorage.app",
+                  apiKey: "AIzaSyAqyaaDltoRbBh8emSv5GRByz_i4rkVZxk",
+                  authDomain: "cityloomprototype-4a07a.firebaseapp.com",
+                  messagingSenderId: "605679330487",
+                  measurementId: "G-6JVR4S3MT1"
+                };
+                window.firebase.initializeApp(firebaseConfig);
+                window.firebaseAnalytics = window.firebase.analytics();
+                console.log('[Firebase] Connected to cityloomprototype-4a07a');
+              }
+            } catch(e) { console.warn('[Firebase] Init notice:', e); }
+          };
+          document.body.appendChild(s2);
+        };
+        document.body.appendChild(s1);
+      } catch(e) { console.warn('[Firebase] Loader notice:', e); }
+    });
+  </script>
 </body>
 </html>
