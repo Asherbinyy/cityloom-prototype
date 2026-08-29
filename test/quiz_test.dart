@@ -107,5 +107,28 @@ void main() {
       appState.finishQuiz(QuizDifficulty.scholar, 14);
       expect(appState.isCardUnlocked('poltergeist'), true);
     });
+
+    test('Explorer Q5 (Fill Gap Single) correctly evaluates church as index 1', () {
+      final q5 = QuizData.levels[QuizDifficulty.explorer]!.questions
+          .firstWhere((q) => q.id == 'explorer_q5');
+      expect(q5.type, QuestionType.fillGapSingle);
+      expect(q5.correct, 1);
+      final correctStr = (q5.correct is int)
+          ? q5.options[q5.correct as int]
+          : q5.correct.toString();
+      expect(correctStr, 'church');
+      expect(q5.options.contains('church'), true);
+    });
+
+    test('Stop B and C coordinates are aligned to markers', () {
+      final stopB = TourData.stops.firstWhere((s) => s.id == 'stop-b');
+      final stopC = TourData.stops.firstWhere((s) => s.id == 'stop-c');
+
+      expect(stopB.mapCoordinate.dx, closeTo(0.405, 0.01));
+      expect(stopB.mapCoordinate.dy, closeTo(0.11, 0.01));
+
+      expect(stopC.mapCoordinate.dx, closeTo(0.41, 0.01));
+      expect(stopC.mapCoordinate.dy, closeTo(0.55, 0.01));
+    });
   });
 }
