@@ -42,6 +42,8 @@ class _AudioPlayerCardState extends State<AudioPlayerCard> {
     _initAudio();
   }
 
+  int _lastRenderedMs = 0;
+
   Future<void> _initAudio() async {
     _stateSub = _player.onPlayerStateChanged.listen((state) {
       if (mounted) setState(() => _playerState = state);
@@ -53,7 +55,11 @@ class _AudioPlayerCardState extends State<AudioPlayerCard> {
 
     _positionSub = _player.onPositionChanged.listen((pos) {
       if (mounted && !_isSeeking) {
-        setState(() => _position = pos);
+        final nowMs = pos.inMilliseconds;
+        if ((nowMs - _lastRenderedMs).abs() >= 180 || nowMs == 0) {
+          _lastRenderedMs = nowMs;
+          setState(() => _position = pos);
+        }
       }
     });
 
