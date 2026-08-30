@@ -135,10 +135,9 @@ void main() {
       appState.recordQuestionResult('historian_q3', true);
       appState.recordQuestionResult('historian_q4', true);
       appState.recordQuestionResult('scholar_q2', true);
-      appState.recordQuestionResult('scholar_q3', true);
       expect(appState.isCardUnlocked('knox'), false);
 
-      appState.recordQuestionResult('historian_q2', true);
+      appState.recordQuestionResult('scholar_q3', true);
       expect(appState.isCardUnlocked('knox'), true);
     });
 

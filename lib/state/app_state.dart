@@ -301,19 +301,21 @@ class AppState extends ChangeNotifier {
     // 3. Charles I: Unlocked after completing Stop B story
     // (Handled via unlockStoryCard('charles') on Stop B)
 
-    // 4. Burke: apprentice_q6
+    // 4. Burke: apprentice_q6 or apprentice_q7 (Apprentice Q7 match question / Q6)
     if (!_unlockedCardIds.contains('burke') &&
-        _questionResults['apprentice_q6'] == true) {
+        (_questionResults['apprentice_q6'] == true ||
+            _questionResults['apprentice_q7'] == true)) {
       _unlockCard('burke');
     }
 
-    // 5. Hare: historian_q2
+    // 5. Hare: historian_q2 or historian_q3 (Historian Q3 Irish immigrants / Q2)
     if (!_unlockedCardIds.contains('hare') &&
-        _questionResults['historian_q2'] == true) {
+        (_questionResults['historian_q2'] == true ||
+            _questionResults['historian_q3'] == true)) {
       _unlockCard('hare');
     }
 
-    // 6. Margaret: Burke + Hare unlocked + scholar_q12 / scholar_q13
+    // 6. Margaret: Burke + Hare unlocked + scholar_q12 / scholar_q13 (Margaret Docherty question)
     if (!_unlockedCardIds.contains('margaret') &&
         _unlockedCardIds.contains('burke') &&
         _unlockedCardIds.contains('hare') &&
@@ -339,16 +341,14 @@ class AppState extends ChangeNotifier {
 
     // 9. Knox: all 7 Burke & Hare questions correct across Apprentice, Historian, and Scholar
     if (!_unlockedCardIds.contains('knox')) {
-      final bhApp = _questionResults['apprentice_q4'] == true &&
+      final bhApp = (_questionResults['apprentice_q3'] == true ||
+              _questionResults['apprentice_q4'] == true) &&
           _questionResults['apprentice_q7'] == true;
       final bhHist = _questionResults['historian_q3'] == true &&
           _questionResults['historian_q4'] == true;
       final bhSch = _questionResults['scholar_q2'] == true &&
           _questionResults['scholar_q3'] == true;
-      final bhAnyExtra = _questionResults['historian_q2'] == true ||
-          _questionResults['scholar_q13'] == true ||
-          _questionResults['historian_q8'] == true;
-      if (bhApp && bhHist && bhSch && bhAnyExtra) {
+      if (bhApp && bhHist && bhSch) {
         _unlockCard('knox');
       }
     }
