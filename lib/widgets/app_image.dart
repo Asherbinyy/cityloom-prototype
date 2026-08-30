@@ -6,29 +6,39 @@ class ShimmerPlaceholder extends StatelessWidget {
   final double? width;
   final double? height;
   final BorderRadius? borderRadius;
+  final double? aspectRatio;
 
   const ShimmerPlaceholder({
     super.key,
     this.width,
     this.height,
     this.borderRadius,
+    this.aspectRatio,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    Widget box = Container(
       width: width,
       height: height,
       decoration: BoxDecoration(
-        color: AppColors.blush.withValues(alpha: 0.7),
+        color: AppColors.blush.withValues(alpha: 0.65),
         borderRadius: borderRadius ?? BorderRadius.circular(12),
       ),
     )
         .animate(onPlay: (controller) => controller.repeat())
         .shimmer(
           duration: 1200.ms,
-          color: Colors.white.withValues(alpha: 0.65),
+          color: Colors.white.withValues(alpha: 0.7),
         );
+
+    if (aspectRatio != null) {
+      return AspectRatio(
+        aspectRatio: aspectRatio!,
+        child: box,
+      );
+    }
+    return box;
   }
 }
 
@@ -36,6 +46,7 @@ class AppImage extends StatelessWidget {
   final String assetPath;
   final double? width;
   final double? height;
+  final double? aspectRatio;
   final BoxFit fit;
   final BorderRadius? borderRadius;
   final Alignment alignment;
@@ -45,6 +56,7 @@ class AppImage extends StatelessWidget {
     required this.assetPath,
     this.width,
     this.height,
+    this.aspectRatio,
     this.fit = BoxFit.cover,
     this.borderRadius,
     this.alignment = Alignment.center,
@@ -66,6 +78,7 @@ class AppImage extends StatelessWidget {
           width: width,
           height: height,
           borderRadius: borderRadius,
+          aspectRatio: aspectRatio,
         );
       },
       errorBuilder: (context, error, stackTrace) {
@@ -86,11 +99,19 @@ class AppImage extends StatelessWidget {
     );
 
     if (borderRadius != null) {
-      return ClipRRect(
+      image = ClipRRect(
         borderRadius: borderRadius!,
         child: image,
       );
     }
+
+    if (aspectRatio != null) {
+      return AspectRatio(
+        aspectRatio: aspectRatio!,
+        child: image,
+      );
+    }
+
     return image;
   }
 }

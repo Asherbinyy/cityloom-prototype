@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import '../data/tour_data.dart';
 import '../services/sound_service.dart';
 import '../theme/app_theme.dart';
+import 'app_image.dart';
 
 class FootstepPrint {
   final Offset position;
@@ -36,163 +37,128 @@ class MapInteractiveWidget extends StatefulWidget {
 
 class _MapInteractiveWidgetState extends State<MapInteractiveWidget>
     with SingleTickerProviderStateMixin {
-  late AnimationController _animController;
+  late AnimationController _walkController;
   late Animation<double> _walkAnimation;
-
   final List<FootstepPrint> _footsteps = [];
-  Timer? _footstepSoundTimer;
-  bool _hasArrived = false;
+  Timer? _stepSoundTimer;
+  int _lastStepIndex = 0;
 
-  late List<Offset> _currentPath;
+  List<Offset> get _currentPath =>
+      TourData.stops[widget.currentStopIndex].walkPath;
 
   @override
   void initState() {
     super.initState();
-    _currentPath = TourData.stops[widget.currentStopIndex].walkPath;
-
-    _animController = AnimationController(
+    _walkController = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 3600),
+      duration: const Duration(seconds: 4),
     );
 
     _walkAnimation = CurvedAnimation(
-      parent: _animController,
-      curve: Curves.easeInOutSine,
+      parent: _walkController,
+      curve: Curves.easeInOutCubic,
     );
 
-    _animController.addListener(_updateFootstepsOnWalk);
-
-    _animController.addStatusListener((status) {
-      if (status == AnimationStatus.completed && !_hasArrived) {
-        _hasArrived = true;
-        _footstepSoundTimer?.cancel();
+    _walkController.addListener(_onWalkTick);
+    _walkController.addStatusListener((status) {
+      if (status == AnimationStatus.completed) {
+        _stepSoundTimer?.cancel();
         SoundService.playCorrect();
-        // Give time for zoom-out to settle before triggering arrival callback
-        Future.delayed(const Duration(milliseconds: 700), () {
-          if (mounted) widget.onArrived();
-        });
+        widget.onArrived();
       }
     });
 
     if (widget.isWalking) {
-      _startWalking();
+      _startWalk();
     }
   }
 
   @override
   void didUpdateWidget(MapInteractiveWidget oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if (widget.isWalking && !oldWidget.isWalking && !_animController.isAnimating) {
-      _startWalking();
+    if (widget.isWalking && !oldWidget.isWalking) {
+      _startWalk();
     }
   }
 
-  void _startWalking() {
+  void _startWalk() {
     _footsteps.clear();
-    _hasArrived = false;
-    _animController.reset();
+    _lastStepIndex = 0;
+    _walkController.forward(from: 0.0);
 
-    // Rhythmic footstep audio taps
-    _footstepSoundTimer?.cancel();
-    _footstepSoundTimer =
-        Timer.periodic(const Duration(milliseconds: 320), (timer) {
-      if (!_animController.isAnimating) {
+    _stepSoundTimer?.cancel();
+    _stepSoundTimer =
+        Timer.periodic(const Duration(milliseconds: 280), (timer) {
+      if (!_walkController.isAnimating) {
         timer.cancel();
       } else {
-        SoundService.playFootstep();
+        SoundService.playTap();
       }
     });
-
-    _animController.forward();
   }
 
-  void _updateFootstepsOnWalk() {
-    if (!widget.isWalking || _currentPath.length < 2) return;
+  void _onWalkTick() {
+    if (!mounted) return;
+    setState(() {
+      final t = _walkAnimation.value;
+      final currentPos = _calculatePositionOnPath(_currentPath, t);
 
-    final progress = _walkAnimation.value;
-    final currentPos = _calculatePositionOnPath(_currentPath, progress);
+      final int currentStepCount = (t * 22).floor();
+      if (currentStepCount > _lastStepIndex && t < 0.96) {
+        _lastStepIndex = currentStepCount;
+        final nextPos =
+            _calculatePositionOnPath(_currentPath, (t + 0.03).clamp(0.0, 1.0));
+        final angle = math.atan2(
+          nextPos.dy - currentPos.dy,
+          nextPos.dx - currentPos.dx,
+        );
 
-    if (_footsteps.isEmpty) {
-      _footsteps.add(
-        FootstepPrint(
-          position: currentPos,
-          angle: _calculateAngleOnPath(_currentPath, progress),
-          isLeft: true,
-        ),
-      );
-      setState(() {});
-      return;
-    }
+        final isLeft = currentStepCount % 2 == 0;
+        final perpAngle = angle + math.pi / 2;
+        final lateralOffset = Offset(
+          math.cos(perpAngle) * 0.012 * (isLeft ? -1 : 1),
+          math.sin(perpAngle) * 0.012 * (isLeft ? -1 : 1),
+        );
 
-    final lastPos = _footsteps.last.position;
-    final dist = (currentPos - lastPos).distance;
-
-    // Place a new footstep every ~0.045 distance units along path
-    if (dist >= 0.045 && progress < 0.98) {
-      final angle = _calculateAngleOnPath(_currentPath, progress);
-      final isNextLeft = !_footsteps.last.isLeft;
-
-      // Natural footstep lateral offset perpendicular to walking trajectory
-      final perpAngle = angle + (isNextLeft ? math.pi / 2 : -math.pi / 2);
-      const lateralOffset = 0.012;
-      final adjustedPos = Offset(
-        currentPos.dx + lateralOffset * math.cos(perpAngle),
-        currentPos.dy + lateralOffset * math.sin(perpAngle),
-      );
-
-      _footsteps.add(
-        FootstepPrint(
-          position: adjustedPos,
+        _footsteps.add(FootstepPrint(
+          position: currentPos + lateralOffset,
           angle: angle,
-          isLeft: isNextLeft,
-        ),
-      );
-      setState(() {});
-    }
+          isLeft: isLeft,
+        ));
+      }
+    });
   }
 
   Offset _calculatePositionOnPath(List<Offset> path, double t) {
-    if (path.isEmpty) return TourData.entranceCoordinate;
+    if (path.isEmpty) return const Offset(0.5, 0.95);
     if (path.length == 1 || t <= 0.0) return path.first;
     if (t >= 1.0) return path.last;
 
     final totalSegments = path.length - 1;
-    final scaledT = t * totalSegments;
-    final index = scaledT.floor().clamp(0, totalSegments - 1);
-    final localT = scaledT - index;
+    final segmentLength = 1.0 / totalSegments;
+    final segmentIndex = (t / segmentLength).floor().clamp(0, totalSegments - 1);
+    final segmentT = (t - (segmentIndex * segmentLength)) / segmentLength;
 
-    final p0 = path[index];
-    final p1 = path[index + 1];
+    final p0 = path[segmentIndex];
+    final p1 = path[segmentIndex + 1];
 
     return Offset(
-      p0.dx + (p1.dx - p0.dx) * localT,
-      p0.dy + (p1.dy - p0.dy) * localT,
+      p0.dx + (p1.dx - p0.dx) * segmentT,
+      p0.dy + (p1.dy - p0.dy) * segmentT,
     );
-  }
-
-  double _calculateAngleOnPath(List<Offset> path, double t) {
-    if (path.length < 2) return 0.0;
-    final totalSegments = path.length - 1;
-    final scaledT = t * totalSegments;
-    final index = scaledT.floor().clamp(0, totalSegments - 1);
-
-    final p0 = path[index];
-    final p1 = path[index + 1];
-    return math.atan2(p1.dy - p0.dy, p1.dx - p0.dx);
   }
 
   @override
   void dispose() {
-    _animController.dispose();
-    _footstepSoundTimer?.cancel();
+    _stepSoundTimer?.cancel();
+    _walkController.removeListener(_onWalkTick);
+    _walkController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    final currentPos = widget.isWalking
-        ? _calculatePositionOnPath(_currentPath, _walkAnimation.value)
-        : _currentPath.first;
+    final currentPos = _calculatePositionOnPath(_currentPath, _walkAnimation.value);
 
     return Container(
       decoration: BoxDecoration(
@@ -208,65 +174,64 @@ class _MapInteractiveWidgetState extends State<MapInteractiveWidget>
       ),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(16),
-        child: LayoutBuilder(
-          builder: (context, constraints) {
-            final w = constraints.maxWidth;
-            return Stack(
-              children: [
-                // Map Background Image — map with A, B, C built-in
-                Image.asset(
-                  'assets/images/map.png',
-                  width: w,
-                  fit: BoxFit.fitWidth,
-                  errorBuilder: (_, _, _) => Container(
-                    height: w * 0.75,
-                    color: const Color(0xFFE5ECC8),
-                    child: const Center(
-                      child: Icon(Icons.map_rounded,
-                          size: 48, color: AppColors.muted),
+        child: AspectRatio(
+          aspectRatio: 1448 / 1086,
+          child: LayoutBuilder(
+            builder: (context, constraints) {
+              final w = constraints.maxWidth;
+              final h = constraints.maxHeight;
+              return Stack(
+                children: [
+                  // Map Background Image with Shimmer placeholder and fixed aspect ratio
+                  Positioned.fill(
+                    child: AppImage(
+                      assetPath: 'assets/images/map.png',
+                      width: w,
+                      height: h,
+                      fit: BoxFit.cover,
                     ),
                   ),
-                ),
 
-                // Footsteps Trail & Explorer Avatar
-                Positioned.fill(
-                  child: LayoutBuilder(
-                    builder: (context, innerConstraints) {
-                      final iw = innerConstraints.maxWidth;
-                      final ih = innerConstraints.maxHeight;
-                      return Stack(
-                        children: [
-                          ..._footsteps.map((step) {
-                            final px = step.position.dx * iw;
-                            final py = step.position.dy * ih;
-                            return Positioned(
-                              left: px - 5,
-                              top: py - 7,
-                              child: Transform.rotate(
-                                angle: step.angle + math.pi / 2,
-                                child: CustomPaint(
-                                  size: const Size(10, 14),
-                                  painter:
-                                      _FootprintPainter(isLeft: step.isLeft),
+                  // Footsteps Trail & Explorer Avatar
+                  Positioned.fill(
+                    child: LayoutBuilder(
+                      builder: (context, innerConstraints) {
+                        final iw = innerConstraints.maxWidth;
+                        final ih = innerConstraints.maxHeight;
+                        return Stack(
+                          children: [
+                            ..._footsteps.map((step) {
+                              final px = step.position.dx * iw;
+                              final py = step.position.dy * ih;
+                              return Positioned(
+                                left: px - 5,
+                                top: py - 7,
+                                child: Transform.rotate(
+                                  angle: step.angle + math.pi / 2,
+                                  child: CustomPaint(
+                                    size: const Size(10, 14),
+                                    painter:
+                                        _FootprintPainter(isLeft: step.isLeft),
+                                  ),
                                 ),
-                              ),
-                            );
-                          }),
+                              );
+                            }),
 
-                          // Explorer Avatar Marker
-                          Positioned(
-                            left: (currentPos.dx * iw) - 20,
-                            top: (currentPos.dy * ih) - 40,
-                            child: _buildExplorerAvatar(widget.isWalking),
-                          ),
-                        ],
-                      );
-                    },
+                            // Explorer Avatar Marker
+                            Positioned(
+                              left: (currentPos.dx * iw) - 20,
+                              top: (currentPos.dy * ih) - 40,
+                              child: _buildExplorerAvatar(widget.isWalking),
+                            ),
+                          ],
+                        );
+                      },
+                    ),
                   ),
-                ),
-              ],
-            );
-          },
+                ],
+              );
+            },
+          ),
         ),
       ),
     );
