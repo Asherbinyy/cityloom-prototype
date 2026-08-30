@@ -299,72 +299,86 @@ class _AudioPlayerCardState extends State<AudioPlayerCard> {
           ),
 
           // Synced Transcript Section
-          if (_isLoadingTranscript) ...[
-            const SizedBox(height: 14),
-            const Divider(color: AppColors.blush, height: 1),
-            const SizedBox(height: 12),
-            const Center(
-              child: SizedBox(
-                width: 20,
-                height: 20,
-                child: CircularProgressIndicator(
-                  strokeWidth: 2,
-                  color: AppColors.coral,
-                ),
-              ),
-            ),
-          ] else if (_transcript != null) ...[
-            const SizedBox(height: 14),
-            const Divider(color: AppColors.blush, height: 1),
-            const SizedBox(height: 8),
+          const SizedBox(height: 14),
+          const Divider(color: AppColors.blush, height: 1),
+          const SizedBox(height: 8),
 
-            // Toggle Show/Hide Transcript Button
-            Center(
-              child: Material(
-                color: Colors.transparent,
-                child: InkWell(
-                  onTap: () {
-                    SoundService.playTap();
-                    setState(() => _showTranscript = !_showTranscript);
-                  },
-                  borderRadius: BorderRadius.circular(12),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Icon(
-                          _showTranscript
-                              ? Icons.keyboard_arrow_up_rounded
-                              : Icons.subtitles_outlined,
-                          size: 18,
+          // Toggle Show/Hide Transcript Button (Always visible immediately)
+          Center(
+            child: Material(
+              color: Colors.transparent,
+              child: InkWell(
+                onTap: () {
+                  SoundService.playTap();
+                  setState(() => _showTranscript = !_showTranscript);
+                },
+                borderRadius: BorderRadius.circular(12),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(
+                        _showTranscript
+                            ? Icons.keyboard_arrow_up_rounded
+                            : Icons.subtitles_outlined,
+                        size: 18,
+                        color: AppColors.coral,
+                      ),
+                      const SizedBox(width: 6),
+                      Text(
+                        _showTranscript ? 'Hide transcript' : 'Show transcript',
+                        style: GoogleFonts.dmSans(
+                          fontSize: 13,
+                          fontWeight: FontWeight.w600,
                           color: AppColors.coral,
                         ),
-                        const SizedBox(width: 6),
-                        Text(
-                          _showTranscript ? 'Hide transcript' : 'Show transcript',
-                          style: GoogleFonts.dmSans(
-                            fontSize: 13,
-                            fontWeight: FontWeight.w600,
-                            color: AppColors.coral,
-                          ),
-                        ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 ),
               ),
             ),
+          ),
 
-            if (_showTranscript) ...[
-              const SizedBox(height: 8),
+          // Expanded Content Area
+          if (_showTranscript) ...[
+            const SizedBox(height: 8),
+            if (_isLoadingTranscript)
+              const Padding(
+                padding: EdgeInsets.symmetric(vertical: 24),
+                child: Center(
+                  child: SizedBox(
+                    width: 22,
+                    height: 22,
+                    child: CircularProgressIndicator(
+                      strokeWidth: 2,
+                      color: AppColors.coral,
+                    ),
+                  ),
+                ),
+              )
+            else if (_transcript != null)
               SyncedTranscriptView(
                 player: _player,
                 transcript: _transcript!,
                 windowSize: 4,
                 tapToSeek: true,
+              )
+            else
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 16),
+                child: Center(
+                  child: Text(
+                    'Transcript not available for this recording.',
+                    style: GoogleFonts.dmSans(
+                      fontSize: 13,
+                      color: AppColors.muted,
+                      fontStyle: FontStyle.italic,
+                    ),
+                  ),
+                ),
               ),
-            ],
           ],
         ],
       ),
