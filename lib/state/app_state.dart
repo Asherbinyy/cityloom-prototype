@@ -301,56 +301,54 @@ class AppState extends ChangeNotifier {
     // 3. Charles I: Unlocked after completing Stop B story
     // (Handled via unlockStoryCard('charles') on Stop B)
 
-    // 4. Burke: apprentice_q6 (or Burke & Hare questions in apprentice)
+    // 4. Burke: apprentice_q6
     if (!_unlockedCardIds.contains('burke') &&
-        (_questionResults['apprentice_q6'] == true ||
-            _questionResults['apprentice_q7'] == true ||
-            _questionResults['apprentice_q4'] == true)) {
+        _questionResults['apprentice_q6'] == true) {
       _unlockCard('burke');
     }
 
-    // 5. Hare: historian_q2 (or Hare questions in historian)
+    // 5. Hare: historian_q2
     if (!_unlockedCardIds.contains('hare') &&
-        (_questionResults['historian_q2'] == true ||
-            _questionResults['historian_q3'] == true ||
-            _questionResults['historian_q4'] == true)) {
+        _questionResults['historian_q2'] == true) {
       _unlockCard('hare');
     }
 
-    // 6. Margaret: Burke + Hare unlocked + scholar_q12 / scholar_q13 (Margaret Docherty question)
+    // 6. Margaret: Burke + Hare unlocked + scholar_q12 / scholar_q13
     if (!_unlockedCardIds.contains('margaret') &&
         _unlockedCardIds.contains('burke') &&
         _unlockedCardIds.contains('hare') &&
         (_questionResults['scholar_q12'] == true ||
-            _questionResults['scholar_q13'] == true ||
-            _questionResults['scholar_q3'] == true)) {
+            _questionResults['scholar_q13'] == true)) {
       _unlockCard('margaret');
     }
 
     // 7. McKenzie: scholar_q7 / scholar_q8 (select all about McKenzie, 100% correct)
     if (!_unlockedCardIds.contains('mckenzie') &&
-        (_questionResults['scholar_q7'] == true || _questionResults['scholar_q8'] == true)) {
+        (_questionResults['scholar_q7'] == true ||
+            _questionResults['scholar_q8'] == true)) {
       _unlockCard('mckenzie');
     }
 
     // 8. Henrietta: scholar_q4 / scholar_q5 (Henrietta Maria question) + requires Charles I unlocked
     if (!_unlockedCardIds.contains('henrietta') &&
         _unlockedCardIds.contains('charles') &&
-        (_questionResults['scholar_q4'] == true || _questionResults['scholar_q5'] == true)) {
+        (_questionResults['scholar_q4'] == true ||
+            _questionResults['scholar_q5'] == true)) {
       _unlockCard('henrietta');
     }
 
     // 9. Knox: all 7 Burke & Hare questions correct across Apprentice, Historian, and Scholar
     if (!_unlockedCardIds.contains('knox')) {
-      final qApp = (_questionResults['apprentice_q2'] == true &&
-              _questionResults['apprentice_q3'] == true &&
-              _questionResults['apprentice_q4'] == true) ||
+      final bhApp = _questionResults['apprentice_q4'] == true &&
           _questionResults['apprentice_q7'] == true;
-      final qHist = _questionResults['historian_q2'] == true &&
-          _questionResults['historian_q3'] == true &&
+      final bhHist = _questionResults['historian_q3'] == true &&
           _questionResults['historian_q4'] == true;
-      final qSch = _questionResults['scholar_q2'] == true || _questionResults['scholar_q3'] == true;
-      if (qApp && qHist && qSch) {
+      final bhSch = _questionResults['scholar_q2'] == true &&
+          _questionResults['scholar_q3'] == true;
+      final bhAnyExtra = _questionResults['historian_q2'] == true ||
+          _questionResults['scholar_q13'] == true ||
+          _questionResults['historian_q8'] == true;
+      if (bhApp && bhHist && bhSch && bhAnyExtra) {
         _unlockCard('knox');
       }
     }
