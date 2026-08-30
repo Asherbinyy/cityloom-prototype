@@ -1,0 +1,5889 @@
+{
+  "language": "en",
+  "text": "Here before you lies the Black Mausoleum, the final resting place of Sir George Mackenzie, or better known today as Bloody Mackenzie. Born in Dundee in 1636, Mackenzie grew to be a well-respected lawyer and politician. He gained notoriety for his involvement in the Scottish witch trials, particularly his defence of the alleged witch maevia. His prominence grew due to his published essays and legal writings, and is even credited with writing the first Scottish novel, Artina. He was also acknowledged for assisting in the establishment of the Advocates' Library, now part of the National Library of Scotland. He served as a member of the Scottish Parliament, received the knighthood, and eventually rose to the role of Lord Advocate. However, all these accomplishments have faded in time. History remembers him for his ruthlessness. His role as Lord Advocate made Mackenzie responsible for leading the crown's relentless prosecution of those who refused to renounce the National Covenant. He oversaw the trials of countless Covenanters, most of whom faced mass imprisonment, transportation overseas, torture, or execution for their beliefs. Almost 500 of the Covenanters imprisoned here in the Covenanters' prison, within Greyfriars, were sent there by the direct order of Mackenzie himself. But thousands overall suffered under his harsh rulings. His brutal and bloodthirsty pursuit of all religious dissonance earned him the infamous nickname, Bloody Mackenzie. The title became his lasting legacy, casting a long shadow over all else he achieved in life. After his death, the black mausoleum became his final resting place. Seen as one of the finest examples of 17th century cemetery architecture, it is an ominous monument to someone remembered as a black-hearted man. The mausoleum is positioned right next to what was the boundary wall of the prison itself. George Mackenzie requested this site for burial, reasoning that he was very proud of what he accomplished in his persecution of the Covenanters. He remained here undisturbed for three centuries. Until, in 1999, on a cold, stormy night, a homeless man wandered through Greyfriars' kirkyard in the hopes of finding somewhere warm to shelter for the night. Spotting the black mausoleum and deciding that might be the perfect place to rest his head, he first tried to open the doors. Finding them locked, he ventured around the back of the tombs by climbing through a small hole that descended the stairs to the tomb below, holding the very coffin of Mackenzie himself. As he approached the coffin, the floor gave way and he plummeted down into the darkness into a chamber below. Feeling something bumpy underneath his feet, the man was horrified to find he was atop a large pile of bodies. He saw that some of the corpses were still somewhat fleshy, believed to be due to the lack of oxygen flow to the chamber, slowing down the decomposition process. It has been theorised he had fallen into a mass grave for bubonic plague victims. The next morning, two people who were opening the church noticed the sound of a... coming from the mausoleum. When they opened the doors to investigate, they saw the homeless man, pale-faced, sitting stiffly upright. He was covered in bloody scratches and trembling all over. His foot shaking caused the tapping sound against the door. All he could repeat, over and over again, in a shaking voice, was... That face! The man awoke the very ghost of George Mackenzie that night, and strange events have never ceased since. His poltergeist causes havoc to those who dare approach his tomb. Since 1999, there are reports of over 350 documented attacks, with visitors experiencing feeling their hair pulled or their limbs being scratched, or the feeling of being pushed or shelved by unseen forces, and at least 140 people have collapsed. Many leave to find inexplicable bruises or scratches upon their bodies. Some just notice sudden drops in temperature, as though the spirit has passed through them. White figures have been reported being spotted, moving near the tomb and around the graves nearby, and eerie reports of knocking noises from beneath. There have also been dead animals repeatedly found near the mausoleum, showing no obvious cause of death. Even the houses surrounding the kirkyard have reported inexplicable phenomena, such as strange fires breaking out. A paranormal investigator writing a book about the Mackenzie haunting lost his notes about the poltergeist in a house fire, as though the benevolent spirit of Bloody Mackenzie himself was trying to cease his work. In the year of 2000, a spiritualist medium attempted to urge the ghosts of the kirkyard to rest, but died suddenly of a heart attack a few weeks later. Many attribute this to the legend of the Mackenzie poltergeist. There is an old Heriot School rhyme that some visitors dare recite, maybe to provoke an appearance of his spirit. If you're daring enough, go up to the bar and repeat these words. See what happens. Today, the black mausoleum has gained the reputation as one of the most haunted sites in all of the United Kingdom. Out of all the thousands of souls to be laid to rest here within the walls of Greyfriars, it is fitting that Bloody Mackenzie be the one cursed to never find peace. That concludes this chapter of the tour. We hope you have enjoyed your visit to Greyfriars Kirkyard. The gates may close behind you, but the stories you have heard tonight have lingered here for centuries. And perhaps, they'll linger with you a little while longer.",
+  "segments": [
+    {
+      "start": 3.12,
+      "end": 13.3,
+      "text": "Here before you lies the Black Mausoleum, the final resting place of Sir George Mackenzie, or better known today as Bloody Mackenzie.",
+      "words": [
+        {
+          "word": "Here",
+          "start": 3.12,
+          "end": 3.66,
+          "probability": 0.984
+        },
+        {
+          "word": "before",
+          "start": 3.66,
+          "end": 3.98,
+          "probability": 0.97
+        },
+        {
+          "word": "you",
+          "start": 3.98,
+          "end": 4.34,
+          "probability": 0.998
+        },
+        {
+          "word": "lies",
+          "start": 4.34,
+          "end": 4.8,
+          "probability": 0.928
+        },
+        {
+          "word": "the",
+          "start": 4.8,
+          "end": 5.02,
+          "probability": 0.967
+        },
+        {
+          "word": "Black",
+          "start": 5.02,
+          "end": 5.34,
+          "probability": 0.782
+        },
+        {
+          "word": "Mausoleum,",
+          "start": 5.34,
+          "end": 5.9,
+          "probability": 0.769
+        },
+        {
+          "word": "the",
+          "start": 6.52,
+          "end": 6.68,
+          "probability": 0.981
+        },
+        {
+          "word": "final",
+          "start": 6.68,
+          "end": 6.98,
+          "probability": 0.999
+        },
+        {
+          "word": "resting",
+          "start": 6.98,
+          "end": 7.36,
+          "probability": 0.999
+        },
+        {
+          "word": "place",
+          "start": 7.36,
+          "end": 7.7,
+          "probability": 0.993
+        },
+        {
+          "word": "of",
+          "start": 7.7,
+          "end": 7.96,
+          "probability": 0.995
+        },
+        {
+          "word": "Sir",
+          "start": 7.96,
+          "end": 8.12,
+          "probability": 0.966
+        },
+        {
+          "word": "George",
+          "start": 8.12,
+          "end": 8.7,
+          "probability": 0.995
+        },
+        {
+          "word": "Mackenzie,",
+          "start": 8.7,
+          "end": 9.38,
+          "probability": 0.851
+        },
+        {
+          "word": "or",
+          "start": 9.94,
+          "end": 10.1,
+          "probability": 0.981
+        },
+        {
+          "word": "better",
+          "start": 10.1,
+          "end": 10.34,
+          "probability": 0.99
+        },
+        {
+          "word": "known",
+          "start": 10.34,
+          "end": 10.56,
+          "probability": 0.99
+        },
+        {
+          "word": "today",
+          "start": 10.56,
+          "end": 10.98,
+          "probability": 0.996
+        },
+        {
+          "word": "as",
+          "start": 10.98,
+          "end": 11.88,
+          "probability": 0.921
+        },
+        {
+          "word": "Bloody",
+          "start": 11.88,
+          "end": 12.36,
+          "probability": 0.593
+        },
+        {
+          "word": "Mackenzie.",
+          "start": 12.36,
+          "end": 13.3,
+          "probability": 0.992
+        }
+      ]
+    },
+    {
+      "start": 14.98,
+      "end": 22.92,
+      "text": "Born in Dundee in 1636, Mackenzie grew to be a well-respected lawyer and politician.",
+      "words": [
+        {
+          "word": "Born",
+          "start": 14.98,
+          "end": 15.4,
+          "probability": 0.996
+        },
+        {
+          "word": "in",
+          "start": 15.4,
+          "end": 15.84,
+          "probability": 0.996
+        },
+        {
+          "word": "Dundee",
+          "start": 15.84,
+          "end": 16.32,
+          "probability": 0.987
+        },
+        {
+          "word": "in",
+          "start": 16.32,
+          "end": 16.9,
+          "probability": 0.979
+        },
+        {
+          "word": "1636,",
+          "start": 16.9,
+          "end": 18.18,
+          "probability": 0.998
+        },
+        {
+          "word": "Mackenzie",
+          "start": 18.8,
+          "end": 19.26,
+          "probability": 0.995
+        },
+        {
+          "word": "grew",
+          "start": 19.26,
+          "end": 19.6,
+          "probability": 0.997
+        },
+        {
+          "word": "to",
+          "start": 19.6,
+          "end": 20.16,
+          "probability": 0.998
+        },
+        {
+          "word": "be",
+          "start": 20.16,
+          "end": 20.36,
+          "probability": 0.999
+        },
+        {
+          "word": "a",
+          "start": 20.36,
+          "end": 20.56,
+          "probability": 0.998
+        },
+        {
+          "word": "well",
+          "start": 20.56,
+          "end": 20.78,
+          "probability": 0.999
+        },
+        {
+          "word": "-respected",
+          "start": 20.78,
+          "end": 21.28,
+          "probability": 0.866
+        },
+        {
+          "word": "lawyer",
+          "start": 21.28,
+          "end": 21.86,
+          "probability": 0.995
+        },
+        {
+          "word": "and",
+          "start": 21.86,
+          "end": 22.36,
+          "probability": 0.996
+        },
+        {
+          "word": "politician.",
+          "start": 22.36,
+          "end": 22.92,
+          "probability": 0.997
+        }
+      ]
+    },
+    {
+      "start": 23.36,
+      "end": 33.02,
+      "text": "He gained notoriety for his involvement in the Scottish witch trials, particularly his defence of the alleged witch maevia.",
+      "words": [
+        {
+          "word": "He",
+          "start": 23.36,
+          "end": 23.92,
+          "probability": 0.998
+        },
+        {
+          "word": "gained",
+          "start": 23.92,
+          "end": 24.2,
+          "probability": 0.999
+        },
+        {
+          "word": "notoriety",
+          "start": 24.2,
+          "end": 24.96,
+          "probability": 0.999
+        },
+        {
+          "word": "for",
+          "start": 24.96,
+          "end": 25.48,
+          "probability": 0.998
+        },
+        {
+          "word": "his",
+          "start": 25.48,
+          "end": 25.66,
+          "probability": 1.0
+        },
+        {
+          "word": "involvement",
+          "start": 25.66,
+          "end": 26.3,
+          "probability": 0.999
+        },
+        {
+          "word": "in",
+          "start": 26.3,
+          "end": 26.84,
+          "probability": 0.999
+        },
+        {
+          "word": "the",
+          "start": 26.84,
+          "end": 27.04,
+          "probability": 0.998
+        },
+        {
+          "word": "Scottish",
+          "start": 27.04,
+          "end": 27.44,
+          "probability": 0.997
+        },
+        {
+          "word": "witch",
+          "start": 27.44,
+          "end": 27.7,
+          "probability": 0.518
+        },
+        {
+          "word": "trials,",
+          "start": 27.7,
+          "end": 28.24,
+          "probability": 0.98
+        },
+        {
+          "word": "particularly",
+          "start": 28.72,
+          "end": 29.4,
+          "probability": 0.981
+        },
+        {
+          "word": "his",
+          "start": 29.4,
+          "end": 30.0,
+          "probability": 0.963
+        },
+        {
+          "word": "defence",
+          "start": 30.0,
+          "end": 30.38,
+          "probability": 0.309
+        },
+        {
+          "word": "of",
+          "start": 30.38,
+          "end": 30.94,
+          "probability": 0.992
+        },
+        {
+          "word": "the",
+          "start": 30.94,
+          "end": 31.1,
+          "probability": 0.999
+        },
+        {
+          "word": "alleged",
+          "start": 31.1,
+          "end": 31.5,
+          "probability": 0.999
+        },
+        {
+          "word": "witch",
+          "start": 31.5,
+          "end": 32.2,
+          "probability": 0.598
+        },
+        {
+          "word": "maevia.",
+          "start": 32.2,
+          "end": 33.02,
+          "probability": 0.63
+        }
+      ]
+    },
+    {
+      "start": 33.12,
+      "end": 43.58,
+      "text": "His prominence grew due to his published essays and legal writings, and is even credited with writing the first Scottish novel, Artina.",
+      "words": [
+        {
+          "word": "His",
+          "start": 33.12,
+          "end": 34.22,
+          "probability": 0.939
+        },
+        {
+          "word": "prominence",
+          "start": 34.22,
+          "end": 34.68,
+          "probability": 0.987
+        },
+        {
+          "word": "grew",
+          "start": 34.68,
+          "end": 35.2,
+          "probability": 0.993
+        },
+        {
+          "word": "due",
+          "start": 35.2,
+          "end": 35.8,
+          "probability": 0.982
+        },
+        {
+          "word": "to",
+          "start": 35.8,
+          "end": 36.06,
+          "probability": 0.996
+        },
+        {
+          "word": "his",
+          "start": 36.06,
+          "end": 36.2,
+          "probability": 0.991
+        },
+        {
+          "word": "published",
+          "start": 36.2,
+          "end": 36.66,
+          "probability": 0.993
+        },
+        {
+          "word": "essays",
+          "start": 36.66,
+          "end": 37.12,
+          "probability": 0.996
+        },
+        {
+          "word": "and",
+          "start": 37.12,
+          "end": 37.48,
+          "probability": 0.989
+        },
+        {
+          "word": "legal",
+          "start": 37.48,
+          "end": 37.82,
+          "probability": 0.999
+        },
+        {
+          "word": "writings,",
+          "start": 37.82,
+          "end": 38.22,
+          "probability": 0.979
+        },
+        {
+          "word": "and",
+          "start": 38.52,
+          "end": 38.78,
+          "probability": 0.987
+        },
+        {
+          "word": "is",
+          "start": 38.78,
+          "end": 38.92,
+          "probability": 0.887
+        },
+        {
+          "word": "even",
+          "start": 38.92,
+          "end": 39.24,
+          "probability": 0.986
+        },
+        {
+          "word": "credited",
+          "start": 39.24,
+          "end": 39.72,
+          "probability": 0.999
+        },
+        {
+          "word": "with",
+          "start": 39.72,
+          "end": 40.2,
+          "probability": 0.993
+        },
+        {
+          "word": "writing",
+          "start": 40.2,
+          "end": 40.58,
+          "probability": 0.994
+        },
+        {
+          "word": "the",
+          "start": 40.58,
+          "end": 40.84,
+          "probability": 0.995
+        },
+        {
+          "word": "first",
+          "start": 40.84,
+          "end": 41.18,
+          "probability": 0.997
+        },
+        {
+          "word": "Scottish",
+          "start": 41.18,
+          "end": 41.82,
+          "probability": 0.98
+        },
+        {
+          "word": "novel,",
+          "start": 41.82,
+          "end": 42.26,
+          "probability": 0.967
+        },
+        {
+          "word": "Artina.",
+          "start": 43.12,
+          "end": 43.58,
+          "probability": 0.621
+        }
+      ]
+    },
+    {
+      "start": 45.24,
+      "end": 53.68,
+      "text": "He was also acknowledged for assisting in the establishment of the Advocates' Library, now part of the National Library of Scotland.",
+      "words": [
+        {
+          "word": "He",
+          "start": 45.24,
+          "end": 45.42,
+          "probability": 0.99
+        },
+        {
+          "word": "was",
+          "start": 45.42,
+          "end": 45.54,
+          "probability": 0.982
+        },
+        {
+          "word": "also",
+          "start": 45.54,
+          "end": 45.88,
+          "probability": 0.997
+        },
+        {
+          "word": "acknowledged",
+          "start": 45.88,
+          "end": 46.36,
+          "probability": 0.997
+        },
+        {
+          "word": "for",
+          "start": 46.36,
+          "end": 46.7,
+          "probability": 0.998
+        },
+        {
+          "word": "assisting",
+          "start": 46.7,
+          "end": 47.16,
+          "probability": 0.997
+        },
+        {
+          "word": "in",
+          "start": 47.16,
+          "end": 47.48,
+          "probability": 0.994
+        },
+        {
+          "word": "the",
+          "start": 47.48,
+          "end": 47.64,
+          "probability": 0.999
+        },
+        {
+          "word": "establishment",
+          "start": 47.64,
+          "end": 48.16,
+          "probability": 0.998
+        },
+        {
+          "word": "of",
+          "start": 48.16,
+          "end": 48.68,
+          "probability": 0.998
+        },
+        {
+          "word": "the",
+          "start": 48.68,
+          "end": 48.9,
+          "probability": 0.891
+        },
+        {
+          "word": "Advocates'",
+          "start": 48.9,
+          "end": 49.48,
+          "probability": 0.755
+        },
+        {
+          "word": "Library,",
+          "start": 50.06,
+          "end": 50.22,
+          "probability": 0.978
+        },
+        {
+          "word": "now",
+          "start": 51.16,
+          "end": 51.34,
+          "probability": 0.994
+        },
+        {
+          "word": "part",
+          "start": 51.34,
+          "end": 51.8,
+          "probability": 0.982
+        },
+        {
+          "word": "of",
+          "start": 51.8,
+          "end": 52.02,
+          "probability": 0.999
+        },
+        {
+          "word": "the",
+          "start": 52.02,
+          "end": 52.18,
+          "probability": 0.966
+        },
+        {
+          "word": "National",
+          "start": 52.18,
+          "end": 52.58,
+          "probability": 0.991
+        },
+        {
+          "word": "Library",
+          "start": 52.58,
+          "end": 52.98,
+          "probability": 0.996
+        },
+        {
+          "word": "of",
+          "start": 52.98,
+          "end": 53.18,
+          "probability": 0.993
+        },
+        {
+          "word": "Scotland.",
+          "start": 53.18,
+          "end": 53.68,
+          "probability": 0.999
+        }
+      ]
+    },
+    {
+      "start": 53.68,
+      "end": 63.16,
+      "text": "He served as a member of the Scottish Parliament, received the knighthood, and eventually rose to the role of Lord Advocate.",
+      "words": [
+        {
+          "word": "He",
+          "start": 53.68,
+          "end": 54.56,
+          "probability": 0.665
+        },
+        {
+          "word": "served",
+          "start": 54.56,
+          "end": 55.02,
+          "probability": 0.99
+        },
+        {
+          "word": "as",
+          "start": 55.02,
+          "end": 55.52,
+          "probability": 0.992
+        },
+        {
+          "word": "a",
+          "start": 55.52,
+          "end": 55.7,
+          "probability": 0.964
+        },
+        {
+          "word": "member",
+          "start": 55.7,
+          "end": 55.94,
+          "probability": 0.869
+        },
+        {
+          "word": "of",
+          "start": 55.94,
+          "end": 56.2,
+          "probability": 0.996
+        },
+        {
+          "word": "the",
+          "start": 56.2,
+          "end": 56.38,
+          "probability": 0.978
+        },
+        {
+          "word": "Scottish",
+          "start": 56.38,
+          "end": 56.7,
+          "probability": 0.998
+        },
+        {
+          "word": "Parliament,",
+          "start": 56.7,
+          "end": 57.18,
+          "probability": 0.714
+        },
+        {
+          "word": "received",
+          "start": 57.66,
+          "end": 58.0,
+          "probability": 0.992
+        },
+        {
+          "word": "the",
+          "start": 58.0,
+          "end": 58.22,
+          "probability": 0.714
+        },
+        {
+          "word": "knighthood,",
+          "start": 58.22,
+          "end": 58.62,
+          "probability": 0.965
+        },
+        {
+          "word": "and",
+          "start": 58.92,
+          "end": 59.02,
+          "probability": 0.993
+        },
+        {
+          "word": "eventually",
+          "start": 59.02,
+          "end": 59.56,
+          "probability": 0.963
+        },
+        {
+          "word": "rose",
+          "start": 59.56,
+          "end": 60.44,
+          "probability": 0.946
+        },
+        {
+          "word": "to",
+          "start": 60.44,
+          "end": 60.92,
+          "probability": 0.994
+        },
+        {
+          "word": "the",
+          "start": 60.92,
+          "end": 61.1,
+          "probability": 0.994
+        },
+        {
+          "word": "role",
+          "start": 61.1,
+          "end": 61.38,
+          "probability": 0.995
+        },
+        {
+          "word": "of",
+          "start": 61.38,
+          "end": 61.96,
+          "probability": 0.993
+        },
+        {
+          "word": "Lord",
+          "start": 61.96,
+          "end": 62.42,
+          "probability": 0.837
+        },
+        {
+          "word": "Advocate.",
+          "start": 62.42,
+          "end": 63.16,
+          "probability": 0.986
+        }
+      ]
+    },
+    {
+      "start": 64.18,
+      "end": 73.74,
+      "text": "However, all these accomplishments have faded in time. History remembers him for his ruthlessness.",
+      "words": [
+        {
+          "word": "However,",
+          "start": 64.18,
+          "end": 65.14,
+          "probability": 0.962
+        },
+        {
+          "word": "all",
+          "start": 66.38,
+          "end": 66.72,
+          "probability": 0.983
+        },
+        {
+          "word": "these",
+          "start": 66.72,
+          "end": 66.98,
+          "probability": 0.907
+        },
+        {
+          "word": "accomplishments",
+          "start": 66.98,
+          "end": 67.62,
+          "probability": 0.994
+        },
+        {
+          "word": "have",
+          "start": 67.62,
+          "end": 68.16,
+          "probability": 0.992
+        },
+        {
+          "word": "faded",
+          "start": 68.16,
+          "end": 68.66,
+          "probability": 0.997
+        },
+        {
+          "word": "in",
+          "start": 68.66,
+          "end": 69.26,
+          "probability": 0.98
+        },
+        {
+          "word": "time.",
+          "start": 69.26,
+          "end": 69.82,
+          "probability": 0.997
+        },
+        {
+          "word": "History",
+          "start": 70.56,
+          "end": 70.96,
+          "probability": 0.968
+        },
+        {
+          "word": "remembers",
+          "start": 70.96,
+          "end": 71.48,
+          "probability": 0.991
+        },
+        {
+          "word": "him",
+          "start": 71.48,
+          "end": 71.82,
+          "probability": 0.988
+        },
+        {
+          "word": "for",
+          "start": 71.82,
+          "end": 72.38,
+          "probability": 0.99
+        },
+        {
+          "word": "his",
+          "start": 72.38,
+          "end": 72.68,
+          "probability": 0.997
+        },
+        {
+          "word": "ruthlessness.",
+          "start": 72.68,
+          "end": 73.74,
+          "probability": 0.994
+        }
+      ]
+    },
+    {
+      "start": 73.74,
+      "end": 88.37,
+      "text": "His role as Lord Advocate made Mackenzie responsible for leading the crown's relentless prosecution of those who refused to renounce the National Covenant.",
+      "words": [
+        {
+          "word": "His",
+          "start": 73.74,
+          "end": 74.76,
+          "probability": 0.873
+        },
+        {
+          "word": "role",
+          "start": 76.33,
+          "end": 76.77,
+          "probability": 0.981
+        },
+        {
+          "word": "as",
+          "start": 76.77,
+          "end": 77.17,
+          "probability": 0.992
+        },
+        {
+          "word": "Lord",
+          "start": 77.17,
+          "end": 77.49,
+          "probability": 0.92
+        },
+        {
+          "word": "Advocate",
+          "start": 77.49,
+          "end": 78.03,
+          "probability": 0.944
+        },
+        {
+          "word": "made",
+          "start": 78.03,
+          "end": 78.59,
+          "probability": 0.969
+        },
+        {
+          "word": "Mackenzie",
+          "start": 78.59,
+          "end": 79.09,
+          "probability": 0.753
+        },
+        {
+          "word": "responsible",
+          "start": 79.09,
+          "end": 79.85,
+          "probability": 0.999
+        },
+        {
+          "word": "for",
+          "start": 79.85,
+          "end": 80.39,
+          "probability": 0.988
+        },
+        {
+          "word": "leading",
+          "start": 80.39,
+          "end": 80.79,
+          "probability": 0.992
+        },
+        {
+          "word": "the",
+          "start": 80.79,
+          "end": 81.23,
+          "probability": 0.99
+        },
+        {
+          "word": "crown's",
+          "start": 81.23,
+          "end": 82.05,
+          "probability": 0.802
+        },
+        {
+          "word": "relentless",
+          "start": 82.05,
+          "end": 82.61,
+          "probability": 0.996
+        },
+        {
+          "word": "prosecution",
+          "start": 82.61,
+          "end": 83.91,
+          "probability": 0.979
+        },
+        {
+          "word": "of",
+          "start": 83.91,
+          "end": 84.45,
+          "probability": 0.992
+        },
+        {
+          "word": "those",
+          "start": 84.45,
+          "end": 84.79,
+          "probability": 0.998
+        },
+        {
+          "word": "who",
+          "start": 84.79,
+          "end": 85.15,
+          "probability": 0.996
+        },
+        {
+          "word": "refused",
+          "start": 85.15,
+          "end": 85.61,
+          "probability": 0.931
+        },
+        {
+          "word": "to",
+          "start": 85.61,
+          "end": 85.93,
+          "probability": 0.999
+        },
+        {
+          "word": "renounce",
+          "start": 85.93,
+          "end": 86.39,
+          "probability": 0.996
+        },
+        {
+          "word": "the",
+          "start": 86.39,
+          "end": 87.01,
+          "probability": 0.982
+        },
+        {
+          "word": "National",
+          "start": 87.01,
+          "end": 87.67,
+          "probability": 0.713
+        },
+        {
+          "word": "Covenant.",
+          "start": 87.67,
+          "end": 88.37,
+          "probability": 0.99
+        }
+      ]
+    },
+    {
+      "start": 89.63,
+      "end": 101.83,
+      "text": "He oversaw the trials of countless Covenanters, most of whom faced mass imprisonment, transportation overseas, torture, or execution for their beliefs.",
+      "words": [
+        {
+          "word": "He",
+          "start": 89.63,
+          "end": 89.83,
+          "probability": 0.988
+        },
+        {
+          "word": "oversaw",
+          "start": 89.83,
+          "end": 90.41,
+          "probability": 0.997
+        },
+        {
+          "word": "the",
+          "start": 90.41,
+          "end": 90.93,
+          "probability": 0.999
+        },
+        {
+          "word": "trials",
+          "start": 90.93,
+          "end": 91.41,
+          "probability": 0.977
+        },
+        {
+          "word": "of",
+          "start": 91.41,
+          "end": 91.69,
+          "probability": 0.998
+        },
+        {
+          "word": "countless",
+          "start": 91.69,
+          "end": 92.39,
+          "probability": 1.0
+        },
+        {
+          "word": "Covenanters,",
+          "start": 92.39,
+          "end": 93.47,
+          "probability": 0.947
+        },
+        {
+          "word": "most",
+          "start": 93.93,
+          "end": 94.13,
+          "probability": 0.995
+        },
+        {
+          "word": "of",
+          "start": 94.13,
+          "end": 94.31,
+          "probability": 1.0
+        },
+        {
+          "word": "whom",
+          "start": 94.31,
+          "end": 94.59,
+          "probability": 0.996
+        },
+        {
+          "word": "faced",
+          "start": 94.59,
+          "end": 95.21,
+          "probability": 0.978
+        },
+        {
+          "word": "mass",
+          "start": 95.21,
+          "end": 95.83,
+          "probability": 0.997
+        },
+        {
+          "word": "imprisonment,",
+          "start": 95.83,
+          "end": 96.61,
+          "probability": 0.994
+        },
+        {
+          "word": "transportation",
+          "start": 97.15,
+          "end": 97.81,
+          "probability": 0.984
+        },
+        {
+          "word": "overseas,",
+          "start": 97.81,
+          "end": 98.47,
+          "probability": 0.986
+        },
+        {
+          "word": "torture,",
+          "start": 99.19,
+          "end": 99.55,
+          "probability": 0.997
+        },
+        {
+          "word": "or",
+          "start": 99.95,
+          "end": 100.39,
+          "probability": 0.998
+        },
+        {
+          "word": "execution",
+          "start": 100.39,
+          "end": 101.01,
+          "probability": 0.997
+        },
+        {
+          "word": "for",
+          "start": 101.01,
+          "end": 101.29,
+          "probability": 0.996
+        },
+        {
+          "word": "their",
+          "start": 101.29,
+          "end": 101.45,
+          "probability": 0.999
+        },
+        {
+          "word": "beliefs.",
+          "start": 101.45,
+          "end": 101.83,
+          "probability": 0.998
+        }
+      ]
+    },
+    {
+      "start": 101.83,
+      "end": 112.71,
+      "text": "Almost 500 of the Covenanters imprisoned here in the Covenanters' prison, within Greyfriars, were sent there by the direct order of Mackenzie himself.",
+      "words": [
+        {
+          "word": "Almost",
+          "start": 101.83,
+          "end": 103.09,
+          "probability": 0.961
+        },
+        {
+          "word": "500",
+          "start": 103.09,
+          "end": 103.61,
+          "probability": 0.797
+        },
+        {
+          "word": "of",
+          "start": 103.61,
+          "end": 103.93,
+          "probability": 0.998
+        },
+        {
+          "word": "the",
+          "start": 103.93,
+          "end": 104.17,
+          "probability": 0.999
+        },
+        {
+          "word": "Covenanters",
+          "start": 104.17,
+          "end": 104.63,
+          "probability": 0.958
+        },
+        {
+          "word": "imprisoned",
+          "start": 104.63,
+          "end": 105.07,
+          "probability": 0.976
+        },
+        {
+          "word": "here",
+          "start": 105.07,
+          "end": 105.47,
+          "probability": 0.997
+        },
+        {
+          "word": "in",
+          "start": 105.47,
+          "end": 105.65,
+          "probability": 0.957
+        },
+        {
+          "word": "the",
+          "start": 105.65,
+          "end": 105.87,
+          "probability": 0.971
+        },
+        {
+          "word": "Covenanters'",
+          "start": 105.87,
+          "end": 106.43,
+          "probability": 0.964
+        },
+        {
+          "word": "prison,",
+          "start": 106.67,
+          "end": 106.81,
+          "probability": 0.716
+        },
+        {
+          "word": "within",
+          "start": 107.15,
+          "end": 107.65,
+          "probability": 0.889
+        },
+        {
+          "word": "Greyfriars,",
+          "start": 107.65,
+          "end": 108.49,
+          "probability": 0.948
+        },
+        {
+          "word": "were",
+          "start": 108.83,
+          "end": 108.93,
+          "probability": 0.994
+        },
+        {
+          "word": "sent",
+          "start": 108.93,
+          "end": 109.31,
+          "probability": 0.999
+        },
+        {
+          "word": "there",
+          "start": 109.31,
+          "end": 109.79,
+          "probability": 0.995
+        },
+        {
+          "word": "by",
+          "start": 109.79,
+          "end": 110.09,
+          "probability": 0.975
+        },
+        {
+          "word": "the",
+          "start": 110.09,
+          "end": 110.23,
+          "probability": 0.997
+        },
+        {
+          "word": "direct",
+          "start": 110.23,
+          "end": 110.67,
+          "probability": 0.974
+        },
+        {
+          "word": "order",
+          "start": 110.67,
+          "end": 111.07,
+          "probability": 0.991
+        },
+        {
+          "word": "of",
+          "start": 111.07,
+          "end": 111.45,
+          "probability": 0.999
+        },
+        {
+          "word": "Mackenzie",
+          "start": 111.45,
+          "end": 111.95,
+          "probability": 0.867
+        },
+        {
+          "word": "himself.",
+          "start": 111.95,
+          "end": 112.71,
+          "probability": 0.99
+        }
+      ]
+    },
+    {
+      "start": 113.35,
+      "end": 116.93,
+      "text": "But thousands overall suffered under his harsh rulings.",
+      "words": [
+        {
+          "word": "But",
+          "start": 113.35,
+          "end": 113.55,
+          "probability": 0.99
+        },
+        {
+          "word": "thousands",
+          "start": 113.55,
+          "end": 114.09,
+          "probability": 0.982
+        },
+        {
+          "word": "overall",
+          "start": 114.09,
+          "end": 114.75,
+          "probability": 0.811
+        },
+        {
+          "word": "suffered",
+          "start": 114.75,
+          "end": 115.51,
+          "probability": 0.939
+        },
+        {
+          "word": "under",
+          "start": 115.51,
+          "end": 115.87,
+          "probability": 0.999
+        },
+        {
+          "word": "his",
+          "start": 115.87,
+          "end": 116.07,
+          "probability": 0.999
+        },
+        {
+          "word": "harsh",
+          "start": 116.07,
+          "end": 116.47,
+          "probability": 1.0
+        },
+        {
+          "word": "rulings.",
+          "start": 116.47,
+          "end": 116.93,
+          "probability": 0.991
+        }
+      ]
+    },
+    {
+      "start": 117.99,
+      "end": 126.91,
+      "text": "His brutal and bloodthirsty pursuit of all religious dissonance earned him the infamous nickname, Bloody Mackenzie.",
+      "words": [
+        {
+          "word": "His",
+          "start": 117.99,
+          "end": 118.19,
+          "probability": 0.996
+        },
+        {
+          "word": "brutal",
+          "start": 118.19,
+          "end": 118.73,
+          "probability": 0.999
+        },
+        {
+          "word": "and",
+          "start": 118.73,
+          "end": 119.23,
+          "probability": 0.974
+        },
+        {
+          "word": "bloodthirsty",
+          "start": 119.23,
+          "end": 120.27,
+          "probability": 0.983
+        },
+        {
+          "word": "pursuit",
+          "start": 120.27,
+          "end": 120.67,
+          "probability": 0.998
+        },
+        {
+          "word": "of",
+          "start": 120.67,
+          "end": 121.11,
+          "probability": 0.998
+        },
+        {
+          "word": "all",
+          "start": 121.11,
+          "end": 121.61,
+          "probability": 0.995
+        },
+        {
+          "word": "religious",
+          "start": 121.61,
+          "end": 122.19,
+          "probability": 0.999
+        },
+        {
+          "word": "dissonance",
+          "start": 122.19,
+          "end": 122.85,
+          "probability": 0.993
+        },
+        {
+          "word": "earned",
+          "start": 122.85,
+          "end": 123.31,
+          "probability": 0.929
+        },
+        {
+          "word": "him",
+          "start": 123.31,
+          "end": 123.63,
+          "probability": 1.0
+        },
+        {
+          "word": "the",
+          "start": 123.63,
+          "end": 123.99,
+          "probability": 0.997
+        },
+        {
+          "word": "infamous",
+          "start": 123.99,
+          "end": 124.63,
+          "probability": 0.999
+        },
+        {
+          "word": "nickname,",
+          "start": 124.63,
+          "end": 125.21,
+          "probability": 0.997
+        },
+        {
+          "word": "Bloody",
+          "start": 125.75,
+          "end": 126.03,
+          "probability": 0.356
+        },
+        {
+          "word": "Mackenzie.",
+          "start": 126.03,
+          "end": 126.91,
+          "probability": 0.993
+        }
+      ]
+    },
+    {
+      "start": 128.15,
+      "end": 137.65,
+      "text": "The title became his lasting legacy, casting a long shadow over all else he achieved in life.",
+      "words": [
+        {
+          "word": "The",
+          "start": 128.15,
+          "end": 129.07,
+          "probability": 0.617
+        },
+        {
+          "word": "title",
+          "start": 129.07,
+          "end": 129.37,
+          "probability": 0.995
+        },
+        {
+          "word": "became",
+          "start": 129.37,
+          "end": 129.83,
+          "probability": 0.996
+        },
+        {
+          "word": "his",
+          "start": 129.83,
+          "end": 130.27,
+          "probability": 0.995
+        },
+        {
+          "word": "lasting",
+          "start": 130.27,
+          "end": 130.87,
+          "probability": 0.974
+        },
+        {
+          "word": "legacy,",
+          "start": 130.87,
+          "end": 131.51,
+          "probability": 0.999
+        },
+        {
+          "word": "casting",
+          "start": 132.05,
+          "end": 132.51,
+          "probability": 0.995
+        },
+        {
+          "word": "a",
+          "start": 132.51,
+          "end": 133.13,
+          "probability": 0.998
+        },
+        {
+          "word": "long",
+          "start": 133.13,
+          "end": 133.69,
+          "probability": 0.998
+        },
+        {
+          "word": "shadow",
+          "start": 133.69,
+          "end": 134.33,
+          "probability": 0.998
+        },
+        {
+          "word": "over",
+          "start": 134.33,
+          "end": 135.07,
+          "probability": 0.993
+        },
+        {
+          "word": "all",
+          "start": 135.07,
+          "end": 135.47,
+          "probability": 0.999
+        },
+        {
+          "word": "else",
+          "start": 135.47,
+          "end": 135.89,
+          "probability": 0.994
+        },
+        {
+          "word": "he",
+          "start": 135.89,
+          "end": 136.19,
+          "probability": 0.988
+        },
+        {
+          "word": "achieved",
+          "start": 136.19,
+          "end": 136.69,
+          "probability": 0.994
+        },
+        {
+          "word": "in",
+          "start": 136.69,
+          "end": 137.23,
+          "probability": 0.994
+        },
+        {
+          "word": "life.",
+          "start": 137.23,
+          "end": 137.65,
+          "probability": 0.999
+        }
+      ]
+    },
+    {
+      "start": 140.07,
+      "end": 144.59,
+      "text": "After his death, the black mausoleum became his final resting place.",
+      "words": [
+        {
+          "word": "After",
+          "start": 140.07,
+          "end": 140.35,
+          "probability": 0.997
+        },
+        {
+          "word": "his",
+          "start": 140.35,
+          "end": 140.53,
+          "probability": 0.999
+        },
+        {
+          "word": "death,",
+          "start": 140.53,
+          "end": 140.87,
+          "probability": 0.999
+        },
+        {
+          "word": "the",
+          "start": 141.31,
+          "end": 141.39,
+          "probability": 0.933
+        },
+        {
+          "word": "black",
+          "start": 141.39,
+          "end": 141.67,
+          "probability": 0.376
+        },
+        {
+          "word": "mausoleum",
+          "start": 141.67,
+          "end": 142.25,
+          "probability": 0.992
+        },
+        {
+          "word": "became",
+          "start": 142.25,
+          "end": 142.75,
+          "probability": 0.995
+        },
+        {
+          "word": "his",
+          "start": 142.75,
+          "end": 143.09,
+          "probability": 0.999
+        },
+        {
+          "word": "final",
+          "start": 143.09,
+          "end": 143.59,
+          "probability": 0.999
+        },
+        {
+          "word": "resting",
+          "start": 143.59,
+          "end": 144.03,
+          "probability": 1.0
+        },
+        {
+          "word": "place.",
+          "start": 144.03,
+          "end": 144.59,
+          "probability": 0.996
+        }
+      ]
+    },
+    {
+      "start": 145.35,
+      "end": 157.99,
+      "text": "Seen as one of the finest examples of 17th century cemetery architecture, it is an ominous monument to someone remembered as a black-hearted man.",
+      "words": [
+        {
+          "word": "Seen",
+          "start": 145.35,
+          "end": 145.71,
+          "probability": 0.987
+        },
+        {
+          "word": "as",
+          "start": 145.71,
+          "end": 146.17,
+          "probability": 0.997
+        },
+        {
+          "word": "one",
+          "start": 146.17,
+          "end": 146.35,
+          "probability": 0.998
+        },
+        {
+          "word": "of",
+          "start": 146.35,
+          "end": 146.47,
+          "probability": 0.998
+        },
+        {
+          "word": "the",
+          "start": 146.47,
+          "end": 146.71,
+          "probability": 0.995
+        },
+        {
+          "word": "finest",
+          "start": 146.71,
+          "end": 147.07,
+          "probability": 1.0
+        },
+        {
+          "word": "examples",
+          "start": 147.07,
+          "end": 147.71,
+          "probability": 0.996
+        },
+        {
+          "word": "of",
+          "start": 147.71,
+          "end": 148.25,
+          "probability": 0.998
+        },
+        {
+          "word": "17th",
+          "start": 148.25,
+          "end": 149.47,
+          "probability": 0.971
+        },
+        {
+          "word": "century",
+          "start": 149.47,
+          "end": 149.47,
+          "probability": 0.625
+        },
+        {
+          "word": "cemetery",
+          "start": 149.47,
+          "end": 150.29,
+          "probability": 0.973
+        },
+        {
+          "word": "architecture,",
+          "start": 150.29,
+          "end": 151.07,
+          "probability": 0.999
+        },
+        {
+          "word": "it",
+          "start": 151.79,
+          "end": 151.99,
+          "probability": 0.976
+        },
+        {
+          "word": "is",
+          "start": 151.99,
+          "end": 152.15,
+          "probability": 0.991
+        },
+        {
+          "word": "an",
+          "start": 152.15,
+          "end": 152.51,
+          "probability": 0.994
+        },
+        {
+          "word": "ominous",
+          "start": 152.51,
+          "end": 153.01,
+          "probability": 0.999
+        },
+        {
+          "word": "monument",
+          "start": 153.01,
+          "end": 153.81,
+          "probability": 0.999
+        },
+        {
+          "word": "to",
+          "start": 153.81,
+          "end": 154.35,
+          "probability": 0.996
+        },
+        {
+          "word": "someone",
+          "start": 154.35,
+          "end": 154.79,
+          "probability": 0.998
+        },
+        {
+          "word": "remembered",
+          "start": 154.79,
+          "end": 155.71,
+          "probability": 0.995
+        },
+        {
+          "word": "as",
+          "start": 155.71,
+          "end": 156.09,
+          "probability": 0.999
+        },
+        {
+          "word": "a",
+          "start": 156.09,
+          "end": 156.45,
+          "probability": 0.996
+        },
+        {
+          "word": "black",
+          "start": 156.45,
+          "end": 156.79,
+          "probability": 0.96
+        },
+        {
+          "word": "-hearted",
+          "start": 156.79,
+          "end": 157.37,
+          "probability": 0.914
+        },
+        {
+          "word": "man.",
+          "start": 157.37,
+          "end": 157.99,
+          "probability": 0.998
+        }
+      ]
+    },
+    {
+      "start": 158.99,
+      "end": 165.91,
+      "text": "The mausoleum is positioned right next to what was the boundary wall of the prison itself.",
+      "words": [
+        {
+          "word": "The",
+          "start": 158.99,
+          "end": 159.53,
+          "probability": 0.881
+        },
+        {
+          "word": "mausoleum",
+          "start": 159.53,
+          "end": 160.13,
+          "probability": 0.968
+        },
+        {
+          "word": "is",
+          "start": 160.13,
+          "end": 160.63,
+          "probability": 0.996
+        },
+        {
+          "word": "positioned",
+          "start": 160.63,
+          "end": 161.13,
+          "probability": 0.996
+        },
+        {
+          "word": "right",
+          "start": 161.13,
+          "end": 161.77,
+          "probability": 0.996
+        },
+        {
+          "word": "next",
+          "start": 161.77,
+          "end": 162.17,
+          "probability": 0.999
+        },
+        {
+          "word": "to",
+          "start": 162.17,
+          "end": 162.43,
+          "probability": 0.997
+        },
+        {
+          "word": "what",
+          "start": 162.43,
+          "end": 162.63,
+          "probability": 0.99
+        },
+        {
+          "word": "was",
+          "start": 162.63,
+          "end": 162.97,
+          "probability": 0.997
+        },
+        {
+          "word": "the",
+          "start": 162.97,
+          "end": 163.37,
+          "probability": 0.992
+        },
+        {
+          "word": "boundary",
+          "start": 163.37,
+          "end": 163.85,
+          "probability": 0.996
+        },
+        {
+          "word": "wall",
+          "start": 163.85,
+          "end": 164.27,
+          "probability": 0.997
+        },
+        {
+          "word": "of",
+          "start": 164.27,
+          "end": 164.55,
+          "probability": 0.997
+        },
+        {
+          "word": "the",
+          "start": 164.55,
+          "end": 164.77,
+          "probability": 0.998
+        },
+        {
+          "word": "prison",
+          "start": 164.77,
+          "end": 165.11,
+          "probability": 0.99
+        },
+        {
+          "word": "itself.",
+          "start": 165.11,
+          "end": 165.91,
+          "probability": 0.994
+        }
+      ]
+    },
+    {
+      "start": 166.79,
+      "end": 176.23,
+      "text": "George Mackenzie requested this site for burial, reasoning that he was very proud of what he accomplished in his persecution of the Covenanters.",
+      "words": [
+        {
+          "word": "George",
+          "start": 166.79,
+          "end": 167.01,
+          "probability": 0.977
+        },
+        {
+          "word": "Mackenzie",
+          "start": 167.01,
+          "end": 167.69,
+          "probability": 0.694
+        },
+        {
+          "word": "requested",
+          "start": 167.69,
+          "end": 168.61,
+          "probability": 0.988
+        },
+        {
+          "word": "this",
+          "start": 168.61,
+          "end": 168.97,
+          "probability": 0.991
+        },
+        {
+          "word": "site",
+          "start": 168.97,
+          "end": 169.27,
+          "probability": 0.931
+        },
+        {
+          "word": "for",
+          "start": 169.27,
+          "end": 169.53,
+          "probability": 0.999
+        },
+        {
+          "word": "burial,",
+          "start": 169.53,
+          "end": 170.01,
+          "probability": 0.999
+        },
+        {
+          "word": "reasoning",
+          "start": 170.55,
+          "end": 171.03,
+          "probability": 0.996
+        },
+        {
+          "word": "that",
+          "start": 171.03,
+          "end": 171.49,
+          "probability": 0.994
+        },
+        {
+          "word": "he",
+          "start": 171.49,
+          "end": 171.65,
+          "probability": 0.997
+        },
+        {
+          "word": "was",
+          "start": 171.65,
+          "end": 171.79,
+          "probability": 0.999
+        },
+        {
+          "word": "very",
+          "start": 171.79,
+          "end": 172.25,
+          "probability": 0.978
+        },
+        {
+          "word": "proud",
+          "start": 172.25,
+          "end": 172.65,
+          "probability": 1.0
+        },
+        {
+          "word": "of",
+          "start": 172.65,
+          "end": 172.85,
+          "probability": 0.996
+        },
+        {
+          "word": "what",
+          "start": 172.85,
+          "end": 172.99,
+          "probability": 0.999
+        },
+        {
+          "word": "he",
+          "start": 172.99,
+          "end": 173.17,
+          "probability": 0.998
+        },
+        {
+          "word": "accomplished",
+          "start": 173.17,
+          "end": 173.75,
+          "probability": 0.996
+        },
+        {
+          "word": "in",
+          "start": 173.75,
+          "end": 174.21,
+          "probability": 0.991
+        },
+        {
+          "word": "his",
+          "start": 174.21,
+          "end": 174.51,
+          "probability": 0.997
+        },
+        {
+          "word": "persecution",
+          "start": 174.51,
+          "end": 175.09,
+          "probability": 0.976
+        },
+        {
+          "word": "of",
+          "start": 175.09,
+          "end": 175.39,
+          "probability": 0.997
+        },
+        {
+          "word": "the",
+          "start": 175.39,
+          "end": 175.61,
+          "probability": 0.994
+        },
+        {
+          "word": "Covenanters.",
+          "start": 175.61,
+          "end": 176.23,
+          "probability": 0.973
+        }
+      ]
+    },
+    {
+      "start": 177.21,
+      "end": 182.29,
+      "text": "He remained here undisturbed for three centuries.",
+      "words": [
+        {
+          "word": "He",
+          "start": 177.21,
+          "end": 177.43,
+          "probability": 0.996
+        },
+        {
+          "word": "remained",
+          "start": 177.43,
+          "end": 177.81,
+          "probability": 0.998
+        },
+        {
+          "word": "here",
+          "start": 177.81,
+          "end": 178.61,
+          "probability": 0.994
+        },
+        {
+          "word": "undisturbed",
+          "start": 178.61,
+          "end": 179.79,
+          "probability": 0.918
+        },
+        {
+          "word": "for",
+          "start": 179.79,
+          "end": 180.53,
+          "probability": 0.99
+        },
+        {
+          "word": "three",
+          "start": 180.53,
+          "end": 181.07,
+          "probability": 0.955
+        },
+        {
+          "word": "centuries.",
+          "start": 181.07,
+          "end": 182.29,
+          "probability": 0.999
+        }
+      ]
+    },
+    {
+      "start": 183.85,
+      "end": 201.42,
+      "text": "Until, in 1999, on a cold, stormy night, a homeless man wandered through Greyfriars' kirkyard in the hopes of finding somewhere warm to shelter for the night.",
+      "words": [
+        {
+          "word": "Until,",
+          "start": 183.85,
+          "end": 184.57,
+          "probability": 0.446
+        },
+        {
+          "word": "in",
+          "start": 188.5,
+          "end": 188.98,
+          "probability": 0.957
+        },
+        {
+          "word": "1999,",
+          "start": 188.98,
+          "end": 189.98,
+          "probability": 0.983
+        },
+        {
+          "word": "on",
+          "start": 190.8,
+          "end": 191.04,
+          "probability": 0.982
+        },
+        {
+          "word": "a",
+          "start": 191.04,
+          "end": 191.32,
+          "probability": 0.998
+        },
+        {
+          "word": "cold,",
+          "start": 191.32,
+          "end": 191.84,
+          "probability": 0.998
+        },
+        {
+          "word": "stormy",
+          "start": 192.26,
+          "end": 192.76,
+          "probability": 0.997
+        },
+        {
+          "word": "night,",
+          "start": 192.76,
+          "end": 193.14,
+          "probability": 0.996
+        },
+        {
+          "word": "a",
+          "start": 193.74,
+          "end": 193.88,
+          "probability": 0.983
+        },
+        {
+          "word": "homeless",
+          "start": 193.88,
+          "end": 194.2,
+          "probability": 0.997
+        },
+        {
+          "word": "man",
+          "start": 194.2,
+          "end": 194.6,
+          "probability": 0.997
+        },
+        {
+          "word": "wandered",
+          "start": 194.6,
+          "end": 195.22,
+          "probability": 0.964
+        },
+        {
+          "word": "through",
+          "start": 195.22,
+          "end": 195.56,
+          "probability": 0.994
+        },
+        {
+          "word": "Greyfriars'",
+          "start": 195.56,
+          "end": 196.32,
+          "probability": 0.853
+        },
+        {
+          "word": "kirkyard",
+          "start": 196.44,
+          "end": 196.96,
+          "probability": 0.825
+        },
+        {
+          "word": "in",
+          "start": 196.96,
+          "end": 197.34,
+          "probability": 0.859
+        },
+        {
+          "word": "the",
+          "start": 197.34,
+          "end": 197.54,
+          "probability": 0.969
+        },
+        {
+          "word": "hopes",
+          "start": 197.54,
+          "end": 197.82,
+          "probability": 0.989
+        },
+        {
+          "word": "of",
+          "start": 197.82,
+          "end": 198.32,
+          "probability": 0.996
+        },
+        {
+          "word": "finding",
+          "start": 198.32,
+          "end": 198.66,
+          "probability": 0.998
+        },
+        {
+          "word": "somewhere",
+          "start": 198.66,
+          "end": 199.16,
+          "probability": 0.964
+        },
+        {
+          "word": "warm",
+          "start": 199.16,
+          "end": 199.88,
+          "probability": 0.985
+        },
+        {
+          "word": "to",
+          "start": 199.88,
+          "end": 200.36,
+          "probability": 0.99
+        },
+        {
+          "word": "shelter",
+          "start": 200.36,
+          "end": 200.76,
+          "probability": 0.999
+        },
+        {
+          "word": "for",
+          "start": 200.76,
+          "end": 201.02,
+          "probability": 0.862
+        },
+        {
+          "word": "the",
+          "start": 201.02,
+          "end": 201.14,
+          "probability": 0.99
+        },
+        {
+          "word": "night.",
+          "start": 201.14,
+          "end": 201.42,
+          "probability": 0.999
+        }
+      ]
+    },
+    {
+      "start": 203.72,
+      "end": 211.9,
+      "text": "Spotting the black mausoleum and deciding that might be the perfect place to rest his head, he first tried to open the doors.",
+      "words": [
+        {
+          "word": "Spotting",
+          "start": 203.72,
+          "end": 204.38,
+          "probability": 0.939
+        },
+        {
+          "word": "the",
+          "start": 204.38,
+          "end": 204.72,
+          "probability": 0.98
+        },
+        {
+          "word": "black",
+          "start": 204.72,
+          "end": 205.02,
+          "probability": 0.966
+        },
+        {
+          "word": "mausoleum",
+          "start": 205.02,
+          "end": 205.72,
+          "probability": 0.987
+        },
+        {
+          "word": "and",
+          "start": 205.72,
+          "end": 206.2,
+          "probability": 0.768
+        },
+        {
+          "word": "deciding",
+          "start": 206.2,
+          "end": 206.66,
+          "probability": 0.992
+        },
+        {
+          "word": "that",
+          "start": 206.66,
+          "end": 207.32,
+          "probability": 0.968
+        },
+        {
+          "word": "might",
+          "start": 207.32,
+          "end": 207.52,
+          "probability": 0.969
+        },
+        {
+          "word": "be",
+          "start": 207.52,
+          "end": 207.74,
+          "probability": 0.994
+        },
+        {
+          "word": "the",
+          "start": 207.74,
+          "end": 207.9,
+          "probability": 0.985
+        },
+        {
+          "word": "perfect",
+          "start": 207.9,
+          "end": 208.28,
+          "probability": 0.997
+        },
+        {
+          "word": "place",
+          "start": 208.28,
+          "end": 208.6,
+          "probability": 0.998
+        },
+        {
+          "word": "to",
+          "start": 208.6,
+          "end": 208.8,
+          "probability": 0.996
+        },
+        {
+          "word": "rest",
+          "start": 208.8,
+          "end": 209.02,
+          "probability": 0.999
+        },
+        {
+          "word": "his",
+          "start": 209.02,
+          "end": 209.22,
+          "probability": 0.996
+        },
+        {
+          "word": "head,",
+          "start": 209.22,
+          "end": 209.56,
+          "probability": 1.0
+        },
+        {
+          "word": "he",
+          "start": 210.1,
+          "end": 210.28,
+          "probability": 0.995
+        },
+        {
+          "word": "first",
+          "start": 210.28,
+          "end": 210.6,
+          "probability": 0.991
+        },
+        {
+          "word": "tried",
+          "start": 210.6,
+          "end": 210.88,
+          "probability": 0.998
+        },
+        {
+          "word": "to",
+          "start": 210.88,
+          "end": 211.1,
+          "probability": 0.993
+        },
+        {
+          "word": "open",
+          "start": 211.1,
+          "end": 211.3,
+          "probability": 0.998
+        },
+        {
+          "word": "the",
+          "start": 211.3,
+          "end": 211.5,
+          "probability": 0.987
+        },
+        {
+          "word": "doors.",
+          "start": 211.5,
+          "end": 211.9,
+          "probability": 0.994
+        }
+      ]
+    },
+    {
+      "start": 216.9,
+      "end": 235.15,
+      "text": "Finding them locked, he ventured around the back of the tombs by climbing through a small hole that descended the stairs to the tomb below, holding the very coffin of Mackenzie himself.",
+      "words": [
+        {
+          "word": "Finding",
+          "start": 216.9,
+          "end": 217.24,
+          "probability": 0.315
+        },
+        {
+          "word": "them",
+          "start": 217.24,
+          "end": 217.54,
+          "probability": 0.082
+        },
+        {
+          "word": "locked,",
+          "start": 217.54,
+          "end": 217.88,
+          "probability": 0.937
+        },
+        {
+          "word": "he",
+          "start": 218.4,
+          "end": 218.54,
+          "probability": 0.972
+        },
+        {
+          "word": "ventured",
+          "start": 218.54,
+          "end": 218.92,
+          "probability": 0.989
+        },
+        {
+          "word": "around",
+          "start": 218.92,
+          "end": 219.28,
+          "probability": 0.992
+        },
+        {
+          "word": "the",
+          "start": 219.28,
+          "end": 219.66,
+          "probability": 0.982
+        },
+        {
+          "word": "back",
+          "start": 219.66,
+          "end": 219.92,
+          "probability": 0.992
+        },
+        {
+          "word": "of",
+          "start": 219.92,
+          "end": 220.22,
+          "probability": 0.993
+        },
+        {
+          "word": "the",
+          "start": 220.22,
+          "end": 220.4,
+          "probability": 0.993
+        },
+        {
+          "word": "tombs",
+          "start": 220.4,
+          "end": 220.78,
+          "probability": 0.969
+        },
+        {
+          "word": "by",
+          "start": 222.12,
+          "end": 222.46,
+          "probability": 0.611
+        },
+        {
+          "word": "climbing",
+          "start": 222.46,
+          "end": 222.78,
+          "probability": 0.997
+        },
+        {
+          "word": "through",
+          "start": 222.78,
+          "end": 223.04,
+          "probability": 0.988
+        },
+        {
+          "word": "a",
+          "start": 223.04,
+          "end": 223.3,
+          "probability": 0.986
+        },
+        {
+          "word": "small",
+          "start": 223.3,
+          "end": 223.88,
+          "probability": 0.997
+        },
+        {
+          "word": "hole",
+          "start": 223.88,
+          "end": 224.3,
+          "probability": 0.944
+        },
+        {
+          "word": "that",
+          "start": 228.91,
+          "end": 229.31,
+          "probability": 0.173
+        },
+        {
+          "word": "descended",
+          "start": 229.31,
+          "end": 229.33,
+          "probability": 0.795
+        },
+        {
+          "word": "the",
+          "start": 229.33,
+          "end": 229.71,
+          "probability": 0.979
+        },
+        {
+          "word": "stairs",
+          "start": 229.71,
+          "end": 229.97,
+          "probability": 0.996
+        },
+        {
+          "word": "to",
+          "start": 229.97,
+          "end": 230.21,
+          "probability": 0.98
+        },
+        {
+          "word": "the",
+          "start": 230.21,
+          "end": 230.41,
+          "probability": 0.991
+        },
+        {
+          "word": "tomb",
+          "start": 230.41,
+          "end": 230.59,
+          "probability": 0.999
+        },
+        {
+          "word": "below,",
+          "start": 230.59,
+          "end": 231.03,
+          "probability": 0.993
+        },
+        {
+          "word": "holding",
+          "start": 231.21,
+          "end": 231.95,
+          "probability": 0.976
+        },
+        {
+          "word": "the",
+          "start": 231.95,
+          "end": 232.43,
+          "probability": 0.996
+        },
+        {
+          "word": "very",
+          "start": 232.43,
+          "end": 232.77,
+          "probability": 0.997
+        },
+        {
+          "word": "coffin",
+          "start": 232.77,
+          "end": 233.23,
+          "probability": 0.998
+        },
+        {
+          "word": "of",
+          "start": 233.23,
+          "end": 233.67,
+          "probability": 0.996
+        },
+        {
+          "word": "Mackenzie",
+          "start": 233.67,
+          "end": 234.27,
+          "probability": 0.81
+        },
+        {
+          "word": "himself.",
+          "start": 234.27,
+          "end": 235.15,
+          "probability": 0.98
+        }
+      ]
+    },
+    {
+      "start": 252.12,
+      "end": 260.06,
+      "text": "As he approached the coffin, the floor gave way and he plummeted down into the darkness into a chamber below.",
+      "words": [
+        {
+          "word": "As",
+          "start": 252.12,
+          "end": 252.34,
+          "probability": 0.991
+        },
+        {
+          "word": "he",
+          "start": 252.34,
+          "end": 252.48,
+          "probability": 0.998
+        },
+        {
+          "word": "approached",
+          "start": 252.48,
+          "end": 252.84,
+          "probability": 0.999
+        },
+        {
+          "word": "the",
+          "start": 252.84,
+          "end": 253.06,
+          "probability": 0.996
+        },
+        {
+          "word": "coffin,",
+          "start": 253.06,
+          "end": 253.44,
+          "probability": 0.997
+        },
+        {
+          "word": "the",
+          "start": 253.74,
+          "end": 253.96,
+          "probability": 0.994
+        },
+        {
+          "word": "floor",
+          "start": 253.96,
+          "end": 254.2,
+          "probability": 0.999
+        },
+        {
+          "word": "gave",
+          "start": 254.2,
+          "end": 254.46,
+          "probability": 0.998
+        },
+        {
+          "word": "way",
+          "start": 254.46,
+          "end": 254.82,
+          "probability": 0.947
+        },
+        {
+          "word": "and",
+          "start": 254.82,
+          "end": 255.16,
+          "probability": 0.713
+        },
+        {
+          "word": "he",
+          "start": 255.16,
+          "end": 255.44,
+          "probability": 0.993
+        },
+        {
+          "word": "plummeted",
+          "start": 255.44,
+          "end": 256.04,
+          "probability": 0.987
+        },
+        {
+          "word": "down",
+          "start": 256.04,
+          "end": 256.82,
+          "probability": 0.965
+        },
+        {
+          "word": "into",
+          "start": 256.82,
+          "end": 257.38,
+          "probability": 0.985
+        },
+        {
+          "word": "the",
+          "start": 257.38,
+          "end": 257.58,
+          "probability": 0.971
+        },
+        {
+          "word": "darkness",
+          "start": 257.58,
+          "end": 257.94,
+          "probability": 0.995
+        },
+        {
+          "word": "into",
+          "start": 257.94,
+          "end": 258.56,
+          "probability": 0.557
+        },
+        {
+          "word": "a",
+          "start": 258.56,
+          "end": 258.8,
+          "probability": 0.992
+        },
+        {
+          "word": "chamber",
+          "start": 258.8,
+          "end": 259.14,
+          "probability": 0.997
+        },
+        {
+          "word": "below.",
+          "start": 259.14,
+          "end": 260.06,
+          "probability": 0.997
+        }
+      ]
+    },
+    {
+      "start": 266.52,
+      "end": 277.8,
+      "text": "Feeling something bumpy underneath his feet, the man was horrified to find he was atop a large pile of bodies.",
+      "words": [
+        {
+          "word": "Feeling",
+          "start": 266.52,
+          "end": 267.48,
+          "probability": 0.668
+        },
+        {
+          "word": "something",
+          "start": 267.48,
+          "end": 267.96,
+          "probability": 0.994
+        },
+        {
+          "word": "bumpy",
+          "start": 267.96,
+          "end": 270.02,
+          "probability": 0.847
+        },
+        {
+          "word": "underneath",
+          "start": 270.02,
+          "end": 270.6,
+          "probability": 0.924
+        },
+        {
+          "word": "his",
+          "start": 270.6,
+          "end": 270.86,
+          "probability": 0.995
+        },
+        {
+          "word": "feet,",
+          "start": 270.86,
+          "end": 271.26,
+          "probability": 0.996
+        },
+        {
+          "word": "the",
+          "start": 271.5,
+          "end": 272.22,
+          "probability": 0.939
+        },
+        {
+          "word": "man",
+          "start": 272.22,
+          "end": 272.5,
+          "probability": 0.993
+        },
+        {
+          "word": "was",
+          "start": 272.5,
+          "end": 272.94,
+          "probability": 0.997
+        },
+        {
+          "word": "horrified",
+          "start": 272.94,
+          "end": 273.68,
+          "probability": 0.997
+        },
+        {
+          "word": "to",
+          "start": 273.68,
+          "end": 274.26,
+          "probability": 0.988
+        },
+        {
+          "word": "find",
+          "start": 274.26,
+          "end": 274.5,
+          "probability": 0.998
+        },
+        {
+          "word": "he",
+          "start": 274.5,
+          "end": 274.92,
+          "probability": 0.963
+        },
+        {
+          "word": "was",
+          "start": 274.92,
+          "end": 275.1,
+          "probability": 0.999
+        },
+        {
+          "word": "atop",
+          "start": 275.1,
+          "end": 275.48,
+          "probability": 0.965
+        },
+        {
+          "word": "a",
+          "start": 275.48,
+          "end": 276.0,
+          "probability": 0.991
+        },
+        {
+          "word": "large",
+          "start": 276.0,
+          "end": 276.32,
+          "probability": 0.998
+        },
+        {
+          "word": "pile",
+          "start": 276.32,
+          "end": 276.92,
+          "probability": 0.999
+        },
+        {
+          "word": "of",
+          "start": 276.92,
+          "end": 277.34,
+          "probability": 0.999
+        },
+        {
+          "word": "bodies.",
+          "start": 277.34,
+          "end": 277.8,
+          "probability": 0.999
+        }
+      ]
+    },
+    {
+      "start": 281.96,
+      "end": 293.14,
+      "text": "He saw that some of the corpses were still somewhat fleshy, believed to be due to the lack of oxygen flow to the chamber, slowing down the decomposition process.",
+      "words": [
+        {
+          "word": "He",
+          "start": 281.96,
+          "end": 282.02,
+          "probability": 0.98
+        },
+        {
+          "word": "saw",
+          "start": 282.02,
+          "end": 282.24,
+          "probability": 0.999
+        },
+        {
+          "word": "that",
+          "start": 282.24,
+          "end": 282.4,
+          "probability": 0.989
+        },
+        {
+          "word": "some",
+          "start": 282.4,
+          "end": 282.68,
+          "probability": 0.997
+        },
+        {
+          "word": "of",
+          "start": 282.68,
+          "end": 282.82,
+          "probability": 0.997
+        },
+        {
+          "word": "the",
+          "start": 282.82,
+          "end": 283.02,
+          "probability": 0.996
+        },
+        {
+          "word": "corpses",
+          "start": 283.02,
+          "end": 283.38,
+          "probability": 0.993
+        },
+        {
+          "word": "were",
+          "start": 283.38,
+          "end": 284.0,
+          "probability": 0.959
+        },
+        {
+          "word": "still",
+          "start": 284.0,
+          "end": 284.44,
+          "probability": 0.992
+        },
+        {
+          "word": "somewhat",
+          "start": 284.44,
+          "end": 285.16,
+          "probability": 0.997
+        },
+        {
+          "word": "fleshy,",
+          "start": 285.16,
+          "end": 286.26,
+          "probability": 0.992
+        },
+        {
+          "word": "believed",
+          "start": 286.26,
+          "end": 286.5,
+          "probability": 0.986
+        },
+        {
+          "word": "to",
+          "start": 286.5,
+          "end": 286.7,
+          "probability": 0.998
+        },
+        {
+          "word": "be",
+          "start": 286.7,
+          "end": 286.84,
+          "probability": 0.998
+        },
+        {
+          "word": "due",
+          "start": 286.84,
+          "end": 287.1,
+          "probability": 0.991
+        },
+        {
+          "word": "to",
+          "start": 287.1,
+          "end": 287.28,
+          "probability": 0.997
+        },
+        {
+          "word": "the",
+          "start": 287.28,
+          "end": 287.54,
+          "probability": 0.975
+        },
+        {
+          "word": "lack",
+          "start": 287.54,
+          "end": 287.76,
+          "probability": 0.998
+        },
+        {
+          "word": "of",
+          "start": 287.76,
+          "end": 288.14,
+          "probability": 0.997
+        },
+        {
+          "word": "oxygen",
+          "start": 288.14,
+          "end": 288.56,
+          "probability": 0.989
+        },
+        {
+          "word": "flow",
+          "start": 288.56,
+          "end": 288.96,
+          "probability": 0.991
+        },
+        {
+          "word": "to",
+          "start": 288.96,
+          "end": 289.2,
+          "probability": 0.994
+        },
+        {
+          "word": "the",
+          "start": 289.2,
+          "end": 289.44,
+          "probability": 0.998
+        },
+        {
+          "word": "chamber,",
+          "start": 289.44,
+          "end": 289.8,
+          "probability": 0.99
+        },
+        {
+          "word": "slowing",
+          "start": 290.0,
+          "end": 290.68,
+          "probability": 0.991
+        },
+        {
+          "word": "down",
+          "start": 290.68,
+          "end": 291.2,
+          "probability": 0.998
+        },
+        {
+          "word": "the",
+          "start": 291.2,
+          "end": 291.62,
+          "probability": 0.995
+        },
+        {
+          "word": "decomposition",
+          "start": 291.62,
+          "end": 292.42,
+          "probability": 0.998
+        },
+        {
+          "word": "process.",
+          "start": 292.42,
+          "end": 293.14,
+          "probability": 0.998
+        }
+      ]
+    },
+    {
+      "start": 293.88,
+      "end": 304.8,
+      "text": "It has been theorised he had fallen into a mass grave for bubonic plague victims.",
+      "words": [
+        {
+          "word": "It",
+          "start": 293.88,
+          "end": 294.54,
+          "probability": 0.736
+        },
+        {
+          "word": "has",
+          "start": 298.48,
+          "end": 299.14,
+          "probability": 0.962
+        },
+        {
+          "word": "been",
+          "start": 299.14,
+          "end": 299.5,
+          "probability": 0.995
+        },
+        {
+          "word": "theorised",
+          "start": 299.5,
+          "end": 300.28,
+          "probability": 0.667
+        },
+        {
+          "word": "he",
+          "start": 300.28,
+          "end": 300.52,
+          "probability": 0.84
+        },
+        {
+          "word": "had",
+          "start": 300.52,
+          "end": 300.72,
+          "probability": 0.966
+        },
+        {
+          "word": "fallen",
+          "start": 300.72,
+          "end": 300.96,
+          "probability": 0.998
+        },
+        {
+          "word": "into",
+          "start": 300.96,
+          "end": 301.28,
+          "probability": 0.99
+        },
+        {
+          "word": "a",
+          "start": 301.28,
+          "end": 301.6,
+          "probability": 0.991
+        },
+        {
+          "word": "mass",
+          "start": 301.6,
+          "end": 301.82,
+          "probability": 0.995
+        },
+        {
+          "word": "grave",
+          "start": 301.82,
+          "end": 302.28,
+          "probability": 0.995
+        },
+        {
+          "word": "for",
+          "start": 302.28,
+          "end": 303.02,
+          "probability": 0.958
+        },
+        {
+          "word": "bubonic",
+          "start": 303.02,
+          "end": 303.62,
+          "probability": 0.861
+        },
+        {
+          "word": "plague",
+          "start": 303.62,
+          "end": 304.1,
+          "probability": 0.992
+        },
+        {
+          "word": "victims.",
+          "start": 304.1,
+          "end": 304.8,
+          "probability": 0.994
+        }
+      ]
+    },
+    {
+      "start": 311.02,
+      "end": 316.36,
+      "text": "The next morning, two people who were opening the church noticed the sound of a...",
+      "words": [
+        {
+          "word": "The",
+          "start": 311.02,
+          "end": 311.08,
+          "probability": 0.985
+        },
+        {
+          "word": "next",
+          "start": 311.08,
+          "end": 311.3,
+          "probability": 0.999
+        },
+        {
+          "word": "morning,",
+          "start": 311.3,
+          "end": 311.74,
+          "probability": 0.998
+        },
+        {
+          "word": "two",
+          "start": 312.52,
+          "end": 312.64,
+          "probability": 0.958
+        },
+        {
+          "word": "people",
+          "start": 312.64,
+          "end": 313.12,
+          "probability": 0.999
+        },
+        {
+          "word": "who",
+          "start": 313.12,
+          "end": 313.7,
+          "probability": 0.9
+        },
+        {
+          "word": "were",
+          "start": 313.7,
+          "end": 313.82,
+          "probability": 0.99
+        },
+        {
+          "word": "opening",
+          "start": 313.82,
+          "end": 314.14,
+          "probability": 0.998
+        },
+        {
+          "word": "the",
+          "start": 314.14,
+          "end": 314.36,
+          "probability": 0.994
+        },
+        {
+          "word": "church",
+          "start": 314.36,
+          "end": 314.62,
+          "probability": 0.979
+        },
+        {
+          "word": "noticed",
+          "start": 314.62,
+          "end": 315.1,
+          "probability": 0.908
+        },
+        {
+          "word": "the",
+          "start": 315.1,
+          "end": 315.38,
+          "probability": 0.975
+        },
+        {
+          "word": "sound",
+          "start": 315.38,
+          "end": 315.72,
+          "probability": 0.995
+        },
+        {
+          "word": "of",
+          "start": 315.72,
+          "end": 316.02,
+          "probability": 0.987
+        },
+        {
+          "word": "a...",
+          "start": 316.02,
+          "end": 316.36,
+          "probability": 0.681
+        }
+      ]
+    },
+    {
+      "start": 318.86,
+      "end": 320.48,
+      "text": "coming from the mausoleum.",
+      "words": [
+        {
+          "word": "coming",
+          "start": 318.86,
+          "end": 319.36,
+          "probability": 0.442
+        },
+        {
+          "word": "from",
+          "start": 319.36,
+          "end": 319.76,
+          "probability": 0.988
+        },
+        {
+          "word": "the",
+          "start": 319.76,
+          "end": 319.94,
+          "probability": 0.996
+        },
+        {
+          "word": "mausoleum.",
+          "start": 319.94,
+          "end": 320.48,
+          "probability": 0.983
+        }
+      ]
+    },
+    {
+      "start": 321.44,
+      "end": 328.04,
+      "text": "When they opened the doors to investigate, they saw the homeless man, pale-faced, sitting stiffly upright.",
+      "words": [
+        {
+          "word": "When",
+          "start": 321.44,
+          "end": 321.62,
+          "probability": 0.993
+        },
+        {
+          "word": "they",
+          "start": 321.62,
+          "end": 321.8,
+          "probability": 0.995
+        },
+        {
+          "word": "opened",
+          "start": 321.8,
+          "end": 322.02,
+          "probability": 0.968
+        },
+        {
+          "word": "the",
+          "start": 322.02,
+          "end": 322.18,
+          "probability": 0.989
+        },
+        {
+          "word": "doors",
+          "start": 322.18,
+          "end": 322.4,
+          "probability": 0.989
+        },
+        {
+          "word": "to",
+          "start": 322.4,
+          "end": 322.62,
+          "probability": 0.998
+        },
+        {
+          "word": "investigate,",
+          "start": 322.62,
+          "end": 323.2,
+          "probability": 0.999
+        },
+        {
+          "word": "they",
+          "start": 323.66,
+          "end": 323.86,
+          "probability": 0.984
+        },
+        {
+          "word": "saw",
+          "start": 323.86,
+          "end": 324.14,
+          "probability": 0.999
+        },
+        {
+          "word": "the",
+          "start": 324.14,
+          "end": 324.34,
+          "probability": 0.995
+        },
+        {
+          "word": "homeless",
+          "start": 324.34,
+          "end": 324.64,
+          "probability": 0.996
+        },
+        {
+          "word": "man,",
+          "start": 324.64,
+          "end": 325.26,
+          "probability": 0.996
+        },
+        {
+          "word": "pale",
+          "start": 325.54,
+          "end": 325.7,
+          "probability": 0.992
+        },
+        {
+          "word": "-faced,",
+          "start": 325.7,
+          "end": 326.14,
+          "probability": 0.801
+        },
+        {
+          "word": "sitting",
+          "start": 326.58,
+          "end": 326.88,
+          "probability": 0.997
+        },
+        {
+          "word": "stiffly",
+          "start": 326.88,
+          "end": 327.64,
+          "probability": 0.99
+        },
+        {
+          "word": "upright.",
+          "start": 327.64,
+          "end": 328.04,
+          "probability": 0.997
+        }
+      ]
+    },
+    {
+      "start": 328.04,
+      "end": 337.5,
+      "text": "He was covered in bloody scratches and trembling all over. His foot shaking caused the tapping sound against the door.",
+      "words": [
+        {
+          "word": "He",
+          "start": 328.04,
+          "end": 328.86,
+          "probability": 0.644
+        },
+        {
+          "word": "was",
+          "start": 328.86,
+          "end": 329.06,
+          "probability": 0.998
+        },
+        {
+          "word": "covered",
+          "start": 329.06,
+          "end": 329.48,
+          "probability": 0.999
+        },
+        {
+          "word": "in",
+          "start": 329.48,
+          "end": 330.0,
+          "probability": 0.993
+        },
+        {
+          "word": "bloody",
+          "start": 330.0,
+          "end": 330.3,
+          "probability": 0.991
+        },
+        {
+          "word": "scratches",
+          "start": 330.3,
+          "end": 330.84,
+          "probability": 0.994
+        },
+        {
+          "word": "and",
+          "start": 330.84,
+          "end": 331.38,
+          "probability": 0.939
+        },
+        {
+          "word": "trembling",
+          "start": 331.38,
+          "end": 332.02,
+          "probability": 0.964
+        },
+        {
+          "word": "all",
+          "start": 332.02,
+          "end": 332.86,
+          "probability": 0.978
+        },
+        {
+          "word": "over.",
+          "start": 332.86,
+          "end": 333.52,
+          "probability": 0.997
+        },
+        {
+          "word": "His",
+          "start": 334.08,
+          "end": 334.26,
+          "probability": 0.993
+        },
+        {
+          "word": "foot",
+          "start": 334.26,
+          "end": 334.48,
+          "probability": 0.988
+        },
+        {
+          "word": "shaking",
+          "start": 334.48,
+          "end": 335.02,
+          "probability": 0.983
+        },
+        {
+          "word": "caused",
+          "start": 335.02,
+          "end": 335.54,
+          "probability": 0.977
+        },
+        {
+          "word": "the",
+          "start": 335.54,
+          "end": 335.8,
+          "probability": 0.919
+        },
+        {
+          "word": "tapping",
+          "start": 335.8,
+          "end": 336.08,
+          "probability": 0.966
+        },
+        {
+          "word": "sound",
+          "start": 336.08,
+          "end": 336.5,
+          "probability": 0.994
+        },
+        {
+          "word": "against",
+          "start": 336.5,
+          "end": 336.92,
+          "probability": 0.996
+        },
+        {
+          "word": "the",
+          "start": 336.92,
+          "end": 337.2,
+          "probability": 0.998
+        },
+        {
+          "word": "door.",
+          "start": 337.2,
+          "end": 337.5,
+          "probability": 0.999
+        }
+      ]
+    },
+    {
+      "start": 338.58,
+      "end": 344.07,
+      "text": "All he could repeat, over and over again, in a shaking voice, was...",
+      "words": [
+        {
+          "word": "All",
+          "start": 338.58,
+          "end": 338.72,
+          "probability": 0.991
+        },
+        {
+          "word": "he",
+          "start": 338.72,
+          "end": 338.9,
+          "probability": 0.996
+        },
+        {
+          "word": "could",
+          "start": 338.9,
+          "end": 339.1,
+          "probability": 0.996
+        },
+        {
+          "word": "repeat,",
+          "start": 339.1,
+          "end": 339.58,
+          "probability": 0.997
+        },
+        {
+          "word": "over",
+          "start": 340.2,
+          "end": 340.6,
+          "probability": 0.996
+        },
+        {
+          "word": "and",
+          "start": 340.6,
+          "end": 341.18,
+          "probability": 0.985
+        },
+        {
+          "word": "over",
+          "start": 341.18,
+          "end": 341.64,
+          "probability": 0.999
+        },
+        {
+          "word": "again,",
+          "start": 341.64,
+          "end": 342.04,
+          "probability": 0.995
+        },
+        {
+          "word": "in",
+          "start": 342.04,
+          "end": 342.36,
+          "probability": 0.992
+        },
+        {
+          "word": "a",
+          "start": 342.36,
+          "end": 342.56,
+          "probability": 0.998
+        },
+        {
+          "word": "shaking",
+          "start": 342.56,
+          "end": 342.88,
+          "probability": 0.99
+        },
+        {
+          "word": "voice,",
+          "start": 342.88,
+          "end": 343.4,
+          "probability": 0.999
+        },
+        {
+          "word": "was...",
+          "start": 343.64,
+          "end": 344.07,
+          "probability": 0.731
+        }
+      ]
+    },
+    {
+      "start": 346.94,
+      "end": 348.06,
+      "text": "That face!",
+      "words": [
+        {
+          "word": "That",
+          "start": 346.94,
+          "end": 347.48,
+          "probability": 0.197
+        },
+        {
+          "word": "face!",
+          "start": 347.48,
+          "end": 348.06,
+          "probability": 0.944
+        }
+      ]
+    },
+    {
+      "start": 351.77,
+      "end": 360.13,
+      "text": "The man awoke the very ghost of George Mackenzie that night, and strange events have never ceased since.",
+      "words": [
+        {
+          "word": "The",
+          "start": 351.77,
+          "end": 351.89,
+          "probability": 0.86
+        },
+        {
+          "word": "man",
+          "start": 351.89,
+          "end": 352.17,
+          "probability": 0.991
+        },
+        {
+          "word": "awoke",
+          "start": 352.17,
+          "end": 352.61,
+          "probability": 0.988
+        },
+        {
+          "word": "the",
+          "start": 352.61,
+          "end": 353.11,
+          "probability": 0.823
+        },
+        {
+          "word": "very",
+          "start": 353.11,
+          "end": 353.47,
+          "probability": 0.998
+        },
+        {
+          "word": "ghost",
+          "start": 353.47,
+          "end": 353.87,
+          "probability": 0.985
+        },
+        {
+          "word": "of",
+          "start": 353.87,
+          "end": 354.31,
+          "probability": 0.998
+        },
+        {
+          "word": "George",
+          "start": 354.31,
+          "end": 354.65,
+          "probability": 0.995
+        },
+        {
+          "word": "Mackenzie",
+          "start": 354.65,
+          "end": 355.41,
+          "probability": 0.725
+        },
+        {
+          "word": "that",
+          "start": 355.41,
+          "end": 355.77,
+          "probability": 0.976
+        },
+        {
+          "word": "night,",
+          "start": 355.77,
+          "end": 356.17,
+          "probability": 1.0
+        },
+        {
+          "word": "and",
+          "start": 356.69,
+          "end": 356.91,
+          "probability": 0.987
+        },
+        {
+          "word": "strange",
+          "start": 356.91,
+          "end": 357.47,
+          "probability": 0.999
+        },
+        {
+          "word": "events",
+          "start": 357.47,
+          "end": 357.93,
+          "probability": 0.999
+        },
+        {
+          "word": "have",
+          "start": 357.93,
+          "end": 358.45,
+          "probability": 0.99
+        },
+        {
+          "word": "never",
+          "start": 358.45,
+          "end": 358.79,
+          "probability": 0.998
+        },
+        {
+          "word": "ceased",
+          "start": 358.79,
+          "end": 359.35,
+          "probability": 0.997
+        },
+        {
+          "word": "since.",
+          "start": 359.35,
+          "end": 360.13,
+          "probability": 0.991
+        }
+      ]
+    },
+    {
+      "start": 360.84,
+      "end": 366.39,
+      "text": "His poltergeist causes havoc to those who dare approach his tomb.",
+      "words": [
+        {
+          "word": "His",
+          "start": 360.84,
+          "end": 361.27,
+          "probability": 0.746
+        },
+        {
+          "word": "poltergeist",
+          "start": 361.27,
+          "end": 362.17,
+          "probability": 0.973
+        },
+        {
+          "word": "causes",
+          "start": 362.17,
+          "end": 362.99,
+          "probability": 0.979
+        },
+        {
+          "word": "havoc",
+          "start": 362.99,
+          "end": 363.47,
+          "probability": 0.993
+        },
+        {
+          "word": "to",
+          "start": 363.47,
+          "end": 363.81,
+          "probability": 0.995
+        },
+        {
+          "word": "those",
+          "start": 363.81,
+          "end": 364.11,
+          "probability": 0.999
+        },
+        {
+          "word": "who",
+          "start": 364.11,
+          "end": 364.55,
+          "probability": 0.986
+        },
+        {
+          "word": "dare",
+          "start": 364.55,
+          "end": 365.01,
+          "probability": 0.991
+        },
+        {
+          "word": "approach",
+          "start": 365.01,
+          "end": 365.65,
+          "probability": 0.977
+        },
+        {
+          "word": "his",
+          "start": 365.65,
+          "end": 366.03,
+          "probability": 0.984
+        },
+        {
+          "word": "tomb.",
+          "start": 366.03,
+          "end": 366.39,
+          "probability": 0.993
+        }
+      ]
+    },
+    {
+      "start": 369.29,
+      "end": 381.89,
+      "text": "Since 1999, there are reports of over 350 documented attacks, with visitors experiencing feeling their hair pulled or their limbs being scratched,",
+      "words": [
+        {
+          "word": "Since",
+          "start": 369.29,
+          "end": 369.53,
+          "probability": 0.995
+        },
+        {
+          "word": "1999,",
+          "start": 369.53,
+          "end": 370.61,
+          "probability": 0.994
+        },
+        {
+          "word": "there",
+          "start": 371.47,
+          "end": 371.57,
+          "probability": 0.986
+        },
+        {
+          "word": "are",
+          "start": 371.57,
+          "end": 371.75,
+          "probability": 0.991
+        },
+        {
+          "word": "reports",
+          "start": 371.75,
+          "end": 372.23,
+          "probability": 0.999
+        },
+        {
+          "word": "of",
+          "start": 372.23,
+          "end": 372.53,
+          "probability": 0.995
+        },
+        {
+          "word": "over",
+          "start": 372.53,
+          "end": 372.83,
+          "probability": 0.991
+        },
+        {
+          "word": "350",
+          "start": 372.83,
+          "end": 374.35,
+          "probability": 0.965
+        },
+        {
+          "word": "documented",
+          "start": 374.35,
+          "end": 375.83,
+          "probability": 0.917
+        },
+        {
+          "word": "attacks,",
+          "start": 375.83,
+          "end": 376.47,
+          "probability": 0.997
+        },
+        {
+          "word": "with",
+          "start": 377.07,
+          "end": 377.19,
+          "probability": 0.945
+        },
+        {
+          "word": "visitors",
+          "start": 377.19,
+          "end": 377.59,
+          "probability": 0.998
+        },
+        {
+          "word": "experiencing",
+          "start": 377.59,
+          "end": 378.55,
+          "probability": 0.998
+        },
+        {
+          "word": "feeling",
+          "start": 378.55,
+          "end": 379.01,
+          "probability": 0.948
+        },
+        {
+          "word": "their",
+          "start": 379.01,
+          "end": 379.29,
+          "probability": 0.996
+        },
+        {
+          "word": "hair",
+          "start": 379.29,
+          "end": 379.67,
+          "probability": 0.998
+        },
+        {
+          "word": "pulled",
+          "start": 379.67,
+          "end": 380.09,
+          "probability": 0.992
+        },
+        {
+          "word": "or",
+          "start": 380.09,
+          "end": 380.61,
+          "probability": 0.747
+        },
+        {
+          "word": "their",
+          "start": 380.61,
+          "end": 380.77,
+          "probability": 0.995
+        },
+        {
+          "word": "limbs",
+          "start": 380.77,
+          "end": 381.09,
+          "probability": 0.999
+        },
+        {
+          "word": "being",
+          "start": 381.09,
+          "end": 381.37,
+          "probability": 0.991
+        },
+        {
+          "word": "scratched,",
+          "start": 381.37,
+          "end": 381.89,
+          "probability": 0.998
+        }
+      ]
+    },
+    {
+      "start": 382.21,
+      "end": 389.67,
+      "text": "or the feeling of being pushed or shelved by unseen forces, and at least 140 people have collapsed.",
+      "words": [
+        {
+          "word": "or",
+          "start": 382.21,
+          "end": 382.51,
+          "probability": 0.982
+        },
+        {
+          "word": "the",
+          "start": 382.51,
+          "end": 382.65,
+          "probability": 0.996
+        },
+        {
+          "word": "feeling",
+          "start": 382.65,
+          "end": 382.99,
+          "probability": 0.998
+        },
+        {
+          "word": "of",
+          "start": 382.99,
+          "end": 383.23,
+          "probability": 0.999
+        },
+        {
+          "word": "being",
+          "start": 383.23,
+          "end": 383.41,
+          "probability": 0.997
+        },
+        {
+          "word": "pushed",
+          "start": 383.41,
+          "end": 383.85,
+          "probability": 0.998
+        },
+        {
+          "word": "or",
+          "start": 383.85,
+          "end": 384.11,
+          "probability": 0.995
+        },
+        {
+          "word": "shelved",
+          "start": 384.11,
+          "end": 384.63,
+          "probability": 0.661
+        },
+        {
+          "word": "by",
+          "start": 384.63,
+          "end": 384.91,
+          "probability": 0.999
+        },
+        {
+          "word": "unseen",
+          "start": 384.91,
+          "end": 385.49,
+          "probability": 0.992
+        },
+        {
+          "word": "forces,",
+          "start": 385.49,
+          "end": 386.05,
+          "probability": 0.999
+        },
+        {
+          "word": "and",
+          "start": 386.05,
+          "end": 386.69,
+          "probability": 0.987
+        },
+        {
+          "word": "at",
+          "start": 386.69,
+          "end": 386.89,
+          "probability": 0.995
+        },
+        {
+          "word": "least",
+          "start": 386.89,
+          "end": 387.05,
+          "probability": 0.999
+        },
+        {
+          "word": "140",
+          "start": 387.05,
+          "end": 388.17,
+          "probability": 0.884
+        },
+        {
+          "word": "people",
+          "start": 388.17,
+          "end": 388.75,
+          "probability": 0.997
+        },
+        {
+          "word": "have",
+          "start": 388.75,
+          "end": 389.07,
+          "probability": 0.998
+        },
+        {
+          "word": "collapsed.",
+          "start": 389.07,
+          "end": 389.67,
+          "probability": 0.996
+        }
+      ]
+    },
+    {
+      "start": 390.47,
+      "end": 395.51,
+      "text": "Many leave to find inexplicable bruises or scratches upon their bodies.",
+      "words": [
+        {
+          "word": "Many",
+          "start": 390.47,
+          "end": 391.19,
+          "probability": 0.512
+        },
+        {
+          "word": "leave",
+          "start": 391.19,
+          "end": 391.59,
+          "probability": 0.974
+        },
+        {
+          "word": "to",
+          "start": 391.59,
+          "end": 391.95,
+          "probability": 0.982
+        },
+        {
+          "word": "find",
+          "start": 391.95,
+          "end": 392.35,
+          "probability": 0.997
+        },
+        {
+          "word": "inexplicable",
+          "start": 392.35,
+          "end": 393.27,
+          "probability": 0.958
+        },
+        {
+          "word": "bruises",
+          "start": 393.27,
+          "end": 393.75,
+          "probability": 0.996
+        },
+        {
+          "word": "or",
+          "start": 393.75,
+          "end": 394.05,
+          "probability": 0.978
+        },
+        {
+          "word": "scratches",
+          "start": 394.05,
+          "end": 394.51,
+          "probability": 0.997
+        },
+        {
+          "word": "upon",
+          "start": 394.51,
+          "end": 394.85,
+          "probability": 0.982
+        },
+        {
+          "word": "their",
+          "start": 394.85,
+          "end": 395.11,
+          "probability": 0.996
+        },
+        {
+          "word": "bodies.",
+          "start": 395.11,
+          "end": 395.51,
+          "probability": 0.994
+        }
+      ]
+    },
+    {
+      "start": 396.53,
+      "end": 401.71,
+      "text": "Some just notice sudden drops in temperature, as though the spirit has passed through them.",
+      "words": [
+        {
+          "word": "Some",
+          "start": 396.53,
+          "end": 396.61,
+          "probability": 0.97
+        },
+        {
+          "word": "just",
+          "start": 396.61,
+          "end": 396.87,
+          "probability": 0.992
+        },
+        {
+          "word": "notice",
+          "start": 396.87,
+          "end": 397.19,
+          "probability": 0.9
+        },
+        {
+          "word": "sudden",
+          "start": 397.19,
+          "end": 397.55,
+          "probability": 0.996
+        },
+        {
+          "word": "drops",
+          "start": 397.55,
+          "end": 397.89,
+          "probability": 0.998
+        },
+        {
+          "word": "in",
+          "start": 397.89,
+          "end": 398.09,
+          "probability": 0.984
+        },
+        {
+          "word": "temperature,",
+          "start": 398.09,
+          "end": 398.57,
+          "probability": 0.932
+        },
+        {
+          "word": "as",
+          "start": 398.83,
+          "end": 399.47,
+          "probability": 0.979
+        },
+        {
+          "word": "though",
+          "start": 399.47,
+          "end": 399.67,
+          "probability": 0.994
+        },
+        {
+          "word": "the",
+          "start": 399.67,
+          "end": 400.11,
+          "probability": 0.579
+        },
+        {
+          "word": "spirit",
+          "start": 400.11,
+          "end": 400.43,
+          "probability": 0.946
+        },
+        {
+          "word": "has",
+          "start": 400.43,
+          "end": 400.75,
+          "probability": 0.978
+        },
+        {
+          "word": "passed",
+          "start": 400.75,
+          "end": 401.01,
+          "probability": 0.991
+        },
+        {
+          "word": "through",
+          "start": 401.01,
+          "end": 401.23,
+          "probability": 0.993
+        },
+        {
+          "word": "them.",
+          "start": 401.23,
+          "end": 401.71,
+          "probability": 0.995
+        }
+      ]
+    },
+    {
+      "start": 402.57,
+      "end": 412.85,
+      "text": "White figures have been reported being spotted, moving near the tomb and around the graves nearby, and eerie reports of knocking noises from beneath.",
+      "words": [
+        {
+          "word": "White",
+          "start": 402.57,
+          "end": 402.75,
+          "probability": 0.976
+        },
+        {
+          "word": "figures",
+          "start": 402.75,
+          "end": 403.19,
+          "probability": 0.995
+        },
+        {
+          "word": "have",
+          "start": 403.19,
+          "end": 403.55,
+          "probability": 0.986
+        },
+        {
+          "word": "been",
+          "start": 403.55,
+          "end": 403.69,
+          "probability": 0.994
+        },
+        {
+          "word": "reported",
+          "start": 403.69,
+          "end": 404.13,
+          "probability": 0.998
+        },
+        {
+          "word": "being",
+          "start": 404.13,
+          "end": 404.45,
+          "probability": 0.975
+        },
+        {
+          "word": "spotted,",
+          "start": 404.45,
+          "end": 404.93,
+          "probability": 0.999
+        },
+        {
+          "word": "moving",
+          "start": 405.71,
+          "end": 406.07,
+          "probability": 0.988
+        },
+        {
+          "word": "near",
+          "start": 406.07,
+          "end": 406.61,
+          "probability": 0.99
+        },
+        {
+          "word": "the",
+          "start": 406.61,
+          "end": 406.83,
+          "probability": 0.992
+        },
+        {
+          "word": "tomb",
+          "start": 406.83,
+          "end": 407.03,
+          "probability": 0.991
+        },
+        {
+          "word": "and",
+          "start": 407.03,
+          "end": 407.55,
+          "probability": 0.919
+        },
+        {
+          "word": "around",
+          "start": 407.55,
+          "end": 407.89,
+          "probability": 0.996
+        },
+        {
+          "word": "the",
+          "start": 407.89,
+          "end": 408.11,
+          "probability": 0.982
+        },
+        {
+          "word": "graves",
+          "start": 408.11,
+          "end": 408.35,
+          "probability": 0.989
+        },
+        {
+          "word": "nearby,",
+          "start": 408.35,
+          "end": 408.95,
+          "probability": 0.978
+        },
+        {
+          "word": "and",
+          "start": 409.49,
+          "end": 409.65,
+          "probability": 0.951
+        },
+        {
+          "word": "eerie",
+          "start": 409.65,
+          "end": 410.09,
+          "probability": 0.994
+        },
+        {
+          "word": "reports",
+          "start": 410.09,
+          "end": 410.65,
+          "probability": 0.984
+        },
+        {
+          "word": "of",
+          "start": 410.65,
+          "end": 410.85,
+          "probability": 0.996
+        },
+        {
+          "word": "knocking",
+          "start": 410.85,
+          "end": 411.39,
+          "probability": 0.973
+        },
+        {
+          "word": "noises",
+          "start": 411.39,
+          "end": 411.99,
+          "probability": 0.992
+        },
+        {
+          "word": "from",
+          "start": 411.99,
+          "end": 412.45,
+          "probability": 0.994
+        },
+        {
+          "word": "beneath.",
+          "start": 412.45,
+          "end": 412.85,
+          "probability": 0.998
+        }
+      ]
+    },
+    {
+      "start": 415.6,
+      "end": 423.4,
+      "text": "There have also been dead animals repeatedly found near the mausoleum, showing no obvious cause of death.",
+      "words": [
+        {
+          "word": "There",
+          "start": 415.6,
+          "end": 416.1,
+          "probability": 0.622
+        },
+        {
+          "word": "have",
+          "start": 416.1,
+          "end": 416.3,
+          "probability": 0.992
+        },
+        {
+          "word": "also",
+          "start": 416.3,
+          "end": 416.7,
+          "probability": 0.998
+        },
+        {
+          "word": "been",
+          "start": 416.7,
+          "end": 417.14,
+          "probability": 0.997
+        },
+        {
+          "word": "dead",
+          "start": 417.14,
+          "end": 417.7,
+          "probability": 0.994
+        },
+        {
+          "word": "animals",
+          "start": 417.7,
+          "end": 418.26,
+          "probability": 0.999
+        },
+        {
+          "word": "repeatedly",
+          "start": 418.26,
+          "end": 419.06,
+          "probability": 0.963
+        },
+        {
+          "word": "found",
+          "start": 419.06,
+          "end": 419.5,
+          "probability": 0.997
+        },
+        {
+          "word": "near",
+          "start": 419.5,
+          "end": 419.86,
+          "probability": 0.936
+        },
+        {
+          "word": "the",
+          "start": 419.86,
+          "end": 420.06,
+          "probability": 0.987
+        },
+        {
+          "word": "mausoleum,",
+          "start": 420.06,
+          "end": 421.02,
+          "probability": 0.594
+        },
+        {
+          "word": "showing",
+          "start": 421.2,
+          "end": 421.76,
+          "probability": 0.932
+        },
+        {
+          "word": "no",
+          "start": 421.76,
+          "end": 422.2,
+          "probability": 0.998
+        },
+        {
+          "word": "obvious",
+          "start": 422.2,
+          "end": 422.64,
+          "probability": 0.995
+        },
+        {
+          "word": "cause",
+          "start": 422.64,
+          "end": 422.88,
+          "probability": 0.998
+        },
+        {
+          "word": "of",
+          "start": 422.88,
+          "end": 423.06,
+          "probability": 0.998
+        },
+        {
+          "word": "death.",
+          "start": 423.06,
+          "end": 423.4,
+          "probability": 0.998
+        }
+      ]
+    },
+    {
+      "start": 424.18,
+      "end": 432.0,
+      "text": "Even the houses surrounding the kirkyard have reported inexplicable phenomena, such as strange fires breaking out.",
+      "words": [
+        {
+          "word": "Even",
+          "start": 424.18,
+          "end": 424.4,
+          "probability": 0.994
+        },
+        {
+          "word": "the",
+          "start": 424.4,
+          "end": 424.62,
+          "probability": 0.95
+        },
+        {
+          "word": "houses",
+          "start": 424.62,
+          "end": 424.94,
+          "probability": 0.996
+        },
+        {
+          "word": "surrounding",
+          "start": 424.94,
+          "end": 425.72,
+          "probability": 0.989
+        },
+        {
+          "word": "the",
+          "start": 425.72,
+          "end": 426.04,
+          "probability": 0.983
+        },
+        {
+          "word": "kirkyard",
+          "start": 426.04,
+          "end": 426.56,
+          "probability": 0.743
+        },
+        {
+          "word": "have",
+          "start": 426.56,
+          "end": 427.0,
+          "probability": 0.983
+        },
+        {
+          "word": "reported",
+          "start": 427.0,
+          "end": 427.56,
+          "probability": 0.995
+        },
+        {
+          "word": "inexplicable",
+          "start": 427.56,
+          "end": 428.6,
+          "probability": 0.965
+        },
+        {
+          "word": "phenomena,",
+          "start": 428.6,
+          "end": 429.26,
+          "probability": 0.948
+        },
+        {
+          "word": "such",
+          "start": 429.66,
+          "end": 429.92,
+          "probability": 0.996
+        },
+        {
+          "word": "as",
+          "start": 429.92,
+          "end": 430.14,
+          "probability": 0.996
+        },
+        {
+          "word": "strange",
+          "start": 430.14,
+          "end": 430.62,
+          "probability": 0.977
+        },
+        {
+          "word": "fires",
+          "start": 430.62,
+          "end": 431.18,
+          "probability": 0.998
+        },
+        {
+          "word": "breaking",
+          "start": 431.18,
+          "end": 431.6,
+          "probability": 0.995
+        },
+        {
+          "word": "out.",
+          "start": 431.6,
+          "end": 432.0,
+          "probability": 0.999
+        }
+      ]
+    },
+    {
+      "start": 433.42,
+      "end": 442.48,
+      "text": "A paranormal investigator writing a book about the Mackenzie haunting lost his notes about the poltergeist in a house fire,",
+      "words": [
+        {
+          "word": "A",
+          "start": 433.42,
+          "end": 433.68,
+          "probability": 0.973
+        },
+        {
+          "word": "paranormal",
+          "start": 433.68,
+          "end": 434.26,
+          "probability": 0.997
+        },
+        {
+          "word": "investigator",
+          "start": 434.26,
+          "end": 435.18,
+          "probability": 0.988
+        },
+        {
+          "word": "writing",
+          "start": 435.18,
+          "end": 435.62,
+          "probability": 0.969
+        },
+        {
+          "word": "a",
+          "start": 435.62,
+          "end": 435.92,
+          "probability": 0.994
+        },
+        {
+          "word": "book",
+          "start": 435.92,
+          "end": 436.2,
+          "probability": 0.999
+        },
+        {
+          "word": "about",
+          "start": 436.2,
+          "end": 436.6,
+          "probability": 0.999
+        },
+        {
+          "word": "the",
+          "start": 436.6,
+          "end": 436.84,
+          "probability": 0.99
+        },
+        {
+          "word": "Mackenzie",
+          "start": 436.84,
+          "end": 437.36,
+          "probability": 0.745
+        },
+        {
+          "word": "haunting",
+          "start": 437.36,
+          "end": 437.82,
+          "probability": 0.636
+        },
+        {
+          "word": "lost",
+          "start": 437.82,
+          "end": 438.98,
+          "probability": 0.83
+        },
+        {
+          "word": "his",
+          "start": 438.98,
+          "end": 439.32,
+          "probability": 0.999
+        },
+        {
+          "word": "notes",
+          "start": 439.32,
+          "end": 439.72,
+          "probability": 0.961
+        },
+        {
+          "word": "about",
+          "start": 439.72,
+          "end": 440.1,
+          "probability": 0.998
+        },
+        {
+          "word": "the",
+          "start": 440.1,
+          "end": 440.32,
+          "probability": 0.993
+        },
+        {
+          "word": "poltergeist",
+          "start": 440.32,
+          "end": 440.9,
+          "probability": 0.923
+        },
+        {
+          "word": "in",
+          "start": 440.9,
+          "end": 441.54,
+          "probability": 0.986
+        },
+        {
+          "word": "a",
+          "start": 441.54,
+          "end": 441.86,
+          "probability": 0.923
+        },
+        {
+          "word": "house",
+          "start": 441.86,
+          "end": 442.08,
+          "probability": 0.998
+        },
+        {
+          "word": "fire,",
+          "start": 442.08,
+          "end": 442.48,
+          "probability": 0.992
+        }
+      ]
+    },
+    {
+      "start": 442.48,
+      "end": 448.88,
+      "text": "as though the benevolent spirit of Bloody Mackenzie himself was trying to cease his work.",
+      "words": [
+        {
+          "word": "as",
+          "start": 442.48,
+          "end": 443.34,
+          "probability": 0.306
+        },
+        {
+          "word": "though",
+          "start": 443.34,
+          "end": 443.6,
+          "probability": 0.992
+        },
+        {
+          "word": "the",
+          "start": 443.6,
+          "end": 444.04,
+          "probability": 0.988
+        },
+        {
+          "word": "benevolent",
+          "start": 444.04,
+          "end": 444.46,
+          "probability": 0.487
+        },
+        {
+          "word": "spirit",
+          "start": 444.46,
+          "end": 444.98,
+          "probability": 0.994
+        },
+        {
+          "word": "of",
+          "start": 444.98,
+          "end": 445.36,
+          "probability": 0.994
+        },
+        {
+          "word": "Bloody",
+          "start": 445.36,
+          "end": 445.66,
+          "probability": 0.568
+        },
+        {
+          "word": "Mackenzie",
+          "start": 445.66,
+          "end": 446.14,
+          "probability": 0.819
+        },
+        {
+          "word": "himself",
+          "start": 446.14,
+          "end": 446.7,
+          "probability": 0.99
+        },
+        {
+          "word": "was",
+          "start": 446.7,
+          "end": 447.0,
+          "probability": 0.989
+        },
+        {
+          "word": "trying",
+          "start": 447.0,
+          "end": 447.22,
+          "probability": 0.997
+        },
+        {
+          "word": "to",
+          "start": 447.22,
+          "end": 447.48,
+          "probability": 0.999
+        },
+        {
+          "word": "cease",
+          "start": 447.48,
+          "end": 447.86,
+          "probability": 0.879
+        },
+        {
+          "word": "his",
+          "start": 447.86,
+          "end": 448.44,
+          "probability": 0.992
+        },
+        {
+          "word": "work.",
+          "start": 448.44,
+          "end": 448.88,
+          "probability": 0.994
+        }
+      ]
+    },
+    {
+      "start": 455.62,
+      "end": 465.68,
+      "text": "In the year of 2000, a spiritualist medium attempted to urge the ghosts of the kirkyard to rest, but died suddenly of a heart attack a few weeks later.",
+      "words": [
+        {
+          "word": "In",
+          "start": 455.62,
+          "end": 455.66,
+          "probability": 0.967
+        },
+        {
+          "word": "the",
+          "start": 455.66,
+          "end": 455.82,
+          "probability": 0.997
+        },
+        {
+          "word": "year",
+          "start": 455.82,
+          "end": 455.94,
+          "probability": 0.995
+        },
+        {
+          "word": "of",
+          "start": 455.94,
+          "end": 456.12,
+          "probability": 0.989
+        },
+        {
+          "word": "2000,",
+          "start": 456.12,
+          "end": 456.64,
+          "probability": 0.972
+        },
+        {
+          "word": "a",
+          "start": 457.02,
+          "end": 457.22,
+          "probability": 0.985
+        },
+        {
+          "word": "spiritualist",
+          "start": 457.22,
+          "end": 457.98,
+          "probability": 0.975
+        },
+        {
+          "word": "medium",
+          "start": 457.98,
+          "end": 458.36,
+          "probability": 0.994
+        },
+        {
+          "word": "attempted",
+          "start": 458.36,
+          "end": 458.94,
+          "probability": 0.989
+        },
+        {
+          "word": "to",
+          "start": 458.94,
+          "end": 459.2,
+          "probability": 0.998
+        },
+        {
+          "word": "urge",
+          "start": 459.2,
+          "end": 459.44,
+          "probability": 0.994
+        },
+        {
+          "word": "the",
+          "start": 459.44,
+          "end": 459.68,
+          "probability": 0.997
+        },
+        {
+          "word": "ghosts",
+          "start": 459.68,
+          "end": 459.96,
+          "probability": 0.98
+        },
+        {
+          "word": "of",
+          "start": 459.96,
+          "end": 460.22,
+          "probability": 0.996
+        },
+        {
+          "word": "the",
+          "start": 460.22,
+          "end": 460.4,
+          "probability": 0.977
+        },
+        {
+          "word": "kirkyard",
+          "start": 460.4,
+          "end": 460.82,
+          "probability": 0.701
+        },
+        {
+          "word": "to",
+          "start": 460.82,
+          "end": 461.14,
+          "probability": 0.997
+        },
+        {
+          "word": "rest,",
+          "start": 461.14,
+          "end": 461.62,
+          "probability": 0.998
+        },
+        {
+          "word": "but",
+          "start": 462.0,
+          "end": 462.28,
+          "probability": 0.983
+        },
+        {
+          "word": "died",
+          "start": 462.28,
+          "end": 462.68,
+          "probability": 0.999
+        },
+        {
+          "word": "suddenly",
+          "start": 462.68,
+          "end": 463.18,
+          "probability": 0.995
+        },
+        {
+          "word": "of",
+          "start": 463.18,
+          "end": 463.58,
+          "probability": 0.978
+        },
+        {
+          "word": "a",
+          "start": 463.58,
+          "end": 463.72,
+          "probability": 0.997
+        },
+        {
+          "word": "heart",
+          "start": 463.72,
+          "end": 463.98,
+          "probability": 0.997
+        },
+        {
+          "word": "attack",
+          "start": 463.98,
+          "end": 464.32,
+          "probability": 0.991
+        },
+        {
+          "word": "a",
+          "start": 464.32,
+          "end": 464.6,
+          "probability": 0.977
+        },
+        {
+          "word": "few",
+          "start": 464.6,
+          "end": 464.92,
+          "probability": 1.0
+        },
+        {
+          "word": "weeks",
+          "start": 464.92,
+          "end": 465.2,
+          "probability": 0.999
+        },
+        {
+          "word": "later.",
+          "start": 465.2,
+          "end": 465.68,
+          "probability": 0.999
+        }
+      ]
+    },
+    {
+      "start": 466.4,
+      "end": 471.76,
+      "text": "Many attribute this to the legend of the Mackenzie poltergeist.",
+      "words": [
+        {
+          "word": "Many",
+          "start": 466.4,
+          "end": 466.68,
+          "probability": 0.984
+        },
+        {
+          "word": "attribute",
+          "start": 466.68,
+          "end": 467.2,
+          "probability": 0.995
+        },
+        {
+          "word": "this",
+          "start": 467.2,
+          "end": 467.52,
+          "probability": 0.996
+        },
+        {
+          "word": "to",
+          "start": 467.52,
+          "end": 468.28,
+          "probability": 0.977
+        },
+        {
+          "word": "the",
+          "start": 468.28,
+          "end": 468.66,
+          "probability": 0.915
+        },
+        {
+          "word": "legend",
+          "start": 468.66,
+          "end": 469.06,
+          "probability": 0.979
+        },
+        {
+          "word": "of",
+          "start": 469.06,
+          "end": 469.82,
+          "probability": 0.994
+        },
+        {
+          "word": "the",
+          "start": 469.82,
+          "end": 469.96,
+          "probability": 0.966
+        },
+        {
+          "word": "Mackenzie",
+          "start": 469.96,
+          "end": 470.66,
+          "probability": 0.96
+        },
+        {
+          "word": "poltergeist.",
+          "start": 470.66,
+          "end": 471.76,
+          "probability": 0.783
+        }
+      ]
+    },
+    {
+      "start": 473.24,
+      "end": 482.74,
+      "text": "There is an old Heriot School rhyme that some visitors dare recite, maybe to provoke an appearance of his spirit.",
+      "words": [
+        {
+          "word": "There",
+          "start": 473.24,
+          "end": 474.0,
+          "probability": 0.511
+        },
+        {
+          "word": "is",
+          "start": 474.0,
+          "end": 474.14,
+          "probability": 0.982
+        },
+        {
+          "word": "an",
+          "start": 474.14,
+          "end": 474.28,
+          "probability": 0.996
+        },
+        {
+          "word": "old",
+          "start": 474.28,
+          "end": 474.66,
+          "probability": 0.978
+        },
+        {
+          "word": "Heriot",
+          "start": 474.66,
+          "end": 475.22,
+          "probability": 0.69
+        },
+        {
+          "word": "School",
+          "start": 475.22,
+          "end": 475.7,
+          "probability": 0.44
+        },
+        {
+          "word": "rhyme",
+          "start": 475.7,
+          "end": 476.18,
+          "probability": 0.935
+        },
+        {
+          "word": "that",
+          "start": 476.18,
+          "end": 476.96,
+          "probability": 0.859
+        },
+        {
+          "word": "some",
+          "start": 476.96,
+          "end": 477.34,
+          "probability": 0.998
+        },
+        {
+          "word": "visitors",
+          "start": 477.34,
+          "end": 477.8,
+          "probability": 0.994
+        },
+        {
+          "word": "dare",
+          "start": 477.8,
+          "end": 478.46,
+          "probability": 0.971
+        },
+        {
+          "word": "recite,",
+          "start": 478.46,
+          "end": 479.04,
+          "probability": 0.988
+        },
+        {
+          "word": "maybe",
+          "start": 479.86,
+          "end": 480.18,
+          "probability": 0.956
+        },
+        {
+          "word": "to",
+          "start": 480.18,
+          "end": 480.86,
+          "probability": 0.982
+        },
+        {
+          "word": "provoke",
+          "start": 480.86,
+          "end": 481.2,
+          "probability": 0.998
+        },
+        {
+          "word": "an",
+          "start": 481.2,
+          "end": 481.44,
+          "probability": 0.993
+        },
+        {
+          "word": "appearance",
+          "start": 481.44,
+          "end": 481.86,
+          "probability": 0.998
+        },
+        {
+          "word": "of",
+          "start": 481.86,
+          "end": 482.14,
+          "probability": 0.997
+        },
+        {
+          "word": "his",
+          "start": 482.14,
+          "end": 482.32,
+          "probability": 0.947
+        },
+        {
+          "word": "spirit.",
+          "start": 482.32,
+          "end": 482.74,
+          "probability": 0.981
+        }
+      ]
+    },
+    {
+      "start": 483.9,
+      "end": 490.22,
+      "text": "If you're daring enough, go up to the bar and repeat these words. See what happens.",
+      "words": [
+        {
+          "word": "If",
+          "start": 483.9,
+          "end": 484.0,
+          "probability": 0.99
+        },
+        {
+          "word": "you're",
+          "start": 484.0,
+          "end": 484.26,
+          "probability": 0.981
+        },
+        {
+          "word": "daring",
+          "start": 484.26,
+          "end": 484.48,
+          "probability": 0.998
+        },
+        {
+          "word": "enough,",
+          "start": 484.48,
+          "end": 484.88,
+          "probability": 0.999
+        },
+        {
+          "word": "go",
+          "start": 485.6,
+          "end": 485.7,
+          "probability": 0.997
+        },
+        {
+          "word": "up",
+          "start": 485.7,
+          "end": 485.9,
+          "probability": 0.997
+        },
+        {
+          "word": "to",
+          "start": 485.9,
+          "end": 486.04,
+          "probability": 0.99
+        },
+        {
+          "word": "the",
+          "start": 486.04,
+          "end": 486.26,
+          "probability": 0.994
+        },
+        {
+          "word": "bar",
+          "start": 486.26,
+          "end": 486.48,
+          "probability": 0.997
+        },
+        {
+          "word": "and",
+          "start": 486.48,
+          "end": 487.16,
+          "probability": 0.955
+        },
+        {
+          "word": "repeat",
+          "start": 487.16,
+          "end": 487.52,
+          "probability": 0.999
+        },
+        {
+          "word": "these",
+          "start": 487.52,
+          "end": 487.9,
+          "probability": 0.992
+        },
+        {
+          "word": "words.",
+          "start": 487.9,
+          "end": 488.4,
+          "probability": 0.999
+        },
+        {
+          "word": "See",
+          "start": 489.3,
+          "end": 489.46,
+          "probability": 0.992
+        },
+        {
+          "word": "what",
+          "start": 489.46,
+          "end": 489.66,
+          "probability": 0.999
+        },
+        {
+          "word": "happens.",
+          "start": 489.66,
+          "end": 490.22,
+          "probability": 0.999
+        }
+      ]
+    },
+    {
+      "start": 518.56,
+      "end": 526.56,
+      "text": "Today, the black mausoleum has gained the reputation as one of the most haunted sites in all of the United Kingdom.",
+      "words": [
+        {
+          "word": "Today,",
+          "start": 518.56,
+          "end": 518.9,
+          "probability": 0.938
+        },
+        {
+          "word": "the",
+          "start": 519.54,
+          "end": 519.78,
+          "probability": 0.932
+        },
+        {
+          "word": "black",
+          "start": 519.78,
+          "end": 520.06,
+          "probability": 0.388
+        },
+        {
+          "word": "mausoleum",
+          "start": 520.06,
+          "end": 520.52,
+          "probability": 0.989
+        },
+        {
+          "word": "has",
+          "start": 520.52,
+          "end": 521.04,
+          "probability": 0.995
+        },
+        {
+          "word": "gained",
+          "start": 521.04,
+          "end": 521.32,
+          "probability": 0.998
+        },
+        {
+          "word": "the",
+          "start": 521.32,
+          "end": 521.52,
+          "probability": 0.821
+        },
+        {
+          "word": "reputation",
+          "start": 521.52,
+          "end": 522.04,
+          "probability": 0.998
+        },
+        {
+          "word": "as",
+          "start": 522.04,
+          "end": 522.58,
+          "probability": 0.987
+        },
+        {
+          "word": "one",
+          "start": 522.58,
+          "end": 522.9,
+          "probability": 0.995
+        },
+        {
+          "word": "of",
+          "start": 522.9,
+          "end": 523.12,
+          "probability": 0.998
+        },
+        {
+          "word": "the",
+          "start": 523.12,
+          "end": 523.24,
+          "probability": 0.999
+        },
+        {
+          "word": "most",
+          "start": 523.24,
+          "end": 523.46,
+          "probability": 0.996
+        },
+        {
+          "word": "haunted",
+          "start": 523.46,
+          "end": 524.04,
+          "probability": 0.998
+        },
+        {
+          "word": "sites",
+          "start": 524.04,
+          "end": 524.5,
+          "probability": 0.642
+        },
+        {
+          "word": "in",
+          "start": 524.5,
+          "end": 524.98,
+          "probability": 0.995
+        },
+        {
+          "word": "all",
+          "start": 524.98,
+          "end": 525.34,
+          "probability": 0.996
+        },
+        {
+          "word": "of",
+          "start": 525.34,
+          "end": 525.58,
+          "probability": 0.987
+        },
+        {
+          "word": "the",
+          "start": 525.58,
+          "end": 525.72,
+          "probability": 0.996
+        },
+        {
+          "word": "United",
+          "start": 525.72,
+          "end": 526.1,
+          "probability": 0.985
+        },
+        {
+          "word": "Kingdom.",
+          "start": 526.1,
+          "end": 526.56,
+          "probability": 0.996
+        }
+      ]
+    },
+    {
+      "start": 527.32,
+      "end": 539.9,
+      "text": "Out of all the thousands of souls to be laid to rest here within the walls of Greyfriars, it is fitting that Bloody Mackenzie be the one cursed to never find peace.",
+      "words": [
+        {
+          "word": "Out",
+          "start": 527.32,
+          "end": 527.6,
+          "probability": 0.746
+        },
+        {
+          "word": "of",
+          "start": 527.6,
+          "end": 527.78,
+          "probability": 0.997
+        },
+        {
+          "word": "all",
+          "start": 527.78,
+          "end": 528.06,
+          "probability": 0.989
+        },
+        {
+          "word": "the",
+          "start": 528.06,
+          "end": 528.32,
+          "probability": 0.983
+        },
+        {
+          "word": "thousands",
+          "start": 528.32,
+          "end": 528.68,
+          "probability": 0.988
+        },
+        {
+          "word": "of",
+          "start": 528.68,
+          "end": 529.02,
+          "probability": 0.998
+        },
+        {
+          "word": "souls",
+          "start": 529.02,
+          "end": 529.3,
+          "probability": 0.977
+        },
+        {
+          "word": "to",
+          "start": 529.3,
+          "end": 529.58,
+          "probability": 0.946
+        },
+        {
+          "word": "be",
+          "start": 529.58,
+          "end": 529.74,
+          "probability": 0.995
+        },
+        {
+          "word": "laid",
+          "start": 529.74,
+          "end": 530.02,
+          "probability": 0.992
+        },
+        {
+          "word": "to",
+          "start": 530.02,
+          "end": 530.28,
+          "probability": 0.979
+        },
+        {
+          "word": "rest",
+          "start": 530.28,
+          "end": 530.58,
+          "probability": 1.0
+        },
+        {
+          "word": "here",
+          "start": 530.58,
+          "end": 530.94,
+          "probability": 0.976
+        },
+        {
+          "word": "within",
+          "start": 530.94,
+          "end": 531.24,
+          "probability": 0.958
+        },
+        {
+          "word": "the",
+          "start": 531.24,
+          "end": 531.6,
+          "probability": 0.997
+        },
+        {
+          "word": "walls",
+          "start": 531.6,
+          "end": 531.84,
+          "probability": 0.97
+        },
+        {
+          "word": "of",
+          "start": 531.84,
+          "end": 532.2,
+          "probability": 0.997
+        },
+        {
+          "word": "Greyfriars,",
+          "start": 532.2,
+          "end": 532.92,
+          "probability": 0.973
+        },
+        {
+          "word": "it",
+          "start": 533.92,
+          "end": 534.26,
+          "probability": 0.848
+        },
+        {
+          "word": "is",
+          "start": 534.26,
+          "end": 534.46,
+          "probability": 0.993
+        },
+        {
+          "word": "fitting",
+          "start": 534.46,
+          "end": 534.88,
+          "probability": 0.999
+        },
+        {
+          "word": "that",
+          "start": 534.88,
+          "end": 535.48,
+          "probability": 0.989
+        },
+        {
+          "word": "Bloody",
+          "start": 535.48,
+          "end": 535.96,
+          "probability": 0.604
+        },
+        {
+          "word": "Mackenzie",
+          "start": 535.96,
+          "end": 536.56,
+          "probability": 0.87
+        },
+        {
+          "word": "be",
+          "start": 536.56,
+          "end": 537.1,
+          "probability": 0.985
+        },
+        {
+          "word": "the",
+          "start": 537.1,
+          "end": 537.22,
+          "probability": 0.999
+        },
+        {
+          "word": "one",
+          "start": 537.22,
+          "end": 537.42,
+          "probability": 0.999
+        },
+        {
+          "word": "cursed",
+          "start": 537.42,
+          "end": 538.02,
+          "probability": 0.992
+        },
+        {
+          "word": "to",
+          "start": 538.02,
+          "end": 538.52,
+          "probability": 0.963
+        },
+        {
+          "word": "never",
+          "start": 538.52,
+          "end": 538.92,
+          "probability": 0.997
+        },
+        {
+          "word": "find",
+          "start": 538.92,
+          "end": 539.54,
+          "probability": 0.999
+        },
+        {
+          "word": "peace.",
+          "start": 539.54,
+          "end": 539.9,
+          "probability": 0.992
+        }
+      ]
+    },
+    {
+      "start": 544.21,
+      "end": 548.89,
+      "text": "That concludes this chapter of the tour. We hope you have enjoyed your visit to Greyfriars Kirkyard.",
+      "words": [
+        {
+          "word": "That",
+          "start": 544.21,
+          "end": 544.33,
+          "probability": 0.967
+        },
+        {
+          "word": "concludes",
+          "start": 544.33,
+          "end": 544.67,
+          "probability": 0.999
+        },
+        {
+          "word": "this",
+          "start": 544.67,
+          "end": 544.93,
+          "probability": 0.993
+        },
+        {
+          "word": "chapter",
+          "start": 544.93,
+          "end": 545.27,
+          "probability": 0.983
+        },
+        {
+          "word": "of",
+          "start": 545.27,
+          "end": 545.47,
+          "probability": 0.998
+        },
+        {
+          "word": "the",
+          "start": 545.47,
+          "end": 545.59,
+          "probability": 0.989
+        },
+        {
+          "word": "tour.",
+          "start": 545.59,
+          "end": 545.83,
+          "probability": 0.978
+        },
+        {
+          "word": "We",
+          "start": 546.53,
+          "end": 546.63,
+          "probability": 0.992
+        },
+        {
+          "word": "hope",
+          "start": 546.63,
+          "end": 546.75,
+          "probability": 0.997
+        },
+        {
+          "word": "you",
+          "start": 546.75,
+          "end": 546.87,
+          "probability": 0.989
+        },
+        {
+          "word": "have",
+          "start": 546.87,
+          "end": 546.97,
+          "probability": 0.434
+        },
+        {
+          "word": "enjoyed",
+          "start": 546.97,
+          "end": 547.25,
+          "probability": 0.999
+        },
+        {
+          "word": "your",
+          "start": 547.25,
+          "end": 547.45,
+          "probability": 0.987
+        },
+        {
+          "word": "visit",
+          "start": 547.45,
+          "end": 547.69,
+          "probability": 0.987
+        },
+        {
+          "word": "to",
+          "start": 547.69,
+          "end": 547.89,
+          "probability": 0.986
+        },
+        {
+          "word": "Greyfriars",
+          "start": 547.89,
+          "end": 548.37,
+          "probability": 0.902
+        },
+        {
+          "word": "Kirkyard.",
+          "start": 548.37,
+          "end": 548.89,
+          "probability": 0.753
+        }
+      ]
+    },
+    {
+      "start": 549.55,
+      "end": 554.43,
+      "text": "The gates may close behind you, but the stories you have heard tonight have lingered here for centuries.",
+      "words": [
+        {
+          "word": "The",
+          "start": 549.55,
+          "end": 549.77,
+          "probability": 0.994
+        },
+        {
+          "word": "gates",
+          "start": 549.77,
+          "end": 549.99,
+          "probability": 0.993
+        },
+        {
+          "word": "may",
+          "start": 549.99,
+          "end": 550.19,
+          "probability": 0.996
+        },
+        {
+          "word": "close",
+          "start": 550.19,
+          "end": 550.43,
+          "probability": 0.997
+        },
+        {
+          "word": "behind",
+          "start": 550.43,
+          "end": 550.71,
+          "probability": 0.996
+        },
+        {
+          "word": "you,",
+          "start": 550.71,
+          "end": 551.05,
+          "probability": 0.996
+        },
+        {
+          "word": "but",
+          "start": 551.17,
+          "end": 551.27,
+          "probability": 0.992
+        },
+        {
+          "word": "the",
+          "start": 551.27,
+          "end": 551.43,
+          "probability": 0.997
+        },
+        {
+          "word": "stories",
+          "start": 551.43,
+          "end": 551.77,
+          "probability": 0.995
+        },
+        {
+          "word": "you",
+          "start": 551.77,
+          "end": 551.99,
+          "probability": 0.992
+        },
+        {
+          "word": "have",
+          "start": 551.99,
+          "end": 552.11,
+          "probability": 0.884
+        },
+        {
+          "word": "heard",
+          "start": 552.11,
+          "end": 552.33,
+          "probability": 0.989
+        },
+        {
+          "word": "tonight",
+          "start": 552.33,
+          "end": 552.71,
+          "probability": 0.991
+        },
+        {
+          "word": "have",
+          "start": 552.71,
+          "end": 553.07,
+          "probability": 0.962
+        },
+        {
+          "word": "lingered",
+          "start": 553.07,
+          "end": 553.33,
+          "probability": 0.999
+        },
+        {
+          "word": "here",
+          "start": 553.33,
+          "end": 553.61,
+          "probability": 0.995
+        },
+        {
+          "word": "for",
+          "start": 553.61,
+          "end": 553.91,
+          "probability": 0.998
+        },
+        {
+          "word": "centuries.",
+          "start": 553.91,
+          "end": 554.43,
+          "probability": 0.999
+        }
+      ]
+    },
+    {
+      "start": 555.53,
+      "end": 559.25,
+      "text": "And perhaps, they'll linger with you a little while longer.",
+      "words": [
+        {
+          "word": "And",
+          "start": 555.53,
+          "end": 555.77,
+          "probability": 0.906
+        },
+        {
+          "word": "perhaps,",
+          "start": 555.77,
+          "end": 556.25,
+          "probability": 0.969
+        },
+        {
+          "word": "they'll",
+          "start": 556.91,
+          "end": 557.05,
+          "probability": 0.918
+        },
+        {
+          "word": "linger",
+          "start": 557.05,
+          "end": 557.21,
+          "probability": 0.997
+        },
+        {
+          "word": "with",
+          "start": 557.21,
+          "end": 557.39,
+          "probability": 0.996
+        },
+        {
+          "word": "you",
+          "start": 557.39,
+          "end": 557.69,
+          "probability": 0.998
+        },
+        {
+          "word": "a",
+          "start": 557.69,
+          "end": 558.27,
+          "probability": 0.929
+        },
+        {
+          "word": "little",
+          "start": 558.27,
+          "end": 558.53,
+          "probability": 0.996
+        },
+        {
+          "word": "while",
+          "start": 558.53,
+          "end": 558.75,
+          "probability": 0.997
+        },
+        {
+          "word": "longer.",
+          "start": 558.75,
+          "end": 559.25,
+          "probability": 0.999
+        }
+      ]
+    }
+  ]
+}

@@ -54,8 +54,6 @@ class IntroScreen extends StatelessWidget {
           // Audio Player with Speed & Spotify-style Synced Lyrics
           AudioPlayerCard(
             audioAsset: introStop.audioAsset,
-            storyScript: introStop.storyScript,
-            subtitles: introStop.subtitles,
           ).animate().fadeIn(duration: 400.ms),
 
           const SizedBox(height: 24),

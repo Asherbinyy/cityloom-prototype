@@ -3,7 +3,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
 import 'package:cityloom_prototype/main.dart';
 import 'package:cityloom_prototype/state/app_state.dart';
-import 'package:cityloom_prototype/state/audio_controller.dart';
 
 void main() {
   testWidgets('CityLoom app smoke test', (WidgetTester tester) async {
@@ -14,7 +13,6 @@ void main() {
       MultiProvider(
         providers: [
           ChangeNotifierProvider(create: (_) => AppState()),
-          ChangeNotifierProvider(create: (_) => AudioController()),
         ],
         child: const CityLoomApp(),
       ),

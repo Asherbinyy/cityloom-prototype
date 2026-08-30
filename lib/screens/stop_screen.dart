@@ -93,8 +93,6 @@ class StopScreen extends StatelessWidget {
           // Audio Player with Speed & Spotify-style Synced Lyrics
           AudioPlayerCard(
             audioAsset: stop.audioAsset,
-            storyScript: stop.storyScript,
-            subtitles: stop.subtitles,
           ).animate().fadeIn(duration: 400.ms),
 
           const SizedBox(height: 24),

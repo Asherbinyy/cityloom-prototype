@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import '../models/tour_model.dart';
-import 'scripts_data.dart';
 
 class TourData {
   // Initial entrance coordinate — bottom entrance gate path on new map
@@ -24,8 +23,6 @@ class TourData {
         Offset(0.50, 0.95),
       ],
       progressStep: 0,
-      storyScript: ScriptsData.introNarration,
-      subtitles: ScriptsData.introSubtitles,
     ),
     TourStop(
       id: 'stop-a',
@@ -48,8 +45,6 @@ class TourData {
         Offset(0.49, 0.58),
       ],
       progressStep: 1,
-      storyScript: ScriptsData.mortsafesNarration,
-      subtitles: ScriptsData.mortsafesSubtitles,
     ),
     TourStop(
       id: 'stop-b',
@@ -72,8 +67,6 @@ class TourData {
         Offset(0.35, 0.10),
       ],
       progressStep: 2,
-      storyScript: ScriptsData.covenantersNarration,
-      subtitles: ScriptsData.covenantersSubtitles,
     ),
     TourStop(
       id: 'stop-c',
@@ -96,8 +89,6 @@ class TourData {
         Offset(0.35, 0.55),
       ],
       progressStep: 3,
-      storyScript: ScriptsData.mackenzieNarration,
-      subtitles: ScriptsData.mackenzieSubtitles,
     ),
   ];
 }

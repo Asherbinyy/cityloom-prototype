@@ -1,21 +1,17 @@
 import 'dart:async';
-import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../models/tour_model.dart';
+import 'package:just_audio/just_audio.dart';
 import '../services/sound_service.dart';
 import '../theme/app_theme.dart';
+import 'synced_transcript.dart';
 
 class AudioPlayerCard extends StatefulWidget {
   final String audioAsset;
-  final String? storyScript;
-  final List<TourSubtitle> subtitles;
 
   const AudioPlayerCard({
     super.key,
     required this.audioAsset,
-    this.storyScript,
-    this.subtitles = const [],
   });
 
   @override
@@ -24,60 +20,82 @@ class AudioPlayerCard extends StatefulWidget {
 
 class _AudioPlayerCardState extends State<AudioPlayerCard> {
   final AudioPlayer _player = AudioPlayer();
-  PlayerState _playerState = PlayerState.stopped;
   Duration _duration = Duration.zero;
   Duration _position = Duration.zero;
   double _playbackSpeed = 1.0;
-
+  bool _isPlaying = false;
   bool _isSeeking = false;
-  bool _showScript = false;
 
-  StreamSubscription? _stateSub;
+  Transcript? _transcript;
+  bool _isLoadingTranscript = true;
+
+  StreamSubscription? _playerStateSub;
   StreamSubscription? _durationSub;
   StreamSubscription? _positionSub;
 
   @override
   void initState() {
     super.initState();
-    _initAudio();
+    _initAudioAndTranscript();
   }
 
-  int _lastRenderedSecond = -1;
-  int _lastRenderedMs = 0;
-
-  Future<void> _initAudio() async {
-    _stateSub = _player.onPlayerStateChanged.listen((state) {
-      if (mounted) setState(() => _playerState = state);
-    });
-
-    _durationSub = _player.onDurationChanged.listen((dur) {
-      if (mounted) setState(() => _duration = dur);
-    });
-
-    _positionSub = _player.onPositionChanged.listen((pos) {
-      if (mounted && !_isSeeking) {
-        final sec = pos.inSeconds;
-        final ms = pos.inMilliseconds;
-        if (sec != _lastRenderedSecond || (ms - _lastRenderedMs).abs() >= 250) {
-          _lastRenderedSecond = sec;
-          _lastRenderedMs = ms;
-          setState(() => _position = pos);
-        }
+  Future<void> _initAudioAndTranscript() async {
+    _playerStateSub = _player.playerStateStream.listen((state) {
+      if (mounted) {
+        setState(() {
+          _isPlaying = state.playing && state.processingState != ProcessingState.completed;
+          if (state.processingState == ProcessingState.completed) {
+            _position = Duration.zero;
+          }
+        });
       }
     });
 
+    _durationSub = _player.durationStream.listen((dur) {
+      if (mounted && dur != null) {
+        setState(() => _duration = dur);
+      }
+    });
+
+    _positionSub = _player.positionStream.listen((pos) {
+      if (mounted && !_isSeeking) {
+        setState(() => _position = pos);
+      }
+    });
+
+    // 1. Load Audio Asset
     try {
-      final cleanPath = widget.audioAsset.replaceFirst('assets/', '');
-      await _player.setReleaseMode(ReleaseMode.stop);
-      await _player.setSource(AssetSource(cleanPath));
+      await _player.setAsset(widget.audioAsset);
     } catch (e) {
-      debugPrint('Audio source setup error: $e');
+      debugPrint('Audio asset loading error for ${widget.audioAsset}: $e');
+    }
+
+    // 2. Load Transcript if available
+    try {
+      final transcriptPath = widget.audioAsset
+          .replaceAll('assets/audio/', 'assets/transcripts/')
+          .replaceAll('.mp3', '.json');
+      final t = await Transcript.fromAsset(transcriptPath);
+      if (mounted) {
+        setState(() {
+          _transcript = t;
+          _isLoadingTranscript = false;
+        });
+      }
+    } catch (e) {
+      debugPrint('No transcript found for ${widget.audioAsset}: $e');
+      if (mounted) {
+        setState(() {
+          _transcript = null;
+          _isLoadingTranscript = false;
+        });
+      }
     }
   }
 
   @override
   void dispose() {
-    _stateSub?.cancel();
+    _playerStateSub?.cancel();
     _durationSub?.cancel();
     _positionSub?.cancel();
     _player.dispose();
@@ -86,10 +104,13 @@ class _AudioPlayerCardState extends State<AudioPlayerCard> {
 
   void _togglePlayPause() async {
     SoundService.playTap();
-    if (_playerState == PlayerState.playing) {
+    if (_player.playing) {
       await _player.pause();
     } else {
-      await _player.resume();
+      if (_player.processingState == ProcessingState.completed) {
+        await _player.seek(Duration.zero);
+      }
+      await _player.play();
     }
   }
 
@@ -107,9 +128,9 @@ class _AudioPlayerCardState extends State<AudioPlayerCard> {
     }
     setState(() => _playbackSpeed = nextSpeed);
     try {
-      await _player.setPlaybackRate(nextSpeed);
+      await _player.setSpeed(nextSpeed);
     } catch (e) {
-      debugPrint('Playback rate error: $e');
+      debugPrint('Set speed error: $e');
     }
   }
 
@@ -121,7 +142,6 @@ class _AudioPlayerCardState extends State<AudioPlayerCard> {
 
   @override
   Widget build(BuildContext context) {
-    final isPlaying = _playerState == PlayerState.playing;
     final progress = (_duration.inMilliseconds > 0)
         ? (_position.inMilliseconds / _duration.inMilliseconds).clamp(0.0, 1.0)
         : 0.0;
@@ -144,7 +164,7 @@ class _AudioPlayerCardState extends State<AudioPlayerCard> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          // Header Row (Clean, no dark dots!)
+          // Header Row
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -189,7 +209,7 @@ class _AudioPlayerCardState extends State<AudioPlayerCard> {
           ),
           const SizedBox(height: 18),
 
-          // Main Play / Pause Button (Clean Coral Circle)
+          // Main Play / Pause Button
           Material(
             color: Colors.transparent,
             child: InkWell(
@@ -211,7 +231,7 @@ class _AudioPlayerCardState extends State<AudioPlayerCard> {
                 ),
                 child: Center(
                   child: Icon(
-                    isPlaying ? Icons.pause_rounded : Icons.play_arrow_rounded,
+                    _isPlaying ? Icons.pause_rounded : Icons.play_arrow_rounded,
                     color: Colors.white,
                     size: 38,
                   ),
@@ -277,93 +297,34 @@ class _AudioPlayerCardState extends State<AudioPlayerCard> {
             ),
           ),
 
-          // Script Toggle Button ("Show Script" / "Hide Script")
-          if (widget.storyScript != null) ...[
+          // Synced Transcript Section
+          if (_isLoadingTranscript) ...[
             const SizedBox(height: 14),
             const Divider(color: AppColors.blush, height: 1),
-            const SizedBox(height: 8),
-
-            TextButton.icon(
-              onPressed: () {
-                SoundService.playTap();
-                setState(() => _showScript = !_showScript);
-              },
-              icon: Icon(
-                _showScript
-                    ? Icons.keyboard_arrow_up_rounded
-                    : Icons.subtitles_rounded,
-                size: 18,
-                color: AppColors.coral,
-              ),
-              label: Text(
-                _showScript ? 'Hide Script' : 'Show Script',
-                style: GoogleFonts.dmSans(
-                  fontSize: 13,
-                  fontWeight: FontWeight.w700,
+            const SizedBox(height: 12),
+            const Center(
+              child: SizedBox(
+                width: 20,
+                height: 20,
+                child: CircularProgressIndicator(
+                  strokeWidth: 2,
                   color: AppColors.coral,
                 ),
               ),
             ),
-
-            // Live Highlighted Script Box
-            if (_showScript) ...[
-              const SizedBox(height: 8),
-              Container(
-                width: double.infinity,
-                padding: const EdgeInsets.all(16),
-                decoration: BoxDecoration(
-                  color: AppColors.cream,
-                  borderRadius: BorderRadius.circular(14),
-                  border: Border.all(
-                    color: AppColors.coral.withValues(alpha: 0.3),
-                  ),
-                ),
-                child: _buildLiveScriptContent(),
-              ),
-            ],
+          ] else if (_transcript != null) ...[
+            const SizedBox(height: 14),
+            const Divider(color: AppColors.blush, height: 1),
+            const SizedBox(height: 10),
+            SyncedTranscriptView(
+              player: _player,
+              transcript: _transcript!,
+              windowSize: 4,
+              tapToSeek: true,
+            ),
           ],
         ],
       ),
-    );
-  }
-
-  Widget _buildLiveScriptContent() {
-    final currentSec = _position.inMilliseconds / 1000.0;
-
-    if (widget.subtitles.isEmpty) {
-      return Text(
-        widget.storyScript ?? '',
-        style: GoogleFonts.dmSans(
-          fontSize: 14,
-          height: 1.5,
-          color: AppColors.dark,
-        ),
-      );
-    }
-
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: widget.subtitles.map((sub) {
-        final isActive = currentSec >= sub.startSeconds && currentSec < sub.endSeconds;
-        final isPast = currentSec >= sub.endSeconds;
-
-        return Padding(
-          padding: const EdgeInsets.only(bottom: 12),
-          child: Text(
-            sub.text,
-            style: GoogleFonts.dmSans(
-              fontSize: isActive ? 15 : 13.5,
-              fontWeight: isActive ? FontWeight.w800 : (isPast ? FontWeight.w500 : FontWeight.w400),
-              color: isActive
-                  ? AppColors.dark
-                  : (isPast
-                      ? AppColors.dark.withValues(alpha: 0.75)
-                      : AppColors.muted.withValues(alpha: 0.6)),
-              height: 1.45,
-            ),
-          ),
-        );
-      }).toList(),
     );
   }
 }

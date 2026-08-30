@@ -12,11 +12,10 @@ void main() {
   SharedPreferences.setMockInitialValues({});
 
   group('Tour & Card Data Tests', () {
-    test('All 4 tour stops are defined with audio and scripts', () {
+    test('All 4 tour stops are defined with audio', () {
       expect(TourData.stops.length, 4);
       for (final stop in TourData.stops) {
         expect(stop.audioAsset.isNotEmpty, true);
-        expect(stop.storyScript.isNotEmpty, true);
       }
     });
 

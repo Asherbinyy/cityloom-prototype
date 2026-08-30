@@ -42,6 +42,7 @@ dependencies:
   flutter_animate: ^4.5.2
   http: ^1.2.2
   web: ^1.1.0
+  just_audio: ^0.10.6
 
 dev_dependencies:
   flutter_test:
@@ -70,6 +71,7 @@ flutter:
     - assets/images/
     - assets/images/cards/
     - assets/audio/
+    - assets/transcripts/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

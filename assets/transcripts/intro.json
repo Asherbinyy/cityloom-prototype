@@ -1,0 +1,1753 @@
+{
+  "language": "en",
+  "text": "Welcome to Greyfriars Kirkyard, one of Edinburgh's oldest graveyards and one of the city's most storied places, where the mysteries of its past refuse to stay buried. The history of the land stretches back almost six centuries, and within these walls the line between history and legend begins to blur. As you explore, we'll share with you the stories of body snatchers, haunted graves, and ghosts that many still claim walk these very paths after dark. In the early 1440s, King James I of Scotland granted a large plot of land on what was then the rural outskirts of medieval Edinburgh, to the Franciscan Order of Friars Minor. The friars were instantly recognisable by their simple, undyed grey robes, and the people of Edinburgh began calling them the Greyfriars. The nickname stuck, becoming the name of the land itself, a name that has survived to today. The land didn't officially become a burial ground until 1562. By then, the churchyard at St Giles had become dangerously overcrowded, and Mary Queen of Scots granted the land to Edinburgh's town council to serve as a new cemetery to suit the growing city's needs. It is estimated that over the centuries, more than a hundred thousand people were buried here, beneath your very feet. Men, women, and children from all walks of life. Every gravestone you see marks a story, but countless others have been lost beneath the earth, their names erased by time. This chapter will explore some of the most ominous stories Greyfriars Kirkyard has to offer. Whenever you're ready, go to the first stop and we can explore together.",
+  "segments": [
+    {
+      "start": 2.38,
+      "end": 10.4,
+      "text": "Welcome to Greyfriars Kirkyard, one of Edinburgh's oldest graveyards and one of the city's most",
+      "words": [
+        {
+          "word": "Welcome",
+          "start": 2.38,
+          "end": 3.18,
+          "probability": 0.967
+        },
+        {
+          "word": "to",
+          "start": 3.18,
+          "end": 3.92,
+          "probability": 0.967
+        },
+        {
+          "word": "Greyfriars",
+          "start": 3.92,
+          "end": 4.76,
+          "probability": 0.849
+        },
+        {
+          "word": "Kirkyard,",
+          "start": 4.76,
+          "end": 5.46,
+          "probability": 0.687
+        },
+        {
+          "word": "one",
+          "start": 6.36,
+          "end": 6.56,
+          "probability": 0.98
+        },
+        {
+          "word": "of",
+          "start": 6.56,
+          "end": 6.94,
+          "probability": 0.999
+        },
+        {
+          "word": "Edinburgh's",
+          "start": 6.94,
+          "end": 7.56,
+          "probability": 0.973
+        },
+        {
+          "word": "oldest",
+          "start": 7.56,
+          "end": 7.92,
+          "probability": 0.998
+        },
+        {
+          "word": "graveyards",
+          "start": 7.92,
+          "end": 8.66,
+          "probability": 0.997
+        },
+        {
+          "word": "and",
+          "start": 8.66,
+          "end": 9.32,
+          "probability": 0.784
+        },
+        {
+          "word": "one",
+          "start": 9.32,
+          "end": 9.46,
+          "probability": 0.997
+        },
+        {
+          "word": "of",
+          "start": 9.46,
+          "end": 9.58,
+          "probability": 0.998
+        },
+        {
+          "word": "the",
+          "start": 9.58,
+          "end": 9.74,
+          "probability": 0.998
+        },
+        {
+          "word": "city's",
+          "start": 9.74,
+          "end": 10.14,
+          "probability": 0.965
+        },
+        {
+          "word": "most",
+          "start": 10.14,
+          "end": 10.4,
+          "probability": 0.998
+        }
+      ]
+    },
+    {
+      "start": 10.4,
+      "end": 16.26,
+      "text": "storied places, where the mysteries of its past refuse to stay buried.",
+      "words": [
+        {
+          "word": "storied",
+          "start": 10.4,
+          "end": 11.02,
+          "probability": 0.994
+        },
+        {
+          "word": "places,",
+          "start": 11.02,
+          "end": 11.82,
+          "probability": 0.997
+        },
+        {
+          "word": "where",
+          "start": 11.82,
+          "end": 12.7,
+          "probability": 0.985
+        },
+        {
+          "word": "the",
+          "start": 12.7,
+          "end": 12.86,
+          "probability": 0.998
+        },
+        {
+          "word": "mysteries",
+          "start": 12.86,
+          "end": 13.28,
+          "probability": 0.998
+        },
+        {
+          "word": "of",
+          "start": 13.28,
+          "end": 13.6,
+          "probability": 0.999
+        },
+        {
+          "word": "its",
+          "start": 13.6,
+          "end": 13.76,
+          "probability": 0.972
+        },
+        {
+          "word": "past",
+          "start": 13.76,
+          "end": 14.3,
+          "probability": 1.0
+        },
+        {
+          "word": "refuse",
+          "start": 14.3,
+          "end": 15.0,
+          "probability": 0.863
+        },
+        {
+          "word": "to",
+          "start": 15.0,
+          "end": 15.54,
+          "probability": 1.0
+        },
+        {
+          "word": "stay",
+          "start": 15.54,
+          "end": 15.82,
+          "probability": 0.998
+        },
+        {
+          "word": "buried.",
+          "start": 15.82,
+          "end": 16.26,
+          "probability": 0.999
+        }
+      ]
+    },
+    {
+      "start": 17.28,
+      "end": 23.72,
+      "text": "The history of the land stretches back almost six centuries, and within these walls the",
+      "words": [
+        {
+          "word": "The",
+          "start": 17.28,
+          "end": 17.38,
+          "probability": 0.994
+        },
+        {
+          "word": "history",
+          "start": 17.38,
+          "end": 17.72,
+          "probability": 0.996
+        },
+        {
+          "word": "of",
+          "start": 17.72,
+          "end": 17.96,
+          "probability": 1.0
+        },
+        {
+          "word": "the",
+          "start": 17.96,
+          "end": 18.14,
+          "probability": 0.997
+        },
+        {
+          "word": "land",
+          "start": 18.14,
+          "end": 18.5,
+          "probability": 0.993
+        },
+        {
+          "word": "stretches",
+          "start": 18.5,
+          "end": 19.16,
+          "probability": 0.998
+        },
+        {
+          "word": "back",
+          "start": 19.16,
+          "end": 19.6,
+          "probability": 0.999
+        },
+        {
+          "word": "almost",
+          "start": 19.6,
+          "end": 20.22,
+          "probability": 0.994
+        },
+        {
+          "word": "six",
+          "start": 20.22,
+          "end": 20.84,
+          "probability": 0.956
+        },
+        {
+          "word": "centuries,",
+          "start": 20.84,
+          "end": 21.64,
+          "probability": 0.999
+        },
+        {
+          "word": "and",
+          "start": 22.08,
+          "end": 22.34,
+          "probability": 0.997
+        },
+        {
+          "word": "within",
+          "start": 22.34,
+          "end": 22.54,
+          "probability": 0.993
+        },
+        {
+          "word": "these",
+          "start": 22.54,
+          "end": 22.82,
+          "probability": 0.997
+        },
+        {
+          "word": "walls",
+          "start": 22.82,
+          "end": 23.26,
+          "probability": 0.999
+        },
+        {
+          "word": "the",
+          "start": 23.26,
+          "end": 23.72,
+          "probability": 0.398
+        }
+      ]
+    },
+    {
+      "start": 23.72,
+      "end": 27.06,
+      "text": "line between history and legend begins to blur.",
+      "words": [
+        {
+          "word": "line",
+          "start": 23.72,
+          "end": 23.92,
+          "probability": 0.996
+        },
+        {
+          "word": "between",
+          "start": 23.92,
+          "end": 24.32,
+          "probability": 1.0
+        },
+        {
+          "word": "history",
+          "start": 24.32,
+          "end": 24.82,
+          "probability": 0.996
+        },
+        {
+          "word": "and",
+          "start": 24.82,
+          "end": 25.24,
+          "probability": 0.998
+        },
+        {
+          "word": "legend",
+          "start": 25.24,
+          "end": 25.7,
+          "probability": 0.993
+        },
+        {
+          "word": "begins",
+          "start": 25.7,
+          "end": 26.38,
+          "probability": 0.997
+        },
+        {
+          "word": "to",
+          "start": 26.38,
+          "end": 26.82,
+          "probability": 1.0
+        },
+        {
+          "word": "blur.",
+          "start": 26.82,
+          "end": 27.06,
+          "probability": 0.993
+        }
+      ]
+    },
+    {
+      "start": 27.84,
+      "end": 32.1,
+      "text": "As you explore, we'll share with you the stories of body snatchers,",
+      "words": [
+        {
+          "word": "As",
+          "start": 27.84,
+          "end": 28.22,
+          "probability": 0.851
+        },
+        {
+          "word": "you",
+          "start": 28.22,
+          "end": 28.42,
+          "probability": 0.993
+        },
+        {
+          "word": "explore,",
+          "start": 28.42,
+          "end": 29.0,
+          "probability": 0.997
+        },
+        {
+          "word": "we'll",
+          "start": 29.64,
+          "end": 29.8,
+          "probability": 0.958
+        },
+        {
+          "word": "share",
+          "start": 29.8,
+          "end": 30.0,
+          "probability": 0.997
+        },
+        {
+          "word": "with",
+          "start": 30.0,
+          "end": 30.16,
+          "probability": 0.984
+        },
+        {
+          "word": "you",
+          "start": 30.16,
+          "end": 30.42,
+          "probability": 0.997
+        },
+        {
+          "word": "the",
+          "start": 30.42,
+          "end": 30.64,
+          "probability": 0.986
+        },
+        {
+          "word": "stories",
+          "start": 30.64,
+          "end": 30.96,
+          "probability": 0.98
+        },
+        {
+          "word": "of",
+          "start": 30.96,
+          "end": 31.22,
+          "probability": 0.998
+        },
+        {
+          "word": "body",
+          "start": 31.22,
+          "end": 31.48,
+          "probability": 0.914
+        },
+        {
+          "word": "snatchers,",
+          "start": 31.48,
+          "end": 32.1,
+          "probability": 0.943
+        }
+      ]
+    },
+    {
+      "start": 32.74,
+      "end": 39.02,
+      "text": "haunted graves, and ghosts that many still claim walk these very paths after dark.",
+      "words": [
+        {
+          "word": "haunted",
+          "start": 32.74,
+          "end": 33.14,
+          "probability": 0.98
+        },
+        {
+          "word": "graves,",
+          "start": 33.14,
+          "end": 33.64,
+          "probability": 0.997
+        },
+        {
+          "word": "and",
+          "start": 34.0,
+          "end": 34.46,
+          "probability": 0.992
+        },
+        {
+          "word": "ghosts",
+          "start": 34.46,
+          "end": 34.92,
+          "probability": 0.993
+        },
+        {
+          "word": "that",
+          "start": 34.92,
+          "end": 35.5,
+          "probability": 0.947
+        },
+        {
+          "word": "many",
+          "start": 35.5,
+          "end": 35.72,
+          "probability": 0.994
+        },
+        {
+          "word": "still",
+          "start": 35.72,
+          "end": 36.02,
+          "probability": 0.99
+        },
+        {
+          "word": "claim",
+          "start": 36.02,
+          "end": 36.4,
+          "probability": 0.994
+        },
+        {
+          "word": "walk",
+          "start": 36.4,
+          "end": 36.78,
+          "probability": 0.883
+        },
+        {
+          "word": "these",
+          "start": 36.78,
+          "end": 37.0,
+          "probability": 0.981
+        },
+        {
+          "word": "very",
+          "start": 37.0,
+          "end": 37.3,
+          "probability": 0.985
+        },
+        {
+          "word": "paths",
+          "start": 37.3,
+          "end": 37.82,
+          "probability": 0.992
+        },
+        {
+          "word": "after",
+          "start": 37.82,
+          "end": 38.64,
+          "probability": 0.938
+        },
+        {
+          "word": "dark.",
+          "start": 38.64,
+          "end": 39.02,
+          "probability": 0.996
+        }
+      ]
+    },
+    {
+      "start": 41.38,
+      "end": 49.54,
+      "text": "In the early 1440s, King James I of Scotland granted a large plot of land on what was then",
+      "words": [
+        {
+          "word": "In",
+          "start": 41.38,
+          "end": 41.48,
+          "probability": 0.958
+        },
+        {
+          "word": "the",
+          "start": 41.48,
+          "end": 41.62,
+          "probability": 0.995
+        },
+        {
+          "word": "early",
+          "start": 41.62,
+          "end": 42.0,
+          "probability": 0.997
+        },
+        {
+          "word": "1440s,",
+          "start": 42.0,
+          "end": 43.66,
+          "probability": 0.773
+        },
+        {
+          "word": "King",
+          "start": 43.98,
+          "end": 44.12,
+          "probability": 0.986
+        },
+        {
+          "word": "James",
+          "start": 44.12,
+          "end": 44.56,
+          "probability": 1.0
+        },
+        {
+          "word": "I",
+          "start": 44.56,
+          "end": 44.98,
+          "probability": 0.711
+        },
+        {
+          "word": "of",
+          "start": 44.98,
+          "end": 45.16,
+          "probability": 0.987
+        },
+        {
+          "word": "Scotland",
+          "start": 45.16,
+          "end": 45.7,
+          "probability": 0.997
+        },
+        {
+          "word": "granted",
+          "start": 45.7,
+          "end": 46.4,
+          "probability": 0.885
+        },
+        {
+          "word": "a",
+          "start": 46.4,
+          "end": 46.68,
+          "probability": 0.999
+        },
+        {
+          "word": "large",
+          "start": 46.68,
+          "end": 46.98,
+          "probability": 0.996
+        },
+        {
+          "word": "plot",
+          "start": 46.98,
+          "end": 47.3,
+          "probability": 0.997
+        },
+        {
+          "word": "of",
+          "start": 47.3,
+          "end": 47.56,
+          "probability": 0.997
+        },
+        {
+          "word": "land",
+          "start": 47.56,
+          "end": 47.88,
+          "probability": 0.996
+        },
+        {
+          "word": "on",
+          "start": 47.88,
+          "end": 48.56,
+          "probability": 0.88
+        },
+        {
+          "word": "what",
+          "start": 48.56,
+          "end": 48.8,
+          "probability": 0.991
+        },
+        {
+          "word": "was",
+          "start": 48.8,
+          "end": 49.18,
+          "probability": 0.98
+        },
+        {
+          "word": "then",
+          "start": 49.18,
+          "end": 49.54,
+          "probability": 0.994
+        }
+      ]
+    },
+    {
+      "start": 49.54,
+      "end": 56.16,
+      "text": "the rural outskirts of medieval Edinburgh, to the Franciscan Order of Friars Minor.",
+      "words": [
+        {
+          "word": "the",
+          "start": 49.54,
+          "end": 50.0,
+          "probability": 0.986
+        },
+        {
+          "word": "rural",
+          "start": 50.0,
+          "end": 50.26,
+          "probability": 0.992
+        },
+        {
+          "word": "outskirts",
+          "start": 50.26,
+          "end": 50.76,
+          "probability": 0.989
+        },
+        {
+          "word": "of",
+          "start": 50.76,
+          "end": 51.3,
+          "probability": 0.998
+        },
+        {
+          "word": "medieval",
+          "start": 51.3,
+          "end": 51.68,
+          "probability": 0.908
+        },
+        {
+          "word": "Edinburgh,",
+          "start": 51.68,
+          "end": 52.26,
+          "probability": 0.998
+        },
+        {
+          "word": "to",
+          "start": 52.62,
+          "end": 53.1,
+          "probability": 0.988
+        },
+        {
+          "word": "the",
+          "start": 53.1,
+          "end": 53.54,
+          "probability": 0.974
+        },
+        {
+          "word": "Franciscan",
+          "start": 53.54,
+          "end": 54.2,
+          "probability": 0.997
+        },
+        {
+          "word": "Order",
+          "start": 54.2,
+          "end": 54.56,
+          "probability": 0.618
+        },
+        {
+          "word": "of",
+          "start": 54.56,
+          "end": 55.04,
+          "probability": 0.997
+        },
+        {
+          "word": "Friars",
+          "start": 55.04,
+          "end": 55.6,
+          "probability": 0.959
+        },
+        {
+          "word": "Minor.",
+          "start": 55.6,
+          "end": 56.16,
+          "probability": 0.936
+        }
+      ]
+    },
+    {
+      "start": 56.99,
+      "end": 64.76,
+      "text": "The friars were instantly recognisable by their simple, undyed grey robes, and the people of",
+      "words": [
+        {
+          "word": "The",
+          "start": 56.99,
+          "end": 57.4,
+          "probability": 0.776
+        },
+        {
+          "word": "friars",
+          "start": 57.4,
+          "end": 57.96,
+          "probability": 0.877
+        },
+        {
+          "word": "were",
+          "start": 57.96,
+          "end": 58.66,
+          "probability": 0.981
+        },
+        {
+          "word": "instantly",
+          "start": 58.66,
+          "end": 59.16,
+          "probability": 0.992
+        },
+        {
+          "word": "recognisable",
+          "start": 59.16,
+          "end": 59.96,
+          "probability": 0.641
+        },
+        {
+          "word": "by",
+          "start": 59.96,
+          "end": 60.48,
+          "probability": 0.981
+        },
+        {
+          "word": "their",
+          "start": 60.48,
+          "end": 60.68,
+          "probability": 0.992
+        },
+        {
+          "word": "simple,",
+          "start": 60.68,
+          "end": 61.2,
+          "probability": 0.995
+        },
+        {
+          "word": "undyed",
+          "start": 61.74,
+          "end": 62.52,
+          "probability": 0.95
+        },
+        {
+          "word": "grey",
+          "start": 62.52,
+          "end": 62.92,
+          "probability": 0.716
+        },
+        {
+          "word": "robes,",
+          "start": 62.92,
+          "end": 63.6,
+          "probability": 0.991
+        },
+        {
+          "word": "and",
+          "start": 64.1,
+          "end": 64.12,
+          "probability": 0.983
+        },
+        {
+          "word": "the",
+          "start": 64.12,
+          "end": 64.28,
+          "probability": 0.986
+        },
+        {
+          "word": "people",
+          "start": 64.28,
+          "end": 64.5,
+          "probability": 0.989
+        },
+        {
+          "word": "of",
+          "start": 64.5,
+          "end": 64.76,
+          "probability": 0.998
+        }
+      ]
+    },
+    {
+      "start": 64.76,
+      "end": 72.26,
+      "text": "Edinburgh began calling them the Greyfriars. The nickname stuck, becoming the name of the",
+      "words": [
+        {
+          "word": "Edinburgh",
+          "start": 64.76,
+          "end": 65.18,
+          "probability": 0.992
+        },
+        {
+          "word": "began",
+          "start": 65.18,
+          "end": 66.0,
+          "probability": 0.982
+        },
+        {
+          "word": "calling",
+          "start": 66.0,
+          "end": 66.36,
+          "probability": 0.993
+        },
+        {
+          "word": "them",
+          "start": 66.36,
+          "end": 66.78,
+          "probability": 0.997
+        },
+        {
+          "word": "the",
+          "start": 66.78,
+          "end": 67.16,
+          "probability": 0.572
+        },
+        {
+          "word": "Greyfriars.",
+          "start": 67.16,
+          "end": 68.42,
+          "probability": 0.623
+        },
+        {
+          "word": "The",
+          "start": 69.32,
+          "end": 69.48,
+          "probability": 0.983
+        },
+        {
+          "word": "nickname",
+          "start": 69.48,
+          "end": 69.86,
+          "probability": 0.994
+        },
+        {
+          "word": "stuck,",
+          "start": 69.86,
+          "end": 70.42,
+          "probability": 0.984
+        },
+        {
+          "word": "becoming",
+          "start": 70.9,
+          "end": 71.3,
+          "probability": 0.992
+        },
+        {
+          "word": "the",
+          "start": 71.3,
+          "end": 71.52,
+          "probability": 0.996
+        },
+        {
+          "word": "name",
+          "start": 71.52,
+          "end": 71.76,
+          "probability": 0.998
+        },
+        {
+          "word": "of",
+          "start": 71.76,
+          "end": 72.04,
+          "probability": 0.998
+        },
+        {
+          "word": "the",
+          "start": 72.04,
+          "end": 72.26,
+          "probability": 0.993
+        }
+      ]
+    },
+    {
+      "start": 72.26,
+      "end": 81.22,
+      "text": "land itself, a name that has survived to today. The land didn't officially become a burial ground",
+      "words": [
+        {
+          "word": "land",
+          "start": 72.26,
+          "end": 72.5,
+          "probability": 0.992
+        },
+        {
+          "word": "itself,",
+          "start": 72.5,
+          "end": 73.04,
+          "probability": 0.996
+        },
+        {
+          "word": "a",
+          "start": 73.64,
+          "end": 73.98,
+          "probability": 0.979
+        },
+        {
+          "word": "name",
+          "start": 73.98,
+          "end": 74.26,
+          "probability": 0.999
+        },
+        {
+          "word": "that",
+          "start": 74.26,
+          "end": 74.58,
+          "probability": 0.995
+        },
+        {
+          "word": "has",
+          "start": 74.58,
+          "end": 74.74,
+          "probability": 0.992
+        },
+        {
+          "word": "survived",
+          "start": 74.74,
+          "end": 75.3,
+          "probability": 0.998
+        },
+        {
+          "word": "to",
+          "start": 75.3,
+          "end": 75.8,
+          "probability": 0.984
+        },
+        {
+          "word": "today.",
+          "start": 75.8,
+          "end": 76.18,
+          "probability": 0.998
+        },
+        {
+          "word": "The",
+          "start": 78.3,
+          "end": 78.5,
+          "probability": 0.99
+        },
+        {
+          "word": "land",
+          "start": 78.5,
+          "end": 78.84,
+          "probability": 0.993
+        },
+        {
+          "word": "didn't",
+          "start": 78.84,
+          "end": 79.26,
+          "probability": 0.993
+        },
+        {
+          "word": "officially",
+          "start": 79.26,
+          "end": 79.66,
+          "probability": 0.989
+        },
+        {
+          "word": "become",
+          "start": 79.66,
+          "end": 80.12,
+          "probability": 0.991
+        },
+        {
+          "word": "a",
+          "start": 80.12,
+          "end": 80.4,
+          "probability": 0.99
+        },
+        {
+          "word": "burial",
+          "start": 80.4,
+          "end": 80.72,
+          "probability": 0.998
+        },
+        {
+          "word": "ground",
+          "start": 80.72,
+          "end": 81.22,
+          "probability": 0.985
+        }
+      ]
+    },
+    {
+      "start": 81.22,
+      "end": 89.28,
+      "text": "until 1562. By then, the churchyard at St Giles had become dangerously overcrowded,",
+      "words": [
+        {
+          "word": "until",
+          "start": 81.22,
+          "end": 81.8,
+          "probability": 0.772
+        },
+        {
+          "word": "1562.",
+          "start": 81.8,
+          "end": 83.46,
+          "probability": 0.994
+        },
+        {
+          "word": "By",
+          "start": 84.56,
+          "end": 84.72,
+          "probability": 0.994
+        },
+        {
+          "word": "then,",
+          "start": 84.72,
+          "end": 85.1,
+          "probability": 0.998
+        },
+        {
+          "word": "the",
+          "start": 85.44,
+          "end": 85.62,
+          "probability": 0.991
+        },
+        {
+          "word": "churchyard",
+          "start": 85.62,
+          "end": 86.12,
+          "probability": 0.933
+        },
+        {
+          "word": "at",
+          "start": 86.12,
+          "end": 86.36,
+          "probability": 0.896
+        },
+        {
+          "word": "St",
+          "start": 86.36,
+          "end": 86.48,
+          "probability": 0.988
+        },
+        {
+          "word": "Giles",
+          "start": 86.48,
+          "end": 86.7,
+          "probability": 0.602
+        },
+        {
+          "word": "had",
+          "start": 86.7,
+          "end": 87.02,
+          "probability": 0.945
+        },
+        {
+          "word": "become",
+          "start": 87.02,
+          "end": 87.34,
+          "probability": 0.996
+        },
+        {
+          "word": "dangerously",
+          "start": 87.34,
+          "end": 88.1,
+          "probability": 0.998
+        },
+        {
+          "word": "overcrowded,",
+          "start": 88.1,
+          "end": 89.28,
+          "probability": 0.995
+        }
+      ]
+    },
+    {
+      "start": 89.34,
+      "end": 95.18,
+      "text": "and Mary Queen of Scots granted the land to Edinburgh's town council to serve as a new",
+      "words": [
+        {
+          "word": "and",
+          "start": 89.34,
+          "end": 89.52,
+          "probability": 0.996
+        },
+        {
+          "word": "Mary",
+          "start": 89.52,
+          "end": 89.8,
+          "probability": 0.895
+        },
+        {
+          "word": "Queen",
+          "start": 89.8,
+          "end": 90.08,
+          "probability": 0.765
+        },
+        {
+          "word": "of",
+          "start": 90.08,
+          "end": 90.3,
+          "probability": 0.989
+        },
+        {
+          "word": "Scots",
+          "start": 90.3,
+          "end": 90.72,
+          "probability": 0.986
+        },
+        {
+          "word": "granted",
+          "start": 90.72,
+          "end": 91.46,
+          "probability": 0.915
+        },
+        {
+          "word": "the",
+          "start": 91.46,
+          "end": 91.7,
+          "probability": 0.997
+        },
+        {
+          "word": "land",
+          "start": 91.7,
+          "end": 91.96,
+          "probability": 0.999
+        },
+        {
+          "word": "to",
+          "start": 91.96,
+          "end": 92.22,
+          "probability": 0.997
+        },
+        {
+          "word": "Edinburgh's",
+          "start": 92.22,
+          "end": 93.0,
+          "probability": 0.995
+        },
+        {
+          "word": "town",
+          "start": 93.0,
+          "end": 93.18,
+          "probability": 0.634
+        },
+        {
+          "word": "council",
+          "start": 93.18,
+          "end": 93.64,
+          "probability": 0.987
+        },
+        {
+          "word": "to",
+          "start": 93.64,
+          "end": 94.08,
+          "probability": 0.955
+        },
+        {
+          "word": "serve",
+          "start": 94.08,
+          "end": 94.4,
+          "probability": 0.999
+        },
+        {
+          "word": "as",
+          "start": 94.4,
+          "end": 94.78,
+          "probability": 0.998
+        },
+        {
+          "word": "a",
+          "start": 94.78,
+          "end": 95.0,
+          "probability": 0.998
+        },
+        {
+          "word": "new",
+          "start": 95.0,
+          "end": 95.18,
+          "probability": 0.998
+        }
+      ]
+    },
+    {
+      "start": 95.18,
+      "end": 103.02,
+      "text": "cemetery to suit the growing city's needs. It is estimated that over the centuries,",
+      "words": [
+        {
+          "word": "cemetery",
+          "start": 95.18,
+          "end": 95.74,
+          "probability": 0.987
+        },
+        {
+          "word": "to",
+          "start": 95.74,
+          "end": 96.32,
+          "probability": 0.951
+        },
+        {
+          "word": "suit",
+          "start": 96.32,
+          "end": 96.56,
+          "probability": 0.996
+        },
+        {
+          "word": "the",
+          "start": 96.56,
+          "end": 96.78,
+          "probability": 0.997
+        },
+        {
+          "word": "growing",
+          "start": 96.78,
+          "end": 97.12,
+          "probability": 0.998
+        },
+        {
+          "word": "city's",
+          "start": 97.12,
+          "end": 98.1,
+          "probability": 0.93
+        },
+        {
+          "word": "needs.",
+          "start": 98.1,
+          "end": 98.48,
+          "probability": 0.999
+        },
+        {
+          "word": "It",
+          "start": 100.68,
+          "end": 100.88,
+          "probability": 0.989
+        },
+        {
+          "word": "is",
+          "start": 100.88,
+          "end": 101.04,
+          "probability": 0.998
+        },
+        {
+          "word": "estimated",
+          "start": 101.04,
+          "end": 101.68,
+          "probability": 1.0
+        },
+        {
+          "word": "that",
+          "start": 101.68,
+          "end": 102.16,
+          "probability": 0.979
+        },
+        {
+          "word": "over",
+          "start": 102.16,
+          "end": 102.38,
+          "probability": 0.913
+        },
+        {
+          "word": "the",
+          "start": 102.38,
+          "end": 102.6,
+          "probability": 0.998
+        },
+        {
+          "word": "centuries,",
+          "start": 102.6,
+          "end": 103.02,
+          "probability": 0.999
+        }
+      ]
+    },
+    {
+      "start": 103.5,
+      "end": 109.3,
+      "text": "more than a hundred thousand people were buried here, beneath your very feet. Men,",
+      "words": [
+        {
+          "word": "more",
+          "start": 103.5,
+          "end": 103.6,
+          "probability": 0.996
+        },
+        {
+          "word": "than",
+          "start": 103.6,
+          "end": 103.78,
+          "probability": 0.997
+        },
+        {
+          "word": "a",
+          "start": 103.78,
+          "end": 103.96,
+          "probability": 0.641
+        },
+        {
+          "word": "hundred",
+          "start": 103.96,
+          "end": 104.22,
+          "probability": 0.953
+        },
+        {
+          "word": "thousand",
+          "start": 104.22,
+          "end": 104.72,
+          "probability": 0.992
+        },
+        {
+          "word": "people",
+          "start": 104.72,
+          "end": 105.2,
+          "probability": 0.999
+        },
+        {
+          "word": "were",
+          "start": 105.2,
+          "end": 105.56,
+          "probability": 0.998
+        },
+        {
+          "word": "buried",
+          "start": 105.56,
+          "end": 105.88,
+          "probability": 0.999
+        },
+        {
+          "word": "here,",
+          "start": 105.88,
+          "end": 106.36,
+          "probability": 0.998
+        },
+        {
+          "word": "beneath",
+          "start": 106.84,
+          "end": 107.08,
+          "probability": 0.995
+        },
+        {
+          "word": "your",
+          "start": 107.08,
+          "end": 107.3,
+          "probability": 0.996
+        },
+        {
+          "word": "very",
+          "start": 107.3,
+          "end": 107.64,
+          "probability": 0.999
+        },
+        {
+          "word": "feet.",
+          "start": 107.64,
+          "end": 108.02,
+          "probability": 0.999
+        },
+        {
+          "word": "Men,",
+          "start": 109.04,
+          "end": 109.3,
+          "probability": 0.989
+        }
+      ]
+    },
+    {
+      "start": 109.3,
+      "end": 115.58,
+      "text": "women, and children from all walks of life. Every gravestone you see marks a story,",
+      "words": [
+        {
+          "word": "women,",
+          "start": 109.3,
+          "end": 110.08,
+          "probability": 0.719
+        },
+        {
+          "word": "and",
+          "start": 110.5,
+          "end": 110.5,
+          "probability": 0.937
+        },
+        {
+          "word": "children",
+          "start": 110.5,
+          "end": 110.92,
+          "probability": 0.998
+        },
+        {
+          "word": "from",
+          "start": 110.92,
+          "end": 111.22,
+          "probability": 0.903
+        },
+        {
+          "word": "all",
+          "start": 111.22,
+          "end": 111.64,
+          "probability": 0.993
+        },
+        {
+          "word": "walks",
+          "start": 111.64,
+          "end": 112.1,
+          "probability": 0.999
+        },
+        {
+          "word": "of",
+          "start": 112.1,
+          "end": 112.32,
+          "probability": 0.999
+        },
+        {
+          "word": "life.",
+          "start": 112.32,
+          "end": 112.7,
+          "probability": 0.998
+        },
+        {
+          "word": "Every",
+          "start": 113.34,
+          "end": 113.52,
+          "probability": 0.994
+        },
+        {
+          "word": "gravestone",
+          "start": 113.52,
+          "end": 114.06,
+          "probability": 0.987
+        },
+        {
+          "word": "you",
+          "start": 114.06,
+          "end": 114.32,
+          "probability": 0.988
+        },
+        {
+          "word": "see",
+          "start": 114.32,
+          "end": 114.6,
+          "probability": 0.998
+        },
+        {
+          "word": "marks",
+          "start": 114.6,
+          "end": 114.94,
+          "probability": 0.991
+        },
+        {
+          "word": "a",
+          "start": 114.94,
+          "end": 115.14,
+          "probability": 0.996
+        },
+        {
+          "word": "story,",
+          "start": 115.14,
+          "end": 115.58,
+          "probability": 0.999
+        }
+      ]
+    },
+    {
+      "start": 115.86,
+      "end": 122.78,
+      "text": "but countless others have been lost beneath the earth, their names erased by time.",
+      "words": [
+        {
+          "word": "but",
+          "start": 115.86,
+          "end": 116.52,
+          "probability": 0.983
+        },
+        {
+          "word": "countless",
+          "start": 116.52,
+          "end": 116.98,
+          "probability": 0.999
+        },
+        {
+          "word": "others",
+          "start": 116.98,
+          "end": 117.54,
+          "probability": 0.998
+        },
+        {
+          "word": "have",
+          "start": 117.54,
+          "end": 118.1,
+          "probability": 0.989
+        },
+        {
+          "word": "been",
+          "start": 118.1,
+          "end": 118.28,
+          "probability": 0.998
+        },
+        {
+          "word": "lost",
+          "start": 118.28,
+          "end": 118.74,
+          "probability": 0.998
+        },
+        {
+          "word": "beneath",
+          "start": 118.74,
+          "end": 119.34,
+          "probability": 0.983
+        },
+        {
+          "word": "the",
+          "start": 119.34,
+          "end": 119.6,
+          "probability": 0.994
+        },
+        {
+          "word": "earth,",
+          "start": 119.6,
+          "end": 119.84,
+          "probability": 0.857
+        },
+        {
+          "word": "their",
+          "start": 120.38,
+          "end": 120.52,
+          "probability": 0.992
+        },
+        {
+          "word": "names",
+          "start": 120.52,
+          "end": 120.98,
+          "probability": 0.996
+        },
+        {
+          "word": "erased",
+          "start": 120.98,
+          "end": 121.86,
+          "probability": 0.99
+        },
+        {
+          "word": "by",
+          "start": 121.86,
+          "end": 122.42,
+          "probability": 0.996
+        },
+        {
+          "word": "time.",
+          "start": 122.42,
+          "end": 122.78,
+          "probability": 0.997
+        }
+      ]
+    },
+    {
+      "start": 126.26,
+      "end": 130.86,
+      "text": "This chapter will explore some of the most ominous stories Greyfriars Kirkyard has to offer.",
+      "words": [
+        {
+          "word": "This",
+          "start": 126.26,
+          "end": 126.42,
+          "probability": 0.971
+        },
+        {
+          "word": "chapter",
+          "start": 126.42,
+          "end": 126.8,
+          "probability": 0.99
+        },
+        {
+          "word": "will",
+          "start": 126.8,
+          "end": 127.02,
+          "probability": 0.987
+        },
+        {
+          "word": "explore",
+          "start": 127.02,
+          "end": 127.4,
+          "probability": 0.996
+        },
+        {
+          "word": "some",
+          "start": 127.4,
+          "end": 127.66,
+          "probability": 0.995
+        },
+        {
+          "word": "of",
+          "start": 127.66,
+          "end": 127.76,
+          "probability": 0.997
+        },
+        {
+          "word": "the",
+          "start": 127.76,
+          "end": 127.86,
+          "probability": 0.997
+        },
+        {
+          "word": "most",
+          "start": 127.86,
+          "end": 128.08,
+          "probability": 0.996
+        },
+        {
+          "word": "ominous",
+          "start": 128.08,
+          "end": 128.38,
+          "probability": 0.995
+        },
+        {
+          "word": "stories",
+          "start": 128.38,
+          "end": 128.88,
+          "probability": 0.986
+        },
+        {
+          "word": "Greyfriars",
+          "start": 128.88,
+          "end": 129.56,
+          "probability": 0.496
+        },
+        {
+          "word": "Kirkyard",
+          "start": 129.56,
+          "end": 130.04,
+          "probability": 0.663
+        },
+        {
+          "word": "has",
+          "start": 130.04,
+          "end": 130.3,
+          "probability": 0.996
+        },
+        {
+          "word": "to",
+          "start": 130.3,
+          "end": 130.52,
+          "probability": 0.999
+        },
+        {
+          "word": "offer.",
+          "start": 130.52,
+          "end": 130.86,
+          "probability": 1.0
+        }
+      ]
+    },
+    {
+      "start": 131.58,
+      "end": 135.02,
+      "text": "Whenever you're ready, go to the first stop and we can explore together.",
+      "words": [
+        {
+          "word": "Whenever",
+          "start": 131.58,
+          "end": 131.72,
+          "probability": 0.97
+        },
+        {
+          "word": "you're",
+          "start": 131.72,
+          "end": 131.94,
+          "probability": 0.942
+        },
+        {
+          "word": "ready,",
+          "start": 131.94,
+          "end": 132.18,
+          "probability": 0.999
+        },
+        {
+          "word": "go",
+          "start": 132.6,
+          "end": 132.72,
+          "probability": 0.997
+        },
+        {
+          "word": "to",
+          "start": 132.72,
+          "end": 132.86,
+          "probability": 0.992
+        },
+        {
+          "word": "the",
+          "start": 132.86,
+          "end": 132.98,
+          "probability": 0.987
+        },
+        {
+          "word": "first",
+          "start": 132.98,
+          "end": 133.14,
+          "probability": 0.962
+        },
+        {
+          "word": "stop",
+          "start": 133.14,
+          "end": 133.54,
+          "probability": 0.997
+        },
+        {
+          "word": "and",
+          "start": 133.54,
+          "end": 134.04,
+          "probability": 0.679
+        },
+        {
+          "word": "we",
+          "start": 134.04,
+          "end": 134.12,
+          "probability": 0.997
+        },
+        {
+          "word": "can",
+          "start": 134.12,
+          "end": 134.26,
+          "probability": 0.991
+        },
+        {
+          "word": "explore",
+          "start": 134.26,
+          "end": 134.62,
+          "probability": 0.998
+        },
+        {
+          "word": "together.",
+          "start": 134.62,
+          "end": 135.02,
+          "probability": 0.997
+        }
+      ]
+    }
+  ]
+}

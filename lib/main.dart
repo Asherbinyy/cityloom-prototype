@@ -9,7 +9,6 @@ import 'screens/stop_screen.dart';
 import 'screens/survey_screen.dart';
 import 'screens/tour_complete_screen.dart';
 import 'state/app_state.dart';
-import 'state/audio_controller.dart';
 import 'theme/app_theme.dart';
 
 import 'services/analytics_service.dart';
@@ -21,7 +20,6 @@ void main() {
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => AppState()),
-        ChangeNotifierProvider(create: (_) => AudioController()),
       ],
       child: const CityLoomApp(),
     ),
