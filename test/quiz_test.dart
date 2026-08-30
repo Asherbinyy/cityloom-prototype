@@ -108,6 +108,46 @@ void main() {
       expect(appState.isCardUnlocked('poltergeist'), true);
     });
 
+    test('Henrietta unlocks when Charles I is unlocked and scholar_q5 is answered correctly', () {
+      final appState = AppState();
+      expect(appState.isCardUnlocked('henrietta'), false);
+
+      appState.recordQuestionResult('scholar_q5', true);
+      // Still false because Charles I is not unlocked yet
+      expect(appState.isCardUnlocked('henrietta'), false);
+
+      appState.unlockStoryCard('charles');
+      appState.recordQuestionResult('scholar_q5', true);
+      expect(appState.isCardUnlocked('henrietta'), true);
+    });
+
+    test('Knox unlocks when all 7 Burke and Hare questions are answered correctly', () {
+      final appState = AppState();
+      expect(appState.isCardUnlocked('knox'), false);
+
+      appState.recordQuestionResult('apprentice_q2', true);
+      appState.recordQuestionResult('apprentice_q3', true);
+      appState.recordQuestionResult('apprentice_q4', true);
+      appState.recordQuestionResult('historian_q2', true);
+      appState.recordQuestionResult('historian_q3', true);
+      appState.recordQuestionResult('historian_q4', true);
+      expect(appState.isCardUnlocked('knox'), false);
+
+      appState.recordQuestionResult('scholar_q2', true);
+      expect(appState.isCardUnlocked('knox'), true);
+    });
+
+    test('Scholar Q6 is Edinburgh Medical School opening question with 1726 as correct', () {
+      final q6 = QuizData.levels[QuizDifficulty.scholar]!.questions
+          .firstWhere((q) => q.id == 'scholar_q6');
+      expect(q6.question, 'When did Edinburgh Medical School open?');
+      expect(q6.options[q6.correct as int], '1726');
+      expect(q6.learnMoreMap?['1679']?.text, 'Battle of Bothwell Bridge');
+      expect(q6.learnMoreMap?['1638']?.text,
+          'Date when the National Covenant was signed at Greyfriars');
+      expect(q6.learnMoreMap?['1832']?.text, 'The Anatomy Act is passed');
+    });
+
     test('Explorer Q5 (Fill Gap Single) correctly evaluates church as index 1', () {
       final q5 = QuizData.levels[QuizDifficulty.explorer]!.questions
           .firstWhere((q) => q.id == 'explorer_q5');

@@ -1604,8 +1604,14 @@ class _QuizScreenState extends State<QuizScreen> {
     final items = q.orderItems ?? [];
 
     if (_currentOrderIndices.length != items.length) {
-      _currentOrderIndices =
-          List.generate(items.length, (index) => index);
+      if (items.length == 4) {
+        _currentOrderIndices = [2, 0, 3, 1]; // Scrambled so it is NOT pre-solved on load
+      } else if (items.length == 3) {
+        _currentOrderIndices = [2, 0, 1];
+      } else {
+        _currentOrderIndices =
+            List.generate(items.length, (index) => items.length - 1 - index);
+      }
     }
 
     return Column(
@@ -1613,7 +1619,6 @@ class _QuizScreenState extends State<QuizScreen> {
         ReorderableListView.builder(
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
-          // FIX: stops Flutter drawing its own drag_handle icon on top of ours
           buildDefaultDragHandles: false,
           proxyDecorator: (Widget child, int index, Animation<double> animation) {
             return Material(
@@ -1641,7 +1646,7 @@ class _QuizScreenState extends State<QuizScreen> {
             return Container(
               key: ValueKey(itemIdx),
               margin: const EdgeInsets.only(bottom: 8),
-              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
               decoration: BoxDecoration(
                 color: const Color(0xFFFEFAF6),
                 borderRadius: BorderRadius.circular(14),
@@ -1669,7 +1674,7 @@ class _QuizScreenState extends State<QuizScreen> {
                       ),
                     ),
                   ),
-                  const SizedBox(width: 12),
+                  const SizedBox(width: 10),
                   Expanded(
                     child: Text(
                       items[itemIdx],
@@ -1677,16 +1682,71 @@ class _QuizScreenState extends State<QuizScreen> {
                           fontSize: 13.5, color: AppColors.dark),
                     ),
                   ),
-                  // FIX: our icon is now the one and only drag handle
-                  ReorderableDragStartListener(
-                    index: idx,
-                    enabled: !_isAnswered,
-                    child: const Icon(
-                      Icons.drag_indicator_rounded,
-                      size: 24,
-                      color: Color(0xFF6B6B6B),
+                  const SizedBox(width: 6),
+                  if (!_isAnswered) ...[
+                    // Quick Move Up / Down Buttons for smooth mobile ordering
+                    Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        if (idx > 0)
+                          InkWell(
+                            onTap: () {
+                              SoundService.playTap();
+                              setState(() {
+                                final item = _currentOrderIndices.removeAt(idx);
+                                _currentOrderIndices.insert(idx - 1, item);
+                              });
+                            },
+                            borderRadius: BorderRadius.circular(12),
+                            child: const Padding(
+                              padding: EdgeInsets.all(2),
+                              child: Icon(
+                                Icons.keyboard_arrow_up_rounded,
+                                size: 20,
+                                color: AppColors.coral,
+                              ),
+                            ),
+                          )
+                        else
+                          const SizedBox(height: 20),
+                        if (idx < _currentOrderIndices.length - 1)
+                          InkWell(
+                            onTap: () {
+                              SoundService.playTap();
+                              setState(() {
+                                final item = _currentOrderIndices.removeAt(idx);
+                                _currentOrderIndices.insert(idx + 1, item);
+                              });
+                            },
+                            borderRadius: BorderRadius.circular(12),
+                            child: const Padding(
+                              padding: EdgeInsets.all(2),
+                              child: Icon(
+                                Icons.keyboard_arrow_down_rounded,
+                                size: 20,
+                                color: AppColors.coral,
+                              ),
+                            ),
+                          )
+                        else
+                          const SizedBox(height: 20),
+                      ],
                     ),
-                  ),
+                    const SizedBox(width: 4),
+                    // Drag Handle Listener
+                    ReorderableDragStartListener(
+                      index: idx,
+                      enabled: !_isAnswered,
+                      child: const Padding(
+                        padding: EdgeInsets.all(4),
+                        child: Icon(
+                          Icons.drag_indicator_rounded,
+                          size: 22,
+                          color: Color(0xFF8B8B8B),
+                        ),
+                      ),
+                    ),
+                  ],
                 ],
               ),
             );

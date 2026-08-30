@@ -47,6 +47,21 @@ class QuizData {
     ),
   };
 
+  static const Map<String, LearnMoreInfo> medicalSchoolInfo = {
+    "1679": LearnMoreInfo(
+      title: "1679",
+      text: "Battle of Bothwell Bridge",
+    ),
+    "1638": LearnMoreInfo(
+      title: "1638",
+      text: "Date when the National Covenant was signed at Greyfriars",
+    ),
+    "1832": LearnMoreInfo(
+      title: "1832",
+      text: "The Anatomy Act is passed",
+    ),
+  };
+
   static const Map<QuizDifficulty, DifficultyLevel> levels = {
     QuizDifficulty.explorer: DifficultyLevel(
       difficulty: QuizDifficulty.explorer,
@@ -298,10 +313,11 @@ class QuizData {
         QuizQuestion(
           id: 'scholar_q6',
           type: QuestionType.single,
-          question: "Where can the original National Covenant document be seen today?",
-          options: ["National Museum of Scotland", "Edinburgh Castle", "Greyfriars Museum", "British Library"],
-          correct: 2,
-          explanation: "The original National Covenant document is on display within the Greyfriars Museum, right where it was signed in 1638.",
+          question: "When did Edinburgh Medical School open?",
+          options: ["1679", "1726", "1638", "1832"],
+          correct: 1,
+          explanation: "The University of Edinburgh Medical School opened its doors in 1726, quickly earning an international reputation for excellence in education and making Edinburgh one of Europe's greatest centres of medical learning.",
+          learnMoreMap: medicalSchoolInfo,
         ),
         QuizQuestion(
           id: 'scholar_q7',

@@ -142,69 +142,115 @@ class AppScaffold extends StatelessWidget {
 
           // Right: Exact Library Icon from HTML with count badge + subtle pulse animation
           if (showLibraryBtn && appState.currentScreen != AppScreen.library)
-            Material(
-              color: Colors.transparent,
-              child: InkWell(
-                onTap: () {
-                  SoundService.playTap();
-                  appState.navigateTo(AppScreen.library);
-                },
-                borderRadius: BorderRadius.circular(20),
-                child: Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                  decoration: BoxDecoration(
-                    color: AppColors.cream.withValues(alpha: 0.9),
-                    borderRadius: BorderRadius.circular(20),
-                    border: Border.all(
-                      color: AppColors.coral.withValues(alpha: 0.4),
-                    ),
-                    boxShadow: [
-                      BoxShadow(
-                        color: AppColors.coral.withValues(alpha: 0.15),
-                        blurRadius: 8,
-                        offset: const Offset(0, 2),
-                      ),
-                    ],
-                  ),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Hero(
-                        tag: 'top_library_icon',
-                        child: Image.asset(
-                          'assets/images/library_icon.png',
-                          width: 24,
-                          height: 20,
-                          fit: BoxFit.contain,
-                          errorBuilder: (_, _, _) => const Icon(
-                            Icons.collections_bookmark_rounded,
-                            size: 16,
-                            color: AppColors.coral,
+            Builder(
+              builder: (ctx) {
+                final isQuizActive = appState.currentScreen == AppScreen.quizRunner;
+
+                return Material(
+                  color: Colors.transparent,
+                  child: InkWell(
+                    onTap: () {
+                      if (isQuizActive) {
+                        SoundService.playLocked();
+                        ScaffoldMessenger.of(ctx).hideCurrentSnackBar();
+                        ScaffoldMessenger.of(ctx).showSnackBar(
+                          SnackBar(
+                            content: Row(
+                              children: [
+                                const Icon(Icons.lock_rounded,
+                                    color: Colors.white, size: 18),
+                                const SizedBox(width: 8),
+                                Text(
+                                  'Library is locked during the quiz!',
+                                  style: GoogleFonts.dmSans(
+                                    fontSize: 13,
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            backgroundColor: const Color(0xFF333333),
+                            behavior: SnackBarBehavior.floating,
+                            duration: const Duration(seconds: 2),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12),
+                            ),
                           ),
+                        );
+                      } else {
+                        SoundService.playTap();
+                        appState.navigateTo(AppScreen.library);
+                      }
+                    },
+                    borderRadius: BorderRadius.circular(20),
+                    child: Container(
+                      padding:
+                          const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                      decoration: BoxDecoration(
+                        color: isQuizActive
+                            ? const Color(0xFFE8E8E8)
+                            : AppColors.cream.withValues(alpha: 0.9),
+                        borderRadius: BorderRadius.circular(20),
+                        border: Border.all(
+                          color: isQuizActive
+                              ? const Color(0xFFB0B0B0)
+                              : AppColors.coral.withValues(alpha: 0.4),
                         ),
+                        boxShadow: isQuizActive
+                            ? []
+                            : [
+                                BoxShadow(
+                                  color: AppColors.coral.withValues(alpha: 0.15),
+                                  blurRadius: 8,
+                                  offset: const Offset(0, 2),
+                                ),
+                              ],
                       ),
-                      const SizedBox(width: 5),
-                      Text(
-                        '${appState.unlockedCardsCount}/${appState.totalCardsCount}',
-                        style: GoogleFonts.dmSans(
-                          fontSize: 13,
-                          fontWeight: FontWeight.bold,
-                          color: AppColors.dark,
-                        ),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          if (isQuizActive)
+                            const Icon(
+                              Icons.lock_rounded,
+                              size: 16,
+                              color: Color(0xFF7A7A7A),
+                            )
+                          else
+                            Hero(
+                              tag: 'top_library_icon',
+                              child: Image.asset(
+                                'assets/images/library_icon.png',
+                                width: 24,
+                                height: 20,
+                                fit: BoxFit.contain,
+                                errorBuilder: (_, _, _) => const Icon(
+                                  Icons.collections_bookmark_rounded,
+                                  size: 16,
+                                  color: AppColors.coral,
+                                ),
+                              ),
+                            ),
+                          const SizedBox(width: 5),
+                          Text(
+                            isQuizActive
+                                ? 'Locked'
+                                : '${appState.unlockedCardsCount}/${appState.totalCardsCount}',
+                            style: GoogleFonts.dmSans(
+                              fontSize: 13,
+                              fontWeight: FontWeight.bold,
+                              color: isQuizActive
+                                  ? const Color(0xFF7A7A7A)
+                                  : AppColors.dark,
+                            ),
+                          ),
+                        ],
                       ),
-                    ],
-                  ),
-                )
-                    .animate(onPlay: (controller) => controller.repeat(reverse: true))
-                    .scale(
-                      begin: const Offset(1.0, 1.0),
-                      end: const Offset(1.06, 1.06),
-                      duration: 1200.ms,
-                      curve: Curves.easeInOut,
                     ),
-              ),
+                  ),
+                );
+              },
             )
           else
             const SizedBox(width: 36),

@@ -290,7 +290,7 @@ class AppState extends ChangeNotifier {
   }
 
   void _checkAndQueueUnlocks() {
-    // 1. Mary: Unlocked after intro
+    // 1. Mary: Unlocked after intro story
     // (Handled via unlockStoryCard('mary'))
 
     // 2. Bobby: Complete any Explorer quiz
@@ -298,18 +298,16 @@ class AppState extends ChangeNotifier {
       _unlockCard('bobby');
     }
 
-    // 3. Charles I: Unlocked after Covenanters' Prison stop or story
-    // (Handled via unlockStoryCard('charles'))
+    // 3. Charles I: Unlocked after completing Stop B story
+    // (Handled via unlockStoryCard('charles') on Stop B)
 
-    // 4. Burke: Apprentice Q6 answered correctly
-    if (!_unlockedCardIds.contains('burke') &&
-        (_questionResults['apprentice_q6'] == true || _questionResults['apprentice_q5'] == true)) {
+    // 4. Burke: apprentice_q6 answered correctly
+    if (!_unlockedCardIds.contains('burke') && _questionResults['apprentice_q6'] == true) {
       _unlockCard('burke');
     }
 
-    // 5. Hare: Historian Q2 answered correctly
-    if (!_unlockedCardIds.contains('hare') &&
-        (_questionResults['historian_q2'] == true || _questionResults['historian_q3'] == true)) {
+    // 5. Hare: historian_q2 answered correctly
+    if (!_unlockedCardIds.contains('hare') && _questionResults['historian_q2'] == true) {
       _unlockCard('hare');
     }
 
@@ -321,20 +319,34 @@ class AppState extends ChangeNotifier {
       _unlockCard('margaret');
     }
 
-    // 7. McKenzie: Scholar McKenzie question answered correctly
+    // 7. McKenzie: Scholar McKenzie question answered correctly (100% select all)
     if (!_unlockedCardIds.contains('mckenzie') &&
-        (_questionResults['scholar_q7'] == true || _questionResults['scholar_q8'] == true)) {
+        (_questionResults['scholar_q8'] == true || _questionResults['scholar_q7'] == true)) {
       _unlockCard('mckenzie');
     }
 
     // 8. Henrietta: Charles I unlocked + Scholar Henrietta question correct
     if (!_unlockedCardIds.contains('henrietta') &&
         _unlockedCardIds.contains('charles') &&
-        (_questionResults['scholar_q4'] == true || _questionResults['scholar_q5'] == true)) {
+        (_questionResults['scholar_q5'] == true || _questionResults['scholar_q4'] == true)) {
       _unlockCard('henrietta');
     }
 
-    // 9. Poltergeist: 100% score on all 4 levels
+    // 9. Knox: All Burke & Hare questions correct across Apprentice, Historian, and Scholar
+    if (!_unlockedCardIds.contains('knox')) {
+      final qApp2 = _questionResults['apprentice_q2'] == true;
+      final qApp3 = _questionResults['apprentice_q3'] == true;
+      final qApp4 = _questionResults['apprentice_q4'] == true;
+      final qHist2 = _questionResults['historian_q2'] == true;
+      final qHist3 = _questionResults['historian_q3'] == true;
+      final qHist4 = _questionResults['historian_q4'] == true;
+      final qSch2 = _questionResults['scholar_q2'] == true;
+      if (qApp2 && qApp3 && qApp4 && qHist2 && qHist3 && qHist4 && qSch2) {
+        _unlockCard('knox');
+      }
+    }
+
+    // 10. Poltergeist: 100% score on all 4 levels
     if (!_unlockedCardIds.contains('poltergeist')) {
       final e = (_bestScores['explorer'] ?? 0) ==
           QuizData.levels[QuizDifficulty.explorer]!.questions.length;
@@ -346,20 +358,6 @@ class AppState extends ChangeNotifier {
           QuizData.levels[QuizDifficulty.scholar]!.questions.length;
       if (e && a && h && s) {
         _unlockCard('poltergeist');
-      }
-    }
-
-    // 10. Knox: All Burke & Hare related questions answered correctly
-    if (!_unlockedCardIds.contains('knox')) {
-      final qApp2 = _questionResults['apprentice_q2'] == true;
-      final qApp3 = _questionResults['apprentice_q3'] == true;
-      final qApp6 = _questionResults['apprentice_q6'] == true;
-      final qHist2 = _questionResults['historian_q2'] == true;
-      final qHist3 = _questionResults['historian_q3'] == true;
-      final qSch1 = _questionResults['scholar_q1'] == true;
-      final qSch2 = _questionResults['scholar_q2'] == true;
-      if (qApp2 && qApp3 && qApp6 && qHist2 && qHist3 && qSch1 && qSch2) {
-        _unlockCard('knox');
       }
     }
   }
