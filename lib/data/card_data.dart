@@ -43,7 +43,7 @@ class CardData {
       historicalBio:
           'Irish immigrant who, along with William Hare, murdered at least 16 people in 1828 to sell their corpses to Dr Robert Knox for anatomical dissection. Hanged in 1829.',
       unlockType: CardUnlockType.quizApprentice,
-      specificQuestionId: 'apprentice_q6',
+      specificQuestionId: 'apprentice_q7',
     ),
     'hare': CharacterCard(
       id: 'hare',
@@ -55,7 +55,7 @@ class CardData {
       historicalBio:
           'Partner in crime to William Burke. Offered immunity from prosecution in exchange for testifying against Burke. Released from prison and fled Scotland.',
       unlockType: CardUnlockType.quizHistorian,
-      specificQuestionId: 'historian_q2',
+      specificQuestionId: 'historian_q3',
     ),
     'margaret': CharacterCard(
       id: 'margaret',
@@ -66,7 +66,7 @@ class CardData {
       historicalBio:
           'The final victim of Burke and Hare, also known as Madgy McGonegal. Her murder on Halloween 1828 led to their discovery and arrest.',
       unlockType: CardUnlockType.questionCorrect,
-      specificQuestionId: 'scholar_q12',
+      specificQuestionId: 'scholar_q13',
     ),
     'mckenzie': CharacterCard(
       id: 'mckenzie',
@@ -78,7 +78,7 @@ class CardData {
       historicalBio:
           'Sir George Mackenzie of Rosehaugh, Lord Advocate under Charles II, known as "Bluidy Mackenzie" for his brutal prosecution of the Covenanters.',
       unlockType: CardUnlockType.questionCorrect,
-      specificQuestionId: 'scholar_q7',
+      specificQuestionId: 'scholar_q8',
     ),
     'henrietta': CharacterCard(
       id: 'henrietta',
@@ -90,7 +90,7 @@ class CardData {
       historicalBio:
           'Queen consort of King Charles I. Her open practice of Roman Catholicism fueled fears of a Catholic revival, intensifying resistance to royal religious policy.',
       unlockType: CardUnlockType.questionCorrect,
-      specificQuestionId: 'scholar_q4',
+      specificQuestionId: 'scholar_q5',
     ),
     'poltergeist': CharacterCard(
       id: 'poltergeist',
