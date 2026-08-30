@@ -32,7 +32,7 @@ class CardData {
           'A King whose religious policies ignited rebellion across Scotland...',
       historicalBio:
           'King of England, Scotland, and Ireland whose attempts to impose the Anglican Book of Common Prayer on Presbyterian Scotland sparked the National Covenant of 1638.',
-      unlockType: CardUnlockType.quizApprentice,
+      unlockType: CardUnlockType.story,
     ),
     'burke': CharacterCard(
       id: 'burke',
@@ -42,7 +42,8 @@ class CardData {
       teaserMessage: 'One half of Edinburgh\'s most infamous murderous duo...',
       historicalBio:
           'Irish immigrant who, along with William Hare, murdered at least 16 people in 1828 to sell their corpses to Dr Robert Knox for anatomical dissection. Hanged in 1829.',
-      unlockType: CardUnlockType.quizHistorian,
+      unlockType: CardUnlockType.quizApprentice,
+      specificQuestionId: 'apprentice_q6',
     ),
     'hare': CharacterCard(
       id: 'hare',
@@ -53,7 +54,8 @@ class CardData {
           'The partner who turned King\'s evidence to save his own neck...',
       historicalBio:
           'Partner in crime to William Burke. Offered immunity from prosecution in exchange for testifying against Burke. Released from prison and fled Scotland.',
-      unlockType: CardUnlockType.quizScholar,
+      unlockType: CardUnlockType.quizHistorian,
+      specificQuestionId: 'historian_q2',
     ),
     'margaret': CharacterCard(
       id: 'margaret',
@@ -64,7 +66,7 @@ class CardData {
       historicalBio:
           'The final victim of Burke and Hare, also known as Madgy McGonegal. Her murder on Halloween 1828 led to their discovery and arrest.',
       unlockType: CardUnlockType.questionCorrect,
-      specificQuestionId: 'scholar_q3',
+      specificQuestionId: 'scholar_q12',
     ),
     'mckenzie': CharacterCard(
       id: 'mckenzie',
@@ -75,7 +77,8 @@ class CardData {
           'The ruthless Lord Advocate who earned his terrifying nickname...',
       historicalBio:
           'Sir George Mackenzie of Rosehaugh, Lord Advocate under Charles II, known as "Bluidy Mackenzie" for his brutal prosecution of the Covenanters.',
-      unlockType: CardUnlockType.quizHistorianPerfect,
+      unlockType: CardUnlockType.questionCorrect,
+      specificQuestionId: 'scholar_q7',
     ),
     'henrietta': CharacterCard(
       id: 'henrietta',
@@ -86,7 +89,8 @@ class CardData {
           'The French Catholic Queen whose marriage stoked religious tension in Scotland...',
       historicalBio:
           'Queen consort of King Charles I. Her open practice of Roman Catholicism fueled fears of a Catholic revival, intensifying resistance to royal religious policy.',
-      unlockType: CardUnlockType.quizScholarPerfect,
+      unlockType: CardUnlockType.questionCorrect,
+      specificQuestionId: 'scholar_q4',
     ),
     'poltergeist': CharacterCard(
       id: 'poltergeist',

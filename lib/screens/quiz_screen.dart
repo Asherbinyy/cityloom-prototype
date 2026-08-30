@@ -43,6 +43,7 @@ class _QuizScreenState extends State<QuizScreen> {
 
   // Ordering state
   List<int> _currentOrderIndices = [];
+  int? _selectedOrderSwapIndex;
 
   bool _isAnswered = false;
   bool _isLastAnswerCorrect = false;
@@ -121,6 +122,7 @@ class _QuizScreenState extends State<QuizScreen> {
     _selectedPairs.clear();
     _activeMatchLeftIndex = null;
     _currentOrderIndices.clear();
+    _selectedOrderSwapIndex = null;
     _isAnswered = false;
     _isLastAnswerCorrect = false;
     _speechFeedbackText = null;
@@ -267,8 +269,15 @@ class _QuizScreenState extends State<QuizScreen> {
 
   void _initOrderIndices(QuizQuestion q) {
     if (_currentOrderIndices.isEmpty && q.orderItems != null) {
-      _currentOrderIndices =
-          List.generate(q.orderItems!.length, (index) => index);
+      final len = q.orderItems!.length;
+      if (len == 4) {
+        _currentOrderIndices = [2, 0, 3, 1]; // Scrambled so it is not pre-solved on load
+      } else if (len == 3) {
+        _currentOrderIndices = [2, 0, 1];
+      } else {
+        _currentOrderIndices =
+            List.generate(len, (index) => len - 1 - index);
+      }
     }
   }
 
@@ -1602,6 +1611,7 @@ class _QuizScreenState extends State<QuizScreen> {
   // --- Order Sequence ---
   Widget _buildOrder(QuizQuestion q, AppState appState) {
     final items = q.orderItems ?? [];
+    final correctOrder = q.correctOrder ?? [];
 
     if (_currentOrderIndices.length != items.length) {
       if (items.length == 4) {
@@ -1615,7 +1625,22 @@ class _QuizScreenState extends State<QuizScreen> {
     }
 
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
+        if (!_isAnswered)
+          Padding(
+            padding: const EdgeInsets.only(bottom: 10),
+            child: Text(
+              'Use the arrows or drag handles to arrange items from first to last (1 to ${items.length}):',
+              style: GoogleFonts.dmSans(
+                fontSize: 12.5,
+                fontWeight: FontWeight.w500,
+                color: AppColors.muted,
+              ),
+            ),
+          ),
+
+        // List of Reorderable Items
         ReorderableListView.builder(
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
@@ -1623,6 +1648,7 @@ class _QuizScreenState extends State<QuizScreen> {
           proxyDecorator: (Widget child, int index, Animation<double> animation) {
             return Material(
               color: Colors.transparent,
+              elevation: 4,
               borderRadius: BorderRadius.circular(14),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(14),
@@ -1639,125 +1665,288 @@ class _QuizScreenState extends State<QuizScreen> {
                     if (newIdx > oldIdx) newIdx--;
                     final item = _currentOrderIndices.removeAt(oldIdx);
                     _currentOrderIndices.insert(newIdx, item);
+                    _selectedOrderSwapIndex = null;
                   });
                 },
           itemBuilder: (context, idx) {
             final itemIdx = _currentOrderIndices[idx];
+            final isSelectedForSwap = _selectedOrderSwapIndex == idx;
+            final isItemCorrect = _isAnswered &&
+                correctOrder.isNotEmpty &&
+                idx < correctOrder.length &&
+                itemIdx == correctOrder[idx];
+
+            Color cardBg = const Color(0xFFFEFAF6);
+            Color borderColor = AppColors.blush;
+
+            if (_isAnswered) {
+              if (isItemCorrect) {
+                cardBg = const Color(0xFFE8F8EA);
+                borderColor = const Color(0xFF6BCB77);
+              } else {
+                cardBg = const Color(0xFFFCE8E8);
+                borderColor = const Color(0xFFE74C3C);
+              }
+            } else if (isSelectedForSwap) {
+              cardBg = const Color(0xFFFFF0E6);
+              borderColor = AppColors.coral;
+            }
+
             return Container(
-              key: ValueKey(itemIdx),
-              margin: const EdgeInsets.only(bottom: 8),
-              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+              key: ValueKey('order_seq_item_$itemIdx'),
+              margin: const EdgeInsets.only(bottom: 10),
               decoration: BoxDecoration(
-                color: const Color(0xFFFEFAF6),
+                color: cardBg,
                 borderRadius: BorderRadius.circular(14),
-                border: Border.all(color: AppColors.blush),
+                border: Border.all(
+                  color: borderColor,
+                  width: isSelectedForSwap || _isAnswered ? 1.5 : 1.0,
+                ),
+                boxShadow: isSelectedForSwap
+                    ? [
+                        BoxShadow(
+                          color: AppColors.coral.withValues(alpha: 0.25),
+                          blurRadius: 8,
+                          offset: const Offset(0, 2),
+                        )
+                      ]
+                    : null,
               ),
-              child: Row(
-                children: [
-                  Container(
-                    width: 26,
-                    height: 26,
-                    decoration: BoxDecoration(
-                      color: AppColors.cream,
-                      shape: BoxShape.circle,
-                      border: Border.all(
-                          color: AppColors.coral.withValues(alpha: 0.4)),
-                    ),
-                    child: Center(
-                      child: Text(
-                        '${idx + 1}',
-                        style: GoogleFonts.dmSans(
-                          fontSize: 12,
-                          fontWeight: FontWeight.bold,
-                          color: AppColors.coral,
-                        ),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(width: 10),
-                  Expanded(
-                    child: Text(
-                      items[itemIdx],
-                      style: GoogleFonts.dmSans(
-                          fontSize: 13.5, color: AppColors.dark),
-                    ),
-                  ),
-                  const SizedBox(width: 6),
-                  if (!_isAnswered) ...[
-                    // Quick Move Up / Down Buttons for smooth mobile ordering
-                    Column(
-                      mainAxisSize: MainAxisSize.min,
+              child: Material(
+                color: Colors.transparent,
+                borderRadius: BorderRadius.circular(14),
+                child: InkWell(
+                  onTap: _isAnswered
+                      ? null
+                      : () {
+                          SoundService.playTap();
+                          setState(() {
+                            if (_selectedOrderSwapIndex == null) {
+                              _selectedOrderSwapIndex = idx;
+                            } else if (_selectedOrderSwapIndex == idx) {
+                              _selectedOrderSwapIndex = null;
+                            } else {
+                              // Swap the two items
+                              final otherIdx = _selectedOrderSwapIndex!;
+                              final temp = _currentOrderIndices[idx];
+                              _currentOrderIndices[idx] =
+                                  _currentOrderIndices[otherIdx];
+                              _currentOrderIndices[otherIdx] = temp;
+                              _selectedOrderSwapIndex = null;
+                            }
+                          });
+                        },
+                  borderRadius: BorderRadius.circular(14),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 12, vertical: 10),
+                    child: Row(
                       children: [
-                        if (idx > 0)
-                          InkWell(
-                            onTap: () {
-                              SoundService.playTap();
-                              setState(() {
-                                final item = _currentOrderIndices.removeAt(idx);
-                                _currentOrderIndices.insert(idx - 1, item);
-                              });
-                            },
-                            borderRadius: BorderRadius.circular(12),
-                            child: const Padding(
-                              padding: EdgeInsets.all(2),
-                              child: Icon(
-                                Icons.keyboard_arrow_up_rounded,
-                                size: 20,
-                                color: AppColors.coral,
+                        // Numerical Position Badge (#1, #2, etc.)
+                        Container(
+                          width: 28,
+                          height: 28,
+                          decoration: BoxDecoration(
+                            color: _isAnswered
+                                ? (isItemCorrect
+                                    ? const Color(0xFF2D7A36)
+                                    : const Color(0xFFA33333))
+                                : AppColors.coral,
+                            shape: BoxShape.circle,
+                          ),
+                          child: Center(
+                            child: Text(
+                              '${idx + 1}',
+                              style: GoogleFonts.dmSans(
+                                fontSize: 13,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
                               ),
                             ),
-                          )
-                        else
-                          const SizedBox(height: 20),
-                        if (idx < _currentOrderIndices.length - 1)
-                          InkWell(
-                            onTap: () {
-                              SoundService.playTap();
-                              setState(() {
-                                final item = _currentOrderIndices.removeAt(idx);
-                                _currentOrderIndices.insert(idx + 1, item);
-                              });
-                            },
-                            borderRadius: BorderRadius.circular(12),
-                            child: const Padding(
-                              padding: EdgeInsets.all(2),
-                              child: Icon(
-                                Icons.keyboard_arrow_down_rounded,
-                                size: 20,
+                          ),
+                        ),
+                        const SizedBox(width: 12),
+
+                        // Event Text
+                        Expanded(
+                          child: Text(
+                            items[itemIdx],
+                            style: GoogleFonts.dmSans(
+                              fontSize: 13.5,
+                              fontWeight: isSelectedForSwap
+                                  ? FontWeight.w600
+                                  : FontWeight.w400,
+                              color: AppColors.dark,
+                              height: 1.35,
+                            ),
+                          ),
+                        ),
+                        const SizedBox(width: 8),
+
+                        // Controls / Outcome Icon
+                        if (_isAnswered) ...[
+                          Icon(
+                            isItemCorrect
+                                ? Icons.check_circle_rounded
+                                : Icons.cancel_rounded,
+                            color: isItemCorrect
+                                ? const Color(0xFF2D7A36)
+                                : const Color(0xFFA33333),
+                            size: 22,
+                          ),
+                        ] else ...[
+                          // Up / Down Quick Reorder Buttons
+                          Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              // Move Up Button
+                              IconButton(
+                                onPressed: idx > 0
+                                    ? () {
+                                        SoundService.playTap();
+                                        setState(() {
+                                          final item = _currentOrderIndices
+                                              .removeAt(idx);
+                                          _currentOrderIndices.insert(
+                                              idx - 1, item);
+                                          _selectedOrderSwapIndex = null;
+                                        });
+                                      }
+                                    : null,
+                                icon: const Icon(
+                                    Icons.arrow_upward_rounded,
+                                    size: 18),
                                 color: AppColors.coral,
+                                disabledColor:
+                                    AppColors.muted.withValues(alpha: 0.25),
+                                padding: const EdgeInsets.all(6),
+                                constraints: const BoxConstraints(),
+                                tooltip: 'Move Up',
+                              ),
+                              const SizedBox(width: 2),
+
+                              // Move Down Button
+                              IconButton(
+                                onPressed:
+                                    idx < _currentOrderIndices.length - 1
+                                        ? () {
+                                            SoundService.playTap();
+                                            setState(() {
+                                              final item =
+                                                  _currentOrderIndices
+                                                      .removeAt(idx);
+                                              _currentOrderIndices.insert(
+                                                  idx + 1, item);
+                                              _selectedOrderSwapIndex = null;
+                                            });
+                                          }
+                                        : null,
+                                icon: const Icon(
+                                    Icons.arrow_downward_rounded,
+                                    size: 18),
+                                color: AppColors.coral,
+                                disabledColor:
+                                    AppColors.muted.withValues(alpha: 0.25),
+                                padding: const EdgeInsets.all(6),
+                                constraints: const BoxConstraints(),
+                                tooltip: 'Move Down',
+                              ),
+                            ],
+                          ),
+                          const SizedBox(width: 4),
+
+                          // Drag Handle
+                          ReorderableDragStartListener(
+                            index: idx,
+                            enabled: !_isAnswered,
+                            child: const Padding(
+                              padding: EdgeInsets.all(6),
+                              child: Icon(
+                                Icons.drag_handle_rounded,
+                                size: 22,
+                                color: Color(0xFF8B8B8B),
                               ),
                             ),
-                          )
-                        else
-                          const SizedBox(height: 20),
+                          ),
+                        ],
                       ],
                     ),
-                    const SizedBox(width: 4),
-                    // Drag Handle Listener
-                    ReorderableDragStartListener(
-                      index: idx,
-                      enabled: !_isAnswered,
-                      child: const Padding(
-                        padding: EdgeInsets.all(4),
-                        child: Icon(
-                          Icons.drag_indicator_rounded,
-                          size: 22,
-                          color: Color(0xFF8B8B8B),
-                        ),
-                      ),
-                    ),
-                  ],
-                ],
+                  ),
+                ),
               ),
             );
           },
         ),
-        const SizedBox(height: 12),
+
+        // If answered incorrectly, show clear correct chronological sequence box
+        if (_isAnswered && !_isLastAnswerCorrect && correctOrder.isNotEmpty) ...[
+          const SizedBox(height: 10),
+          Container(
+            padding: const EdgeInsets.all(14),
+            decoration: BoxDecoration(
+              color: const Color(0xFFE8F8EA),
+              borderRadius: BorderRadius.circular(14),
+              border: Border.all(color: const Color(0xFF6BCB77), width: 1.2),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    const Icon(Icons.history_edu_rounded,
+                        color: Color(0xFF2D7A36), size: 18),
+                    const SizedBox(width: 6),
+                    Text(
+                      'CORRECT CHRONOLOGICAL SEQUENCE:',
+                      style: GoogleFonts.dmSans(
+                        fontSize: 11,
+                        fontWeight: FontWeight.w800,
+                        letterSpacing: 1.2,
+                        color: const Color(0xFF2D7A36),
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 8),
+                for (int i = 0; i < correctOrder.length; i++)
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 6),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          '${i + 1}. ',
+                          style: GoogleFonts.dmSans(
+                            fontSize: 13,
+                            fontWeight: FontWeight.bold,
+                            color: const Color(0xFF2D7A36),
+                          ),
+                        ),
+                        Expanded(
+                          child: Text(
+                            items[correctOrder[i]],
+                            style: GoogleFonts.dmSans(
+                              fontSize: 13,
+                              color: AppColors.dark,
+                              height: 1.35,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+              ],
+            ),
+          ),
+        ],
+
+        const SizedBox(height: 14),
+
+        // Confirm Order Action Button
         if (!_isAnswered)
           PrimaryButton(
-            text: 'Confirm',
+            text: 'Confirm Order',
             onPressed: () {
-              final correctOrder = q.correctOrder ?? [];
               bool isCorrect = true;
               for (int i = 0; i < correctOrder.length; i++) {
                 if (_currentOrderIndices[i] != correctOrder[i]) {
@@ -1775,6 +1964,7 @@ class _QuizScreenState extends State<QuizScreen> {
               setState(() {
                 _isAnswered = true;
                 _isLastAnswerCorrect = isCorrect;
+                _selectedOrderSwapIndex = null;
                 if (isCorrect) _score++;
               });
               appState.recordQuestionResult(q.id, isCorrect);
