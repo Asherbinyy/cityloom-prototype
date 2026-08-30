@@ -34,13 +34,21 @@ class _AudioPlayerCardState extends State<AudioPlayerCard> {
   StreamSubscription? _durationSub;
   StreamSubscription? _positionSub;
 
+  static const Map<String, Duration> _knownDurations = {
+    'assets/audio/intro.mp3': Duration(seconds: 62),
+    'assets/audio/mortsafes.mp3': Duration(minutes: 4, seconds: 33),
+    'assets/audio/covenanters.mp3': Duration(minutes: 2, seconds: 33),
+    'assets/audio/black_mausoleum.mp3': Duration(minutes: 3, seconds: 35),
+  };
+
   @override
   void initState() {
     super.initState();
+    _duration = _knownDurations[widget.audioAsset] ?? Duration.zero;
     _initAudioAndTranscript();
   }
 
-  Future<void> _initAudioAndTranscript() async {
+  void _initAudioAndTranscript() {
     _playerStateSub = _player.playerStateStream.listen((state) {
       if (mounted) {
         setState(() {
@@ -53,7 +61,7 @@ class _AudioPlayerCardState extends State<AudioPlayerCard> {
     });
 
     _durationSub = _player.durationStream.listen((dur) {
-      if (mounted && dur != null) {
+      if (mounted && dur != null && dur > Duration.zero) {
         setState(() => _duration = dur);
       }
     });
@@ -64,14 +72,14 @@ class _AudioPlayerCardState extends State<AudioPlayerCard> {
       }
     });
 
-    // 1. Load Audio Asset
-    try {
-      await _player.setAsset(widget.audioAsset);
-    } catch (e) {
-      debugPrint('Audio asset loading error for ${widget.audioAsset}: $e');
-    }
+    // 1. Load Transcript concurrently (fastest, sets exact millisecond duration)
+    _loadTranscript();
 
-    // 2. Load Transcript if available
+    // 2. Load Audio in parallel
+    _loadAudio();
+  }
+
+  Future<void> _loadTranscript() async {
     try {
       final transcriptPath = widget.audioAsset
           .replaceAll('assets/audio/', 'assets/transcripts/')
@@ -81,6 +89,9 @@ class _AudioPlayerCardState extends State<AudioPlayerCard> {
         setState(() {
           _transcript = t;
           _isLoadingTranscript = false;
+          if (t.durationMs > 0) {
+            _duration = Duration(milliseconds: t.durationMs);
+          }
         });
       }
     } catch (e) {
@@ -91,6 +102,14 @@ class _AudioPlayerCardState extends State<AudioPlayerCard> {
           _isLoadingTranscript = false;
         });
       }
+    }
+  }
+
+  Future<void> _loadAudio() async {
+    try {
+      await _player.setAsset(widget.audioAsset);
+    } catch (e) {
+      debugPrint('Audio asset loading error for ${widget.audioAsset}: $e');
     }
   }
 

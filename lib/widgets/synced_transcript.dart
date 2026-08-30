@@ -48,6 +48,8 @@ class Transcript {
 
   const Transcript({required this.words, required this.lines});
 
+  int get durationMs => words.isNotEmpty ? words.last.endMs : 0;
+
   static Future<Transcript> fromAsset(String assetPath) async {
     final raw = await rootBundle.loadString(assetPath);
     return Transcript.fromWhisperXJson(jsonDecode(raw) as Map<String, dynamic>);
