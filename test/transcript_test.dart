@@ -1,3 +1,5 @@
+import 'dart:convert';
+import 'dart:io';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:cityloom_prototype/widgets/synced_transcript.dart';
 
@@ -65,6 +67,29 @@ void main() {
       // At the end
       expect(transcript.wordIndexAt(3000), equals(7));
       expect(transcript.wordIndexAt(5000), equals(7));
+    });
+
+    test('All 4 tour transcript JSON files exist and parse cleanly', () async {
+      final files = [
+        'intro.json',
+        'mortsafes.json',
+        'covenanters.json',
+        'black_mausoleum.json',
+      ];
+
+      for (final filename in files) {
+        final path = 'assets/transcripts/$filename';
+        final file = File(path);
+        expect(file.existsSync(), true, reason: 'File $path must exist');
+        final raw = file.readAsStringSync();
+        final json = jsonDecode(raw) as Map<String, dynamic>;
+        final transcript = Transcript.fromWhisperXJson(json);
+
+        expect(transcript.lines.isNotEmpty, true, reason: '$filename lines must not be empty');
+        expect(transcript.words.isNotEmpty, true, reason: '$filename words must not be empty');
+        expect(transcript.words.first.startMs >= 0, true);
+        expect(transcript.words.last.endMs > transcript.words.first.startMs, true);
+      }
     });
   });
 }
