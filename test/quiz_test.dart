@@ -51,11 +51,11 @@ void main() {
       expect(appState.isCardUnlocked('charles'), true);
     });
 
-    test('Bobby unlocks after finishing Explorer quiz', () {
+    test('Bobby unlocks after finishing Explorer quiz with score 0', () {
       final appState = AppState();
       expect(appState.isCardUnlocked('bobby'), false);
 
-      appState.finishQuiz(QuizDifficulty.explorer, 5);
+      appState.finishQuiz(QuizDifficulty.explorer, 0);
       expect(appState.isCardUnlocked('bobby'), true);
     });
 
@@ -81,7 +81,7 @@ void main() {
       expect(appState.isCardUnlocked('hare'), true);
     });
 
-    test('Margaret unlocks when Burke, Hare, and scholar_q12/13 are correct', () {
+    test('Margaret unlocks when Burke, Hare, and scholar_q12 are correct', () {
       final appState = AppState();
       expect(appState.isCardUnlocked('margaret'), false);
 
@@ -113,16 +113,16 @@ void main() {
       expect(appState.isCardUnlocked('poltergeist'), true);
     });
 
-    test('Henrietta unlocks when Charles I is unlocked and scholar_q5 is answered correctly', () {
+    test('Henrietta unlocks when Charles I is unlocked and scholar_q4 is answered correctly', () {
       final appState = AppState();
       expect(appState.isCardUnlocked('henrietta'), false);
 
-      appState.recordQuestionResult('scholar_q5', true);
+      appState.recordQuestionResult('scholar_q4', true);
       // Still false because Charles I is not unlocked yet
       expect(appState.isCardUnlocked('henrietta'), false);
 
       appState.unlockStoryCard('charles');
-      appState.recordQuestionResult('scholar_q5', true);
+      appState.recordQuestionResult('scholar_q4', true);
       expect(appState.isCardUnlocked('henrietta'), true);
     });
 
@@ -130,14 +130,15 @@ void main() {
       final appState = AppState();
       expect(appState.isCardUnlocked('knox'), false);
 
-      appState.recordQuestionResult('apprentice_q4', true);
-      appState.recordQuestionResult('apprentice_q7', true);
+      appState.recordQuestionResult('apprentice_q2', true);
+      appState.recordQuestionResult('apprentice_q3', true);
+      appState.recordQuestionResult('apprentice_q6', true);
+      appState.recordQuestionResult('historian_q2', true);
       appState.recordQuestionResult('historian_q3', true);
-      appState.recordQuestionResult('historian_q4', true);
-      appState.recordQuestionResult('scholar_q2', true);
+      appState.recordQuestionResult('scholar_q1', true);
       expect(appState.isCardUnlocked('knox'), false);
 
-      appState.recordQuestionResult('scholar_q3', true);
+      appState.recordQuestionResult('scholar_q2', true);
       expect(appState.isCardUnlocked('knox'), true);
     });
 
