@@ -6,6 +6,7 @@ import '../models/tour_model.dart';
 import '../services/sound_service.dart';
 import '../state/app_state.dart';
 import '../theme/app_theme.dart';
+import '../widgets/app_image.dart';
 import '../widgets/app_scaffold.dart';
 import '../widgets/audio_player_card.dart';
 import '../widgets/card_reveal_dialog.dart';
@@ -68,16 +69,9 @@ class StopScreen extends StatelessWidget {
                 borderRadius: BorderRadius.circular(18),
                 child: AspectRatio(
                   aspectRatio: 1.4,
-                  child: Image.asset(
-                    stop.photoAsset,
+                  child: AppImage(
+                    assetPath: stop.photoAsset,
                     fit: BoxFit.cover,
-                    errorBuilder: (_, _, _) => Container(
-                      color: AppColors.blush,
-                      child: const Center(
-                        child: Icon(Icons.photo_rounded,
-                            size: 48, color: AppColors.coral),
-                      ),
-                    ),
                   ),
                 ),
               ),

@@ -7,6 +7,7 @@ import '../models/card_model.dart';
 import '../services/analytics_service.dart';
 import '../services/sound_service.dart';
 import '../theme/app_theme.dart';
+import 'app_image.dart';
 
 // Conditionally import web download helper
 import 'card_download_stub.dart'
@@ -32,6 +33,7 @@ class CardFullscreenDialog extends StatelessWidget {
       downloadFile(base64Data, fileName);
 
       if (context.mounted) {
+        ScaffoldMessenger.of(context).clearSnackBars();
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: const Text('Card saved!'),
@@ -43,6 +45,7 @@ class CardFullscreenDialog extends StatelessWidget {
       }
     } catch (e) {
       if (context.mounted) {
+        ScaffoldMessenger.of(context).clearSnackBars();
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text('Could not download: $e'),
@@ -131,18 +134,9 @@ class CardFullscreenDialog extends StatelessWidget {
                     maxScale: 3.5,
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(16),
-                      child: Image.asset(
-                        card.imageAsset,
+                      child: AppImage(
+                        assetPath: card.imageAsset,
                         fit: BoxFit.contain,
-                        errorBuilder: (_, _, _) => Container(
-                          color: const Color(0xFF2A2A2A),
-                          child: Center(
-                            child: Text(
-                              card.name,
-                              style: const TextStyle(color: Colors.white),
-                            ),
-                          ),
-                        ),
                       ),
                     ),
                   ),

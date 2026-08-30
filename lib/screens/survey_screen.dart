@@ -8,6 +8,7 @@ import '../services/sound_service.dart';
 import '../state/app_state.dart';
 import '../theme/app_theme.dart';
 import '../widgets/app_scaffold.dart';
+import '../widgets/credits_dialog.dart';
 import '../widgets/primary_button.dart';
 
 class SurveyScreen extends StatelessWidget {
@@ -27,93 +28,7 @@ class SurveyScreen extends StatelessWidget {
     SoundService.playTap();
     showDialog(
       context: context,
-      builder: (ctx) => Dialog(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
-        backgroundColor: const Color(0xFFFEFAF6),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 26),
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      'Credits',
-                      style: GoogleFonts.playfairDisplay(
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                        color: AppColors.dark,
-                      ),
-                    ),
-                    IconButton(
-                      icon: const Icon(Icons.close_rounded, color: AppColors.muted),
-                      onPressed: () => Navigator.of(ctx).pop(),
-                    ),
-                  ],
-                ),
-                const Divider(color: AppColors.blush, height: 20),
-                const SizedBox(height: 6),
-                _buildCreditRow('Director & Research', 'Malek Ben Khaled'),
-                _buildCreditRow('Scriptwriter', 'Aoibhín Gallagher'),
-                _buildCreditRow('Voice Actors',
-                    'Gregor Campbell, Kieran Lee-Hamilton, Robbie Hail, Malek Ben Khaled'),
-                _buildCreditRow('Sound Production & Design', 'Malek Ben Khaled'),
-                _buildCreditRow('Quiz Concept', 'Malek Ben Khaled'),
-                _buildCreditRow('Prototype Development', 'Ahmed Elsherbini'),
-                const SizedBox(height: 12),
-                Container(
-                  padding: const EdgeInsets.all(12),
-                  decoration: BoxDecoration(
-                    color: const Color(0xFFFFF0E6),
-                    borderRadius: BorderRadius.circular(12),
-                    border: Border.all(color: AppColors.coral.withValues(alpha: 0.3)),
-                  ),
-                  child: Text(
-                    'All sounds and music used in this project are copyright and royalty-free. All real location photographs in this project were taken by the founder.',
-                    style: GoogleFonts.dmSans(
-                      fontSize: 12,
-                      height: 1.4,
-                      color: AppColors.dark,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
-  static Widget _buildCreditRow(String role, String names) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 10),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            role.toUpperCase(),
-            style: GoogleFonts.dmSans(
-              fontSize: 10.5,
-              fontWeight: FontWeight.w700,
-              letterSpacing: 1.2,
-              color: AppColors.coral,
-            ),
-          ),
-          const SizedBox(height: 2),
-          Text(
-            names,
-            style: GoogleFonts.dmSans(
-              fontSize: 13.5,
-              fontWeight: FontWeight.w500,
-              color: AppColors.dark,
-            ),
-          ),
-        ],
-      ),
+      builder: (ctx) => const CreditsDialog(),
     );
   }
 

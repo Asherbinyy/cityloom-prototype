@@ -152,7 +152,7 @@ class AppScaffold extends StatelessWidget {
                     onTap: () {
                       if (isQuizActive) {
                         SoundService.playLocked();
-                        ScaffoldMessenger.of(ctx).hideCurrentSnackBar();
+                        ScaffoldMessenger.of(ctx).clearSnackBars();
                         ScaffoldMessenger.of(ctx).showSnackBar(
                           SnackBar(
                             content: Row(

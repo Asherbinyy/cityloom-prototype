@@ -5,6 +5,7 @@ import '../data/card_data.dart';
 import '../models/card_model.dart';
 import '../services/sound_service.dart';
 import '../theme/app_theme.dart';
+import 'app_image.dart';
 import 'card_fullscreen_dialog.dart';
 
 class CardRevealDialog extends StatefulWidget {
@@ -318,8 +319,8 @@ class _CardRevealDialogState extends State<CardRevealDialog>
                                 ),
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.circular(16),
-                                  child: Image.asset(
-                                    card.imageAsset,
+                                  child: AppImage(
+                                    assetPath: card.imageAsset,
                                     fit: BoxFit.contain,
                                   ),
                                 ),

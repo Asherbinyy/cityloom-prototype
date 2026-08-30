@@ -8,6 +8,7 @@ import '../services/analytics_service.dart';
 import '../services/sound_service.dart';
 import '../state/app_state.dart';
 import '../theme/app_theme.dart';
+import '../widgets/app_image.dart';
 import '../widgets/app_scaffold.dart';
 import '../widgets/card_fullscreen_dialog.dart';
 
@@ -232,45 +233,18 @@ class _LibraryScreenState extends State<LibraryScreen> {
                   Positioned.fill(
                     child: Hero(
                       tag: 'card_${card.id}',
-                      child: Image.asset(
-                        card.imageAsset,
+                      child: AppImage(
+                        assetPath: card.imageAsset,
                         fit: BoxFit.cover,
-                        errorBuilder: (_, _, _) => Container(
-                          color: AppColors.cream,
-                          child: Center(
-                            child: Text(
-                              card.name,
-                              style: GoogleFonts.playfairDisplay(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 13,
-                                color: AppColors.dark,
-                              ),
-                              textAlign: TextAlign.center,
-                            ),
-                          ),
-                        ),
                       ),
                     ),
                   )
                 else
                   // Locked Card: Ornate Card Back Artwork (matching HTML CARD_LOCKED_SRC)
-                  Positioned.fill(
-                    child: Image.asset(
-                      'assets/images/card_locked.jpg',
+                  const Positioned.fill(
+                    child: AppImage(
+                      assetPath: 'assets/images/card_locked.jpg',
                       fit: BoxFit.cover,
-                      errorBuilder: (_, _, _) => Container(
-                        color: const Color(0xFFD8D0C4),
-                        child: Center(
-                          child: Text(
-                            '?',
-                            style: GoogleFonts.playfairDisplay(
-                              fontSize: 36,
-                              fontWeight: FontWeight.w700,
-                              color: Colors.white.withValues(alpha: 0.65),
-                            ),
-                          ),
-                        ),
-                      ),
                     ),
                   ),
 
