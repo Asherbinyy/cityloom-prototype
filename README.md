@@ -103,9 +103,13 @@ flutter build web --release --base-href /cityloom-prototype/
 
 ## 👥 Credits
 
-- **Research:** Malek Ben Khaled
-- **Script Writer:** Aoibhín Gallagher
-- **Voice Actors:** Gregor Campbell, Kieran Lee-Hamilton, Robbie Hail, Malek Ben Khaled
-- **Sound Production & Quiz Concept:** Malek Ben Khaled
-- **Prototype Development:** Ahmed Elsherbini
-- **Map Illustration:** Generated with ChatGPT
+- **Director and research:** Malek Ben Khaled
+- **Scriptwriter:** Aoibhín Gallagher
+- **Voice actors:** Gregor Campbell, Kieran Lee-Hamilton, Robbie Hail, Malek Ben Khaled
+- **Sound production and design:** Malek Ben Khaled
+- **Quiz Concept:** Malek Ben Khaled
+- **Prototype development:** Ahmed Elsherbini
+
+*All sounds and music used in this project are copyright and royalty-free. All real location photographs in this project were taken by the founder.*
+
+**Disclaimer:** *Illustrations are currently AI-generated but **will not be used** in the final product.*

@@ -301,52 +301,61 @@ class AppState extends ChangeNotifier {
     // 3. Charles I: Unlocked after completing Stop B story
     // (Handled via unlockStoryCard('charles') on Stop B)
 
-    // 4. Burke: apprentice_q6 answered correctly
-    if (!_unlockedCardIds.contains('burke') && _questionResults['apprentice_q6'] == true) {
+    // 4. Burke: apprentice_q6 (or Burke & Hare questions in apprentice)
+    if (!_unlockedCardIds.contains('burke') &&
+        (_questionResults['apprentice_q6'] == true ||
+            _questionResults['apprentice_q7'] == true ||
+            _questionResults['apprentice_q4'] == true)) {
       _unlockCard('burke');
     }
 
-    // 5. Hare: historian_q2 answered correctly
-    if (!_unlockedCardIds.contains('hare') && _questionResults['historian_q2'] == true) {
+    // 5. Hare: historian_q2 (or Hare questions in historian)
+    if (!_unlockedCardIds.contains('hare') &&
+        (_questionResults['historian_q2'] == true ||
+            _questionResults['historian_q3'] == true ||
+            _questionResults['historian_q4'] == true)) {
       _unlockCard('hare');
     }
 
-    // 6. Margaret: Burke + Hare unlocked + Scholar Margaret question correct
+    // 6. Margaret: Burke + Hare unlocked + scholar_q12 / scholar_q13 (Margaret Docherty question)
     if (!_unlockedCardIds.contains('margaret') &&
         _unlockedCardIds.contains('burke') &&
         _unlockedCardIds.contains('hare') &&
-        (_questionResults['scholar_q12'] == true || _questionResults['scholar_q13'] == true)) {
+        (_questionResults['scholar_q12'] == true ||
+            _questionResults['scholar_q13'] == true ||
+            _questionResults['scholar_q3'] == true)) {
       _unlockCard('margaret');
     }
 
-    // 7. McKenzie: Scholar McKenzie question answered correctly (100% select all)
+    // 7. McKenzie: scholar_q7 / scholar_q8 (select all about McKenzie, 100% correct)
     if (!_unlockedCardIds.contains('mckenzie') &&
-        (_questionResults['scholar_q8'] == true || _questionResults['scholar_q7'] == true)) {
+        (_questionResults['scholar_q7'] == true || _questionResults['scholar_q8'] == true)) {
       _unlockCard('mckenzie');
     }
 
-    // 8. Henrietta: Charles I unlocked + Scholar Henrietta question correct
+    // 8. Henrietta: scholar_q4 / scholar_q5 (Henrietta Maria question) + requires Charles I unlocked
     if (!_unlockedCardIds.contains('henrietta') &&
         _unlockedCardIds.contains('charles') &&
-        (_questionResults['scholar_q5'] == true || _questionResults['scholar_q4'] == true)) {
+        (_questionResults['scholar_q4'] == true || _questionResults['scholar_q5'] == true)) {
       _unlockCard('henrietta');
     }
 
-    // 9. Knox: All Burke & Hare questions correct across Apprentice, Historian, and Scholar
+    // 9. Knox: all 7 Burke & Hare questions correct across Apprentice, Historian, and Scholar
     if (!_unlockedCardIds.contains('knox')) {
-      final qApp2 = _questionResults['apprentice_q2'] == true;
-      final qApp3 = _questionResults['apprentice_q3'] == true;
-      final qApp4 = _questionResults['apprentice_q4'] == true;
-      final qHist2 = _questionResults['historian_q2'] == true;
-      final qHist3 = _questionResults['historian_q3'] == true;
-      final qHist4 = _questionResults['historian_q4'] == true;
-      final qSch2 = _questionResults['scholar_q2'] == true;
-      if (qApp2 && qApp3 && qApp4 && qHist2 && qHist3 && qHist4 && qSch2) {
+      final qApp = (_questionResults['apprentice_q2'] == true &&
+              _questionResults['apprentice_q3'] == true &&
+              _questionResults['apprentice_q4'] == true) ||
+          _questionResults['apprentice_q7'] == true;
+      final qHist = _questionResults['historian_q2'] == true &&
+          _questionResults['historian_q3'] == true &&
+          _questionResults['historian_q4'] == true;
+      final qSch = _questionResults['scholar_q2'] == true || _questionResults['scholar_q3'] == true;
+      if (qApp && qHist && qSch) {
         _unlockCard('knox');
       }
     }
 
-    // 10. Poltergeist: 100% score on all 4 levels
+    // 10. Poltergeist: 100% score on all questions across all 4 levels
     if (!_unlockedCardIds.contains('poltergeist')) {
       final e = (_bestScores['explorer'] ?? 0) ==
           QuizData.levels[QuizDifficulty.explorer]!.questions.length;
