@@ -28,6 +28,7 @@ class _AudioPlayerCardState extends State<AudioPlayerCard> {
 
   Transcript? _transcript;
   bool _isLoadingTranscript = true;
+  bool _showTranscript = false;
 
   StreamSubscription? _playerStateSub;
   StreamSubscription? _durationSub;
@@ -315,13 +316,55 @@ class _AudioPlayerCardState extends State<AudioPlayerCard> {
           ] else if (_transcript != null) ...[
             const SizedBox(height: 14),
             const Divider(color: AppColors.blush, height: 1),
-            const SizedBox(height: 10),
-            SyncedTranscriptView(
-              player: _player,
-              transcript: _transcript!,
-              windowSize: 4,
-              tapToSeek: true,
+            const SizedBox(height: 8),
+
+            // Toggle Show/Hide Transcript Button
+            Center(
+              child: Material(
+                color: Colors.transparent,
+                child: InkWell(
+                  onTap: () {
+                    SoundService.playTap();
+                    setState(() => _showTranscript = !_showTranscript);
+                  },
+                  borderRadius: BorderRadius.circular(12),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Icon(
+                          _showTranscript
+                              ? Icons.keyboard_arrow_up_rounded
+                              : Icons.subtitles_outlined,
+                          size: 18,
+                          color: AppColors.coral,
+                        ),
+                        const SizedBox(width: 6),
+                        Text(
+                          _showTranscript ? 'Hide transcript' : 'Show transcript',
+                          style: GoogleFonts.dmSans(
+                            fontSize: 13,
+                            fontWeight: FontWeight.w600,
+                            color: AppColors.coral,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
             ),
+
+            if (_showTranscript) ...[
+              const SizedBox(height: 8),
+              SyncedTranscriptView(
+                player: _player,
+                transcript: _transcript!,
+                windowSize: 4,
+                tapToSeek: true,
+              ),
+            ],
           ],
         ],
       ),

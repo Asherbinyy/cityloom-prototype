@@ -185,52 +185,6 @@ class SurveyScreen extends StatelessWidget {
             ),
           ).animate().fadeIn(delay: 200.ms),
 
-          const SizedBox(height: 20),
-
-          // AI Illustration Disclaimer Banner
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
-            decoration: BoxDecoration(
-              color: const Color(0xFFF4EDE4),
-              borderRadius: BorderRadius.circular(14),
-              border: Border.all(color: AppColors.blush),
-            ),
-            child: Row(
-              children: [
-                const Icon(Icons.info_outline_rounded,
-                    size: 18, color: AppColors.coral),
-                const SizedBox(width: 10),
-                Expanded(
-                  child: Text(
-                    'Illustrations are currently AI-generated placeholders.',
-                    style: GoogleFonts.dmSans(
-                      fontSize: 11.5,
-                      fontWeight: FontWeight.w500,
-                      color: AppColors.dark,
-                    ),
-                  ),
-                ),
-                TextButton(
-                  onPressed: () => _showAiDisclaimerDialog(context),
-                  style: TextButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                    minimumSize: const Size(50, 28),
-                    tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                  ),
-                  child: Text(
-                    'Learn more',
-                    style: GoogleFonts.dmSans(
-                      fontSize: 11.5,
-                      fontWeight: FontWeight.bold,
-                      color: AppColors.coral,
-                      decoration: TextDecoration.underline,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ).animate().fadeIn(delay: 250.ms),
-
           const SizedBox(height: 24),
 
           // "Start Survey" Primary Button
@@ -245,16 +199,6 @@ class SurveyScreen extends StatelessWidget {
 
           const SizedBox(height: 12),
 
-          // "Credits" Secondary Button
-          PrimaryButton(
-            text: 'Credits',
-            icon: Icons.people_outline_rounded,
-            isSecondary: true,
-            onPressed: () => _showCreditsDialog(context),
-          ).animate().fadeIn(delay: 350.ms),
-
-          const SizedBox(height: 12),
-
           // "Back" Secondary Button
           PrimaryButton(
             text: 'Back',
@@ -263,9 +207,29 @@ class SurveyScreen extends StatelessWidget {
               SoundService.playTap();
               appState.goBack();
             },
+          ).animate().fadeIn(delay: 350.ms),
+
+          const SizedBox(height: 20),
+
+          // Standard Bottom Credits & About Button (matching HomeScreen)
+          Center(
+            child: TextButton.icon(
+              onPressed: () => _showCreditsDialog(context),
+              icon: const Icon(Icons.info_outline_rounded,
+                  size: 16, color: AppColors.muted),
+              label: const Text(
+                'Credits & About',
+                style: TextStyle(
+                  fontFamily: 'DM Sans',
+                  fontSize: 12,
+                  color: AppColors.muted,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ),
           ).animate().fadeIn(delay: 400.ms),
 
-          const SizedBox(height: 24),
+          const SizedBox(height: 16),
         ],
       ),
     );
