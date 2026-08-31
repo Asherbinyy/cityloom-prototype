@@ -300,15 +300,15 @@ class AppState extends ChangeNotifier {
     // 3. Charles I: Unlocked after completing Stop B story
     // (Handled via unlockStoryCard('charles') on Stop B)
 
-    // 4. Burke: apprentice_q6
+    // 4. Burke: apprentice_q7
     if (!_unlockedCardIds.contains('burke') &&
-        _questionResults['apprentice_q6'] == true) {
+        _questionResults['apprentice_q7'] == true) {
       _unlockCard('burke');
     }
 
-    // 5. Hare: historian_q2
+    // 5. Hare: historian_q4
     if (!_unlockedCardIds.contains('hare') &&
-        _questionResults['historian_q2'] == true) {
+        _questionResults['historian_q4'] == true) {
       _unlockCard('hare');
     }
 
@@ -320,28 +320,28 @@ class AppState extends ChangeNotifier {
       _unlockCard('margaret');
     }
 
-    // 7. McKenzie: scholar_q7
+    // 7. McKenzie: scholar_q8
     if (!_unlockedCardIds.contains('mckenzie') &&
-        _questionResults['scholar_q7'] == true) {
+        _questionResults['scholar_q8'] == true) {
       _unlockCard('mckenzie');
     }
 
-    // 8. Henrietta: Charles I unlocked + scholar_q4
+    // 8. Henrietta: Charles I unlocked + scholar_q5
     if (!_unlockedCardIds.contains('henrietta') &&
         _unlockedCardIds.contains('charles') &&
-        _questionResults['scholar_q4'] == true) {
+        _questionResults['scholar_q5'] == true) {
       _unlockCard('henrietta');
     }
 
-    // 9. Knox: all 7 Burke & Hare questions correct across Apprentice, Historian, and Scholar
+    // 9. Knox: all Burke & Hare questions correct across Apprentice, Historian, and Scholar
     if (!_unlockedCardIds.contains('knox') &&
-        _questionResults['apprentice_q2'] == true &&
         _questionResults['apprentice_q3'] == true &&
-        _questionResults['apprentice_q6'] == true &&
-        _questionResults['historian_q2'] == true &&
+        _questionResults['apprentice_q4'] == true &&
+        _questionResults['apprentice_q7'] == true &&
         _questionResults['historian_q3'] == true &&
-        _questionResults['scholar_q1'] == true &&
-        _questionResults['scholar_q2'] == true) {
+        _questionResults['historian_q4'] == true &&
+        _questionResults['scholar_q2'] == true &&
+        _questionResults['scholar_q3'] == true) {
       _unlockCard('knox');
     }
 

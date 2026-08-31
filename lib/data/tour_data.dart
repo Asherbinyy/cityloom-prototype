@@ -49,28 +49,6 @@ class TourData {
     TourStop(
       id: 'stop-b',
       label: 'Stop B',
-      title: "Covenanters' Prison",
-      mapTitle: "Head to the Covenanters' Prison",
-      mapDesc:
-          "Walk towards the northern section of the graveyard to find the gated entrance to the Covenanters' Prison.",
-      stopDesc:
-          'Stand near the iron gates of the prison. Listen to the tragic story of what took place here in 1679.',
-      audioAsset: 'assets/audio/covenanters.mp3',
-      photoAsset: 'assets/images/prison.jpg',
-      unlockedCardId: 'charles',
-      mapCoordinate: Offset(0.35, 0.10),
-      walkPath: [
-        Offset(0.49, 0.58),
-        Offset(0.45, 0.45),
-        Offset(0.40, 0.30),
-        Offset(0.36, 0.18),
-        Offset(0.35, 0.10),
-      ],
-      progressStep: 2,
-    ),
-    TourStop(
-      id: 'stop-c',
-      label: 'Stop C',
       title: 'Mackenzie Mausoleum',
       mapTitle: 'Head to the Black Mausoleum',
       mapDesc:
@@ -82,11 +60,31 @@ class TourData {
       unlockedCardId: null,
       mapCoordinate: Offset(0.35, 0.55),
       walkPath: [
-        Offset(0.35, 0.10),
-        Offset(0.35, 0.22),
-        Offset(0.35, 0.35),
-        Offset(0.35, 0.45),
+        Offset(0.49, 0.58),
+        Offset(0.42, 0.56),
         Offset(0.35, 0.55),
+      ],
+      progressStep: 2,
+    ),
+    TourStop(
+      id: 'stop-c',
+      label: 'Stop C',
+      title: "Covenanters' Prison",
+      mapTitle: "Head to the Covenanters' Prison",
+      mapDesc:
+          "Walk towards the northern section of the graveyard to find the gated entrance to the Covenanters' Prison.",
+      stopDesc:
+          'Stand near the iron gates of the prison. Listen to the tragic story of what took place here in 1679.',
+      audioAsset: 'assets/audio/covenanters.mp3',
+      photoAsset: 'assets/images/prison.jpg',
+      unlockedCardId: 'charles',
+      mapCoordinate: Offset(0.35, 0.10),
+      walkPath: [
+        Offset(0.35, 0.55),
+        Offset(0.35, 0.45),
+        Offset(0.35, 0.35),
+        Offset(0.36, 0.22),
+        Offset(0.35, 0.10),
       ],
       progressStep: 3,
     ),
