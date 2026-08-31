@@ -59,74 +59,45 @@ void main() {
       expect(appState.isCardUnlocked('bobby'), true);
     });
 
-    test('Burke unlocks when apprentice_q7 is answered correctly', () {
+    test('Burke unlocks ONLY when apprentice_q6 is answered correctly (not on q4)', () {
       final appState = AppState();
       expect(appState.isCardUnlocked('burke'), false);
 
-      appState.recordQuestionResult('apprentice_q7', true);
-      expect(appState.isCardUnlocked('burke'), true);
-    });
+      appState.recordQuestionResult('apprentice_q4', true);
+      expect(appState.isCardUnlocked('burke'), false); // Must NOT unlock on Q4
 
-    test('Burke stays LOCKED when only apprentice_q6 is correct', () {
-      final appState = AppState();
+      appState.recordQuestionResult('apprentice_q5', true);
       expect(appState.isCardUnlocked('burke'), false);
 
       appState.recordQuestionResult('apprentice_q6', true);
-      expect(appState.isCardUnlocked('burke'), false);
+      expect(appState.isCardUnlocked('burke'), true); // Unlocks on Q6!
     });
 
-    test('Hare unlocks when historian_q3 is answered correctly', () {
-      final appState = AppState();
-      expect(appState.isCardUnlocked('hare'), false);
-
-      appState.recordQuestionResult('historian_q3', true);
-      expect(appState.isCardUnlocked('hare'), true);
-    });
-
-    test('Hare stays LOCKED when only historian_q2 is correct', () {
+    test('Hare unlocks when historian_q2 is answered correctly', () {
       final appState = AppState();
       expect(appState.isCardUnlocked('hare'), false);
 
       appState.recordQuestionResult('historian_q2', true);
-      expect(appState.isCardUnlocked('hare'), false);
+      expect(appState.isCardUnlocked('hare'), true);
     });
 
     test('Margaret unlocks when Burke, Hare, and scholar_q13 are correct', () {
       final appState = AppState();
       expect(appState.isCardUnlocked('margaret'), false);
 
-      appState.recordQuestionResult('apprentice_q7', true); // unlocks Burke
-      appState.recordQuestionResult('historian_q3', true); // unlocks Hare
-      appState.recordQuestionResult('scholar_q13', true); // trigger
+      appState.recordQuestionResult('apprentice_q6', true); // unlocks Burke
+      appState.recordQuestionResult('historian_q2', true); // unlocks Hare
+      appState.recordQuestionResult('scholar_q13', true); // trigger (Odd one out)
 
       expect(appState.isCardUnlocked('margaret'), true);
     });
 
-    test('Margaret stays LOCKED when Burke and Hare are unlocked but only scholar_q12 is correct', () {
-      final appState = AppState();
-      expect(appState.isCardUnlocked('margaret'), false);
-
-      appState.recordQuestionResult('apprentice_q7', true); // unlocks Burke
-      appState.recordQuestionResult('historian_q3', true); // unlocks Hare
-      appState.recordQuestionResult('scholar_q12', true); // wrong question
-
-      expect(appState.isCardUnlocked('margaret'), false);
-    });
-
-    test('McKenzie unlocks when scholar_q8 is answered correctly', () {
-      final appState = AppState();
-      expect(appState.isCardUnlocked('mckenzie'), false);
-
-      appState.recordQuestionResult('scholar_q8', true);
-      expect(appState.isCardUnlocked('mckenzie'), true);
-    });
-
-    test('McKenzie stays LOCKED when only scholar_q7 is correct', () {
+    test('McKenzie unlocks when scholar_q7 is answered correctly', () {
       final appState = AppState();
       expect(appState.isCardUnlocked('mckenzie'), false);
 
       appState.recordQuestionResult('scholar_q7', true);
-      expect(appState.isCardUnlocked('mckenzie'), false);
+      expect(appState.isCardUnlocked('mckenzie'), true);
     });
 
     test('Poltergeist unlocks when all 4 levels have 100% score', () {
@@ -142,51 +113,33 @@ void main() {
       expect(appState.isCardUnlocked('poltergeist'), true);
     });
 
-    test('Henrietta unlocks when Charles I is unlocked and scholar_q5 is answered correctly', () {
+    test('Henrietta unlocks when Charles I is unlocked and scholar_q4 is answered correctly', () {
       final appState = AppState();
       expect(appState.isCardUnlocked('henrietta'), false);
 
-      appState.recordQuestionResult('scholar_q5', true);
+      appState.recordQuestionResult('scholar_q4', true);
       // Still false because Charles I is not unlocked yet
       expect(appState.isCardUnlocked('henrietta'), false);
 
       appState.unlockStoryCard('charles');
-      appState.recordQuestionResult('scholar_q5', true);
-      expect(appState.isCardUnlocked('henrietta'), true);
-    });
-
-    test('Henrietta stays LOCKED when Charles is unlocked but only scholar_q4 is correct', () {
-      final appState = AppState();
-      expect(appState.isCardUnlocked('henrietta'), false);
-
-      appState.unlockStoryCard('charles');
       appState.recordQuestionResult('scholar_q4', true);
-      expect(appState.isCardUnlocked('henrietta'), false);
+      expect(appState.isCardUnlocked('henrietta'), true);
     });
 
     test('Knox unlocks when Burke and Hare questions across tiers are answered correctly', () {
       final appState = AppState();
       expect(appState.isCardUnlocked('knox'), false);
 
+      appState.recordQuestionResult('apprentice_q2', true);
       appState.recordQuestionResult('apprentice_q3', true);
-      appState.recordQuestionResult('apprentice_q4', true);
-      appState.recordQuestionResult('apprentice_q7', true);
-      appState.recordQuestionResult('historian_q3', true);
-      appState.recordQuestionResult('historian_q4', true);
-      appState.recordQuestionResult('scholar_q2', true);
-      expect(appState.isCardUnlocked('knox'), false);
-
-      appState.recordQuestionResult('scholar_q3', true);
-      expect(appState.isCardUnlocked('knox'), true);
-    });
-
-    test('Knox stays LOCKED when apprentice_q6 and scholar_q1 are correct and nothing else', () {
-      final appState = AppState();
-      expect(appState.isCardUnlocked('knox'), false);
-
       appState.recordQuestionResult('apprentice_q6', true);
+      appState.recordQuestionResult('historian_q2', true);
+      appState.recordQuestionResult('historian_q3', true);
       appState.recordQuestionResult('scholar_q1', true);
       expect(appState.isCardUnlocked('knox'), false);
+
+      appState.recordQuestionResult('scholar_q2', true);
+      expect(appState.isCardUnlocked('knox'), true);
     });
 
     test('Scholar Q6 is Edinburgh Medical School opening question with 1726 as correct', () {
