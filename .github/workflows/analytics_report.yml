@@ -1,9 +1,9 @@
 name: CityLoom 12-Hour Telemetry Digest
 
 on:
-  schedule:
-    # Runs every 12 hours (at 00:00 and 12:00 UTC)
-    - cron: '0 0,12 * * *'
+  # schedule:
+  #   # Runs every 12 hours (at 00:00 and 12:00 UTC)
+  #   - cron: '0 0,12 * * *'
   workflow_dispatch:
 
 jobs:
